@@ -6,6 +6,7 @@ package daos;
 
 import conexion.Conexion;
 import entidades.Producto;
+import entidades.ProductoIngrediente;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarProductoException;
 import excepciones.BuscarProductoException;
@@ -38,6 +39,12 @@ public class ProductoDAO implements IProductoDAO{
         try{
             em.getTransaction().begin();
             em.persist(producto);
+            if (producto.getIngredientes() != null) {
+                for (ProductoIngrediente pi : producto.getIngredientes()) {
+                    pi.setProducto(producto); // Asegurar la relación
+                    em.persist(pi);
+                }
+            }
             em.getTransaction().commit();
             if(producto.getId()==null){
                 throw new AgregarProductoException("No se genero ID");
@@ -92,7 +99,7 @@ public class ProductoDAO implements IProductoDAO{
         EntityManager em = Conexion.crearConexion();
         try{
             em.getTransaction().begin();
-            em.persist(producto);
+            em.merge(producto);
             em.getTransaction().commit();
             return producto;
         }catch(Exception e){
@@ -103,6 +110,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+     
     
     
 }
