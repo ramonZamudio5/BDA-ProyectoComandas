@@ -59,11 +59,5 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
-    public Producto buscarPorNombre(String nombreProducto){
-        EntityManager em = Conexion.crearConexion();
-        try{
-            return em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombreProducto",Producto.class).setParameter("nombreProducto", nombreProducto).getSingleResult();
-        }
-    }
     
 }
