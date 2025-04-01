@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "ingredientes")
 public class Ingrediente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     @Column(nullable = false, unique = true)
