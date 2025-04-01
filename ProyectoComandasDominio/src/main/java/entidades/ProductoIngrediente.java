@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class ProductoIngrediente {
     @ManyToOne
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ingrediente_id", nullable = false)
     private Ingrediente ingrediente;
     @Column(nullable = false)

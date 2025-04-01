@@ -10,7 +10,9 @@ import entidades.ProductoIngrediente;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarProductoException;
 import excepciones.BuscarProductoException;
+import excepciones.EliminarProductoException;
 import interfaces.IProductoDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -36,25 +38,28 @@ public class ProductoDAO implements IProductoDAO{
     @Override
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
+        try {
             em.getTransaction().begin();
-            em.persist(producto);
-            if (producto.getIngredientes() != null) {
+            if (producto.getIngredientes() == null) {
+            producto.setIngredientes(new ArrayList<>());
+            }
                 for (ProductoIngrediente pi : producto.getIngredientes()) {
-                    pi.setProducto(producto); // Asegurar la relación
-                    em.persist(pi);
-                }
+                    if (pi.getIngrediente().getId() == null) {
+                        em.persist(pi.getIngrediente());
+                    }
             }
+            em.persist(producto);
             em.getTransaction().commit();
-            if(producto.getId()==null){
-                throw new AgregarProductoException("No se genero ID");
+
+            if (producto.getId() == null) {
+                throw new AgregarProductoException("No se generó ID para el producto.");
             }
+
             return producto;
-        }catch(AgregarProductoException e){
+        }catch (Exception e) {
             em.getTransaction().rollback();
-            throw new AgregarProductoException("Error al agregar producto");
-        }
-        finally{
+            throw new AgregarProductoException("Error al agregar producto: " + e.getMessage());
+        }finally {
             em.close();
         }
     }
@@ -105,6 +110,26 @@ public class ProductoDAO implements IProductoDAO{
         }catch(Exception e){
             em.getTransaction().rollback();
             throw new ActualizarProductoException("Error al actualizar el producto");
+        }finally{
+            em.close();
+        }
+    }
+    
+    public boolean eliminarProducto(long id) throws EliminarProductoException{
+        EntityManager em = Conexion.crearConexion();
+        try{
+            em.getTransaction().begin();
+            Producto productoEliminar = em.find(Producto.class, id);
+            if (productoEliminar == null) {
+            em.getTransaction().rollback();
+            throw new EliminarProductoException("No se encontró el producto con ID: " + id);
+            }
+            em.remove(productoEliminar);
+            em.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            throw new EliminarProductoException("Error al eliminar el producto");
         }finally{
             em.close();
         }
