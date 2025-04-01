@@ -87,13 +87,12 @@ public class Producto implements Serializable {
         this.tipoProducto = tipoProducto;
     }
 
-    public List<ProductoIngrediente> getIngredientes() {
-        return ingredientes;
-    }
 
     public void setIngredientes(List<ProductoIngrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
+    
+    
 
     @Override
     public String toString() {

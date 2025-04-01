@@ -39,12 +39,7 @@ public class ProductoDAO implements IProductoDAO{
         try{
             em.getTransaction().begin();
             em.persist(producto);
-            if (producto.getIngredientes() != null) {
-                for (ProductoIngrediente pi : producto.getIngredientes()) {
-                    pi.setProducto(producto); // Asegurar la relación
-                    em.persist(pi);
-                }
-            }
+            
             em.getTransaction().commit();
             if(producto.getId()==null){
                 throw new AgregarProductoException("No se genero ID");
