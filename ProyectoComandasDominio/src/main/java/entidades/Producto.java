@@ -48,6 +48,13 @@ public class Producto implements Serializable {
         this.tipoProducto = tipoProducto;
     }
 
+    public Producto(String nombre, double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+        this.ingredientes = ingredientes;
+    }
+
     public Long getId() {
         return id;
     }
