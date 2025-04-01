@@ -64,6 +64,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    @Override
     public Producto obtenerProducto(long id)throws BuscarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -75,6 +76,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    @Override
     public List<Producto> buscarPorNombre(String nombreProducto)throws BuscarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -89,6 +91,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    @Override
     public List<Producto> obtenerTodos()throws BuscarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -100,6 +103,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     } 
     
+    @Override
     public Producto actualizarProducto(Producto producto)throws ActualizarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -115,6 +119,7 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    @Override
     public boolean eliminarProducto(long id) throws EliminarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{

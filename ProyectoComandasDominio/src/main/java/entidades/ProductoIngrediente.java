@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "producto_ingredientes")
 public class ProductoIngrediente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "producto_id", nullable = false)
