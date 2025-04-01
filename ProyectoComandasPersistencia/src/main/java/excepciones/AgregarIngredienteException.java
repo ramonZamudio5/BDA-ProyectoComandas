@@ -8,6 +8,19 @@ package excepciones;
  *
  * @author janethcristinagalvanquinonez
  */
-public class AgregarIngredienteException {
+public class AgregarIngredienteException extends Exception{
+
+    public AgregarIngredienteException() {
+    }
+
+    public AgregarIngredienteException(String message) {
+        super(message);
+    }
+
+    public AgregarIngredienteException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    
+    
     
 }

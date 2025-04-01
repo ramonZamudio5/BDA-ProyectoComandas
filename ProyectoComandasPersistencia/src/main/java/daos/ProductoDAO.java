@@ -73,6 +73,8 @@ public class ProductoDAO implements IProductoDAO{
             throw new BuscarProductoException("Error al buscar productos");
         }finally{
             em.close();
+            // .
+            //.
         }
     }
     

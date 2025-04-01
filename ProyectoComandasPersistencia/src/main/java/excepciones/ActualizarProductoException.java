@@ -15,6 +15,8 @@ public class ActualizarProductoException extends Exception{
 
     public ActualizarProductoException(String message) {
         super(message);
+        //.
+        //.
     }
 
     public ActualizarProductoException(String message, Throwable cause) {

@@ -9,5 +9,5 @@ package entidades;
  * @author janethcristinagalvanquinonez
  */
 public enum UnidadMedida {
-    
+    PIEZA, GRAMO, MILILITRO;
 }

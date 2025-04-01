@@ -19,6 +19,7 @@ public class AgregarProductoException extends Exception{
 
     public AgregarProductoException(String message, Throwable cause) {
         super(message, cause);
+        //.
     }
     
 }
