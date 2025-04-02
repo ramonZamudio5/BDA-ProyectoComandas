@@ -7,6 +7,8 @@ package mappers;
 import dtos.ProductoDTO;
 import entidades.Producto;
 import entidades.Tipo;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -19,5 +21,13 @@ public class ProductoMapper {
     
     public static ProductoDTO toDTO(Producto producto){
         return new ProductoDTO(producto.getNombre(), producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes());
+    }
+    
+    public static List<ProductoDTO> toListDTO(List<Producto> productos){
+        List<ProductoDTO> productosDTO = new LinkedList<>();
+        for(Producto producto : productos){
+            productosDTO.add(new ProductoDTO(producto.getNombre(),producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes()));
+        }
+        return productosDTO;
     }
 }
