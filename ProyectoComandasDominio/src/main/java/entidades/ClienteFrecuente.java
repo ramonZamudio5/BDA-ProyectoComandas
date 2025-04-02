@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,9 +20,7 @@ import javax.persistence.Id;
 public class ClienteFrecuente extends Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
     
     @Column(nullable = false)
     private int puntosObtenidos;
@@ -35,19 +34,17 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     public ClienteFrecuente() {
     }
 
-    public ClienteFrecuente(Long id, int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
-        this.id = id;
+    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
         this.puntosObtenidos = puntosObtenidos;
         this.gastoTotalAcumulado = gastoTotalAcumulado;
         this.ventasAcumuladas = ventasAcumuladas;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas, Long id, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+        super(id, nombreCompleto, telefono, correoElectronico, fechaRegistro);
+        this.puntosObtenidos = puntosObtenidos;
+        this.gastoTotalAcumulado = gastoTotalAcumulado;
+        this.ventasAcumuladas = ventasAcumuladas;
     }
 
     public int getPuntosObtenidos() {
@@ -76,7 +73,7 @@ public class ClienteFrecuente extends Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ClienteFrecuente{" + "id=" + id + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", ventasAcumuladas=" + ventasAcumuladas + '}';
+        return "ClienteFrecuente{" + "puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", ventasAcumuladas=" + ventasAcumuladas + '}';
     }
     
     
