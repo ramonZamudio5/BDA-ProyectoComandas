@@ -64,9 +64,9 @@ public class IngredienteDAO implements IIngredienteDAO {
         EntityManager em= Conexion.crearConexion();
         try {
        
-           TypedQuery<Ingrediente> query = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", Ingrediente.class);
-            query.setParameter("nombre", nombre);
-            List<Ingrediente> ingredientes = query.getResultList();
+           List<Ingrediente> ingredientes = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre")
+                                           .setParameter("nombre", nombre)
+                                           .getResultList();
 
             
             if(ingredientes.isEmpty()){
