@@ -5,10 +5,13 @@
 package daos;
 
 import conexion.Conexion;
+import entidades.Ingrediente;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
 import excepciones.ActualizarProductoException;
+import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
+import excepciones.AgregarProductoIngredienteException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import interfaces.IProductoDAO;
@@ -39,27 +42,37 @@ public class ProductoDAO implements IProductoDAO{
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
-            em.getTransaction().begin();
-            if (producto.getIngredientes() == null) {
-            producto.setIngredientes(new ArrayList<>());
-            }
-                for (ProductoIngrediente pi : producto.getIngredientes()) {
-                    if (pi.getIngrediente().getId() == null) {
-                        em.persist(pi.getIngrediente());
+            em.getTransaction().begin(); 
+            IngredienteDAO ingredienteDAO = new IngredienteDAO();
+            ProductoIngredienteDAO productoIngredienteDAO = new ProductoIngredienteDAO();
+            List<ProductoIngrediente> productoIngredientesPersistidos = new ArrayList<>();
+            for (ProductoIngrediente pi : producto.getIngredientes()) {
+                if (pi.getIngrediente().getId() == null) {
+                    try {
+                        Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
+                        pi.setIngrediente(ingredientePersistido);
+                    } catch (AgregarIngredienteException e) {
+                        throw new AgregarProductoException("Error al agregar el ingrediente: " + e.getMessage());
                     }
+                }
+                try {
+                    ProductoIngrediente piPersistido = productoIngredienteDAO.agregarProductoIngrediente(pi);
+                    productoIngredientesPersistidos.add(piPersistido);
+                } catch (AgregarProductoIngredienteException e) {
+                    throw new AgregarProductoException("Error al agregar ProductoIngrediente: " + e.getMessage());
+                }
             }
+            producto.setIngredientes(productoIngredientesPersistidos);
             em.persist(producto);
             em.getTransaction().commit();
-
             if (producto.getId() == null) {
                 throw new AgregarProductoException("No se generó ID para el producto.");
             }
-
             return producto;
-        }catch (Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
             throw new AgregarProductoException("Error al agregar producto: " + e.getMessage());
-        }finally {
+        } finally {
             em.close();
         }
     }
@@ -128,7 +141,7 @@ public class ProductoDAO implements IProductoDAO{
             em.getTransaction().begin();
             Producto productoEliminar = em.find(Producto.class, id);
             if (productoEliminar == null) {
-            em.getTransaction().rollback();
+                em.getTransaction().rollback();
             throw new EliminarProductoException("No se encontró el producto con ID: " + id);
             }
             em.remove(productoEliminar);
@@ -141,8 +154,6 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-    
-     
-    
-    
+
+       
 }
