@@ -42,6 +42,12 @@ public class Ingrediente {
         this.nombre = nombre;
         this.stock = cantidadDisponible;
     }
+
+    public Ingrediente(String nombre, Double stock, UnidadMedida unidadMedida) {
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+    }
     
     public Long getId() {
         return id;
