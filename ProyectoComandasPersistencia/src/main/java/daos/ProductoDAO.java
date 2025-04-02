@@ -65,7 +65,7 @@ public class ProductoDAO implements IProductoDAO{
     }
     
     @Override
-    public Producto obtenerProducto(long id)throws BuscarProductoException{
+    public Producto obtenerProducto(Long id)throws BuscarProductoException{
         EntityManager em = Conexion.crearConexion();
         try{
             return em.find(Producto.class, id);

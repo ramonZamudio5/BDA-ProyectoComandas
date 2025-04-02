@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface IProductoDAO {
     public Producto agregarProducto(Producto producto)throws AgregarProductoException;
-    public Producto obtenerProducto(long id)throws BuscarProductoException;
+    public Producto obtenerProducto(Long id)throws BuscarProductoException;
     public List<Producto> buscarPorNombre(String nombreProducto)throws BuscarProductoException;
     public List<Producto> obtenerTodos()throws BuscarProductoException;
     public Producto actualizarProducto(Producto producto)throws ActualizarProductoException;
