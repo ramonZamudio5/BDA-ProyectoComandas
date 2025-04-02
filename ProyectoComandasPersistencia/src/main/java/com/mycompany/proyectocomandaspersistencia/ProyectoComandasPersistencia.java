@@ -13,6 +13,7 @@ import entidades.Tipo;
 import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
+import excepciones.BuscarPorNombreException;
 import static java.util.Collections.list;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,12 +28,26 @@ public class ProyectoComandasPersistencia {
         
         
         IngredienteDAO ingredienteDAO= IngredienteDAO.getInstance();
+        
+        
         Ingrediente ingrediente= new Ingrediente("Lechuga", 5.0, UnidadMedida.PIEZA);
         try{
             Ingrediente ingredienteAgregado= ingredienteDAO.agregarIngrediente(ingrediente);
             System.out.println("Se ha agregado el ingrediente");
         } catch(AgregarIngredienteException e){
             System.out.println("Error al agregar ingrediente" +e.getMessage());
+            
+        }
+        
+        
+        
+        try{
+            List<Ingrediente> resultados= ingredienteDAO.buscarPorNombre("Lechuga");
+            for (Ingrediente i:resultados){
+                System.out.println(i.getNombre());
+            }
+        } catch(BuscarPorNombreException e){
+            System.out.println("Error al buscar por nombre" +e.getMessage());
             
         }
         

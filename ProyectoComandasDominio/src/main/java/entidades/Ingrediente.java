@@ -50,6 +50,9 @@ public class Ingrediente {
         this.unidadMedida = unidadMedida;
     }
     
+    
+    
+    
     public Long getId() {
         return id;
     }

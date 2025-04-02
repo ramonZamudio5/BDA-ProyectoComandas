@@ -8,6 +8,19 @@ package excepciones;
  *
  * @author janethcristinagalvanquinonez
  */
-public class BuscarPorNombreException {
+public class BuscarPorNombreException extends Exception {
+
+    public BuscarPorNombreException() {
+    }
+
+    public BuscarPorNombreException(String message) {
+        super(message);
+    }
+
+    public BuscarPorNombreException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    
     
 }
