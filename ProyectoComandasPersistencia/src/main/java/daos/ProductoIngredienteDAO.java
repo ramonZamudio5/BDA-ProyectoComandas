@@ -9,6 +9,7 @@ import entidades.Ingrediente;
 import entidades.ProductoIngrediente;
 import excepciones.AgregarProductoIngredienteException;
 import excepciones.EliminarProductoIngredienteException;
+import interfaces.IProductoIngrediente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -17,7 +18,7 @@ import javax.persistence.Query;
  *
  * @author Ramón Zamudio
  */
-public class ProductoIngredienteDAO {
+public class ProductoIngredienteDAO implements IProductoIngrediente{
     public static ProductoIngredienteDAO productoIngredienteDAO;
 
     public ProductoIngredienteDAO() {
@@ -29,27 +30,28 @@ public class ProductoIngredienteDAO {
         }
         return productoIngredienteDAO;
     }
-    
-
-    public ProductoIngrediente agregarIngredienteAProducto(ProductoIngrediente productoIngrediente) throws AgregarProductoIngredienteException {
-    if (existeIngredienteEnProducto(productoIngrediente.getProducto().getId(), productoIngrediente.getIngrediente().getId())) {
-        throw new AgregarProductoIngredienteException("El ingrediente ya está en el producto.");
+    @Override
+    public ProductoIngrediente agregarProductoIngrediente(ProductoIngrediente productoIngrediente) throws AgregarProductoIngredienteException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            em.getTransaction().begin();
+            if (productoIngrediente.getIngrediente().getId() == null) {
+                IngredienteDAO ingredienteDAO = new IngredienteDAO();
+                Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(productoIngrediente.getIngrediente());
+                productoIngrediente.setIngrediente(ingredientePersistido);
+            }
+            em.persist(productoIngrediente);
+            em.getTransaction().commit();
+            return productoIngrediente;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new AgregarProductoIngredienteException("Error al agregar ProductoIngrediente: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
-
-    EntityManager em = Conexion.crearConexion();
-    try {
-        em.getTransaction().begin();
-        em.persist(productoIngrediente);
-        em.getTransaction().commit();
-        return true;
-    } catch (Exception e) {
-        em.getTransaction().rollback();
-        throw new AgregarProductoIngredienteException("Error al agregar el ingrediente al producto: " + e.getMessage());
-    } finally {
-        em.close();
-    }
-}
     
+    @Override
     public boolean eliminarProductoIngrediente(Long id)throws EliminarProductoIngredienteException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -69,6 +71,7 @@ public class ProductoIngredienteDAO {
         }
     }
     
+    @Override
     public boolean eliminarVariosProductosIngredientes(List<ProductoIngrediente> listaProductos) throws EliminarProductoIngredienteException{
         EntityManager em = Conexion.crearConexion();
         try{
@@ -90,19 +93,20 @@ public class ProductoIngredienteDAO {
         }
     }
     
+    @Override
     public boolean existeIngredienteEnProducto(Long productoId, Long ingredienteId) {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            Query query = em.createQuery("SELECT pi FROM ProductoIngrediente pi WHERE pi.producto.id = :productoId AND pi.ingrediente.id = :ingredienteId");
-            query.setParameter("productoId", productoId);
-            query.setParameter("ingredienteId", ingredienteId);
-
-            List<ProductoIngrediente> resultado = query.getResultList();
-            return !resultado.isEmpty(); 
-        } finally {
-            em.close();
-        }
+    EntityManager em = Conexion.crearConexion();
+    try {
+        Query query = em.createQuery("SELECT pi FROM ProductoIngrediente pi WHERE pi.producto.id = :productoId AND pi.ingrediente.id = :ingredienteId");
+        query.setParameter("productoId", productoId);
+        query.setParameter("ingredienteId", ingredienteId);
+        
+        List<ProductoIngrediente> resultado = query.getResultList();
+        return !resultado.isEmpty(); 
+    } finally {
+        em.close();
     }
+}
 }
     
 
