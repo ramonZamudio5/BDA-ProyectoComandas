@@ -27,7 +27,7 @@ public class IngredienteDAO implements IIngredienteDAO {
 
     public static IngredienteDAO getInstance() {
         if (ingredienteDAO == null) {
-            IngredienteDAO ingredienteDAO = new IngredienteDAO();
+             ingredienteDAO = new IngredienteDAO();
         }
         return ingredienteDAO;
     }

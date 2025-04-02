@@ -4,10 +4,13 @@
  */
 package interfaces;
 
+import entidades.Ingrediente;
+import excepciones.AgregarIngredienteException;
+
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public interface IIngredienteDAO {
-    
+ public Ingrediente agregarIngrediente(Ingrediente ingrediente) throws AgregarIngredienteException;
 }
