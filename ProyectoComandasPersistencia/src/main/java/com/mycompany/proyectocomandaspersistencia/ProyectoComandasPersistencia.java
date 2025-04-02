@@ -13,6 +13,7 @@ import entidades.Tipo;
 import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
+import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import static java.util.Collections.list;
 import java.util.LinkedList;
@@ -50,6 +51,18 @@ public class ProyectoComandasPersistencia {
             System.out.println("Error al buscar por nombre" +e.getMessage());
             
         }
+    
+        
+        try{
+            List<Ingrediente> resultadosMedida= ingredienteDAO.buscarPorMedida("Pieza");
+            for(Ingrediente i: resultadosMedida){
+                System.out.println(i.getNombre());
+            }
+        } catch (BuscarPorMedidaException e){
+                    System.out.println("Error al buscar por medida " +e.getMessage());
+          }
+        
+        }
         
     }
-}
+

@@ -5,8 +5,11 @@
 package interfaces;
 
 import entidades.Ingrediente;
+import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
+import excepciones.ConvertirTextoAUnidadException;
 import java.util.List;
 
 /**
@@ -16,4 +19,6 @@ import java.util.List;
 public interface IIngredienteDAO {
  public Ingrediente agregarIngrediente(Ingrediente ingrediente) throws AgregarIngredienteException;
     public List<Ingrediente> buscarPorNombre(String nombre) throws BuscarPorNombreException;
+  public List<Ingrediente> buscarPorMedida(String medida) throws BuscarPorMedidaException;
+   public UnidadMedida convertirTextoAUnidad(String texto) throws ConvertirTextoAUnidadException;
 }

@@ -10,6 +10,7 @@ import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
+import excepciones.ConvertirTextoAUnidadException;
 import interfaces.IIngredienteDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -82,10 +83,11 @@ public class IngredienteDAO implements IIngredienteDAO {
         }
     }
     
-    public List<Ingrediente> BuscarPorMedida(UnidadMedida unidadMedida) throws BuscarPorMedidaException{
+    public List<Ingrediente> buscarPorMedida(String medida) throws BuscarPorMedidaException{
         EntityManager em= Conexion.crearConexion();
         try{
-            List<Ingrediente> ingredientes= em.createQuery("SELECT i FROM ingredientes WHERE i.unidadMedida= :unidadMedida")
+            UnidadMedida unidadMedida= convertirTextoAUnidad(medida);
+            List<Ingrediente> ingredientes= em.createQuery("SELECT i FROM Ingrediente i WHERE i.unidadMedida= :unidadMedida")
                     .setParameter("unidadMedida", unidadMedida)
                     .getResultList();
             
@@ -98,6 +100,16 @@ public class IngredienteDAO implements IIngredienteDAO {
             throw new BuscarPorMedidaException("Error al buscar ingredientes por unidad de medida" + e.getMessage());
         } finally{
             em.close();
+        }
+    }
+    
+    public UnidadMedida convertirTextoAUnidad(String texto) throws ConvertirTextoAUnidadException{
+        try{
+            return UnidadMedida.valueOf(texto.toUpperCase());
+            
+        } catch(Exception e){
+            throw new ConvertirTextoAUnidadException("Unidad de medida no valida "+texto);
+            
         }
     }
 
