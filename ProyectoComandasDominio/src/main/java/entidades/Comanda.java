@@ -5,10 +5,17 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -16,43 +23,24 @@ import javax.persistence.Id;
  */
 @Entity
 public class Comanda implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+ @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(unique = true, nullable = false)
+    private String folio;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private LocalDateTime fechaHoraCreacion;
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+    private double totalVenta;
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Comanda)) {
-            return false;
-        }
-        Comanda other = (Comanda) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+    @Enumerated(EnumType.STRING)
+    private EstadoComanda estado;
 
-    @Override
-    public String toString() {
-        return "entidades.Comanda[ id=" + id + " ]";
-    }
-    
+    @ManyToOne
+    private Cliente cliente; // Asociación opcional con Cliente
+
+    @OneToMany(mappedBy = "comanda")
+    private List<DetalleComanda> detalles;
+
 }
