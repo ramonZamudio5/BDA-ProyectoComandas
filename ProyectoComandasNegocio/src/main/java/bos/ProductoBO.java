@@ -87,6 +87,66 @@ public class ProductoBO {
             throw new NegocioException("Error al buscar el producto");
         }
     }
+    
+    public List<ProductoDTO> obtenerTodos()throws NegocioException{
+        try{
+            List<Producto> productosBuscados = productoDAO.obtenerTodos();
+            if(productosBuscados == null){
+                throw new NegocioException("el producto no puede ser nulo");
+            }
+            for(Producto producto : productosBuscados){
+                if(producto.getId()==null){
+                    throw new NegocioException("el producto no puede ser nulo");
+                }
+            }
+            return ProductoMapper.toListDTO(productosBuscados);
+        }catch(Exception e){
+            throw new NegocioException("Error al buscar el producto");
+        }
+    }
+    public ProductoDTO actualizarProducto(ProductoDTO productoDTO)throws NegocioException{
+        if(productoDTO==null){
+            throw new NegocioException("el producto no puede ser nulo");
+        }
+        if (productoDTO.getNombre() == null) {
+           throw new NegocioException("el nombre del producto no puede ser nulo");
+        }
+        if(productoDTO.getIngredientes().isEmpty()){
+           throw new NegocioException("los ingredientes del producto no pueden ser nulo");
+        }
+        if(productoDTO.getPrecio() < 0){
+            throw new NegocioException("el precio del producto no puede ser menor a 0");
+        }
+        if(productoDTO.getTipoProducto()==null){
+            throw new NegocioException("el tipo del producto no puede ser nulo");
+        }
+        
+        Producto prodcutoAActualizar = ProductoMapper.toEntity(productoDTO);
+        try{
+            Producto productoActualizado = productoDAO.agregarProducto(prodcutoAActualizar);
+            if(productoActualizado == null || productoActualizado.getId() == null){
+                throw new NegocioException("El producto no se actualizo");
+            }
+            return ProductoMapper.toDTO(productoActualizado);
+        }catch(Exception e){
+            throw new NegocioException("Error al actualizar producto");
+        }
+    }
+    
+    public boolean eliminarProducto(Long id)throws NegocioException, BuscarProductoException{
+        if(id == null || id <= 0){
+            throw new NegocioException("el id no puede ser nulo");
+        }
+        try{
+            boolean eliminado = productoDAO.eliminarProducto(id);
+            if(!eliminado){
+                throw new NegocioException("el producto no puede ser nulo");
+            }
+            return true;
+        }catch(Exception e){
+            throw new NegocioException("Error al buscar el producto");
+        }
+    }
 
     
 }
