@@ -4,10 +4,26 @@
  */
 package interfaces;
 
+import entidades.ClienteFrecuente;
+import excepciones.AgregarClienteFrecuenteException;
+import excepciones.BuscarClienteFrecuenteException;
+import java.util.List;
+
 /**
  *
  * @author Cricri
  */
 public interface IClienteFrecuenteDAO {
-    
+   
+
+
+    ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException;
+    ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException;
+    List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException;
+    List<ClienteFrecuente> buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException;
+    List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException;
+    List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException;
 }
+
+    
+

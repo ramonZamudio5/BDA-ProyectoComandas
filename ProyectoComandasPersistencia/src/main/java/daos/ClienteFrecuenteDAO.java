@@ -32,7 +32,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
         return clienteFrecuenteDAO;
     }
     
+    
+    
    
+    @Override
     public ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -49,6 +52,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
     }
     
     
+    @Override
     public ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -61,20 +65,25 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
     }
     
     
-    public List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.nombre LIKE :nombre");
-            query.setParameter("nombre", "%" + nombre + "%");
-            return query.getResultList();
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente por nombre");
-        } finally {
-            em.close();
-        }
+   
+    
+    @Override
+public List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException {
+    EntityManager em = Conexion.crearConexion();
+    try {
+        Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE LOWER(c.nombreCompleto) LIKE LOWER(:nombre)");
+        query.setParameter("nombre", "%" + nombre + "%");
+        return query.getResultList();
+    } catch (Exception e) {
+        throw new BuscarClienteFrecuenteException("Error al buscar cliente por nombre: " + e.getMessage());
+    } finally {
+        em.close();
     }
+}
+
     
  
+    @Override
     public List<ClienteFrecuente> buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -88,21 +97,21 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
         }
     }
     
-   
-    public List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correo = :correo");
-            query.setParameter("correo", correo);
-            return query.getResultList();
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente por correo");
-        } finally {
-            em.close();
-        }
+   @Override
+public List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException {
+    EntityManager em = Conexion.crearConexion();
+    try {
+        Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correoElectronico = :correo");
+        query.setParameter("correo", correo);
+        return query.getResultList();
+    } catch (Exception e) {
+        throw new BuscarClienteFrecuenteException("Error al buscar cliente por correo: " + e.getMessage());
+    } finally {
+        em.close();
     }
-    
-    
+}
+
+    @Override
     public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -113,7 +122,8 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
             em.close();
         }
     }
-    
+
+  
     
     
 }
