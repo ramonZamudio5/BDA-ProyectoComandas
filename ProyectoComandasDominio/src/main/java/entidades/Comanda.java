@@ -29,9 +29,11 @@ public class Comanda implements Serializable {
 
     @Column(unique = true, nullable = false)
     private String folio;
-
+    
+    @Column(nullable = false)
     private LocalDateTime fechaHoraCreacion;
-
+    
+    @Column(nullable = false)
     private double totalVenta;
 
     @Enumerated(EnumType.STRING)

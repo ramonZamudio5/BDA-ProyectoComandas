@@ -28,14 +28,17 @@ public class Cliente  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(nullable = false)
     private String nombreCompleto;
 
     @Column(nullable = false, unique = true)
     private String telefono;
-
+    
+    @Column(nullable = false)
     private String correoElectronico;
-
+    
+    @Column(nullable = false)
     private LocalDate fechaRegistro;
 
     @OneToMany(mappedBy = "cliente")
