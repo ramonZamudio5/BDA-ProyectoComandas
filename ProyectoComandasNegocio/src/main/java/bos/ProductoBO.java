@@ -8,6 +8,7 @@ import excepciones.NegocioException;
 import dtos.ProductoDTO;
 import entidades.Producto;
 import excepciones.BuscarProductoException;
+import interfaces.IProductoBO;
 import interfaces.IProductoDAO;
 import java.util.List;
 import mappers.ProductoMapper;
@@ -16,7 +17,7 @@ import mappers.ProductoMapper;
  *
  * @author Ramón Zamudio
  */
-public class ProductoBO {
+public class ProductoBO implements IProductoBO{
     
     private IProductoDAO productoDAO;
     
@@ -24,6 +25,7 @@ public class ProductoBO {
         this.productoDAO = productoDAO;
     }
     
+    @Override
     public ProductoDTO agregarProducto(ProductoDTO productoDTO)throws NegocioException{
         if(productoDTO==null){
             throw new NegocioException("el producto no puede ser nulo");
@@ -53,6 +55,7 @@ public class ProductoBO {
         }
     }   
     
+    @Override
     public ProductoDTO obtenerProducto(Long id)throws NegocioException, BuscarProductoException{
         if(id == null || id <= 0){
             throw new NegocioException("el id no puede ser nulo");
@@ -68,6 +71,7 @@ public class ProductoBO {
         }
     }
     
+    @Override
     public List<ProductoDTO> obtenerPorNombre(String nombre)throws NegocioException{
         if(nombre == null){
             throw new NegocioException("el nombre del producto no puede ser nulo");
@@ -88,6 +92,7 @@ public class ProductoBO {
         }
     }
     
+    @Override
     public List<ProductoDTO> obtenerTodos()throws NegocioException{
         try{
             List<Producto> productosBuscados = productoDAO.obtenerTodos();
@@ -104,6 +109,7 @@ public class ProductoBO {
             throw new NegocioException("Error al buscar el producto");
         }
     }
+    @Override
     public ProductoDTO actualizarProducto(ProductoDTO productoDTO)throws NegocioException{
         if(productoDTO==null){
             throw new NegocioException("el producto no puede ser nulo");
@@ -133,6 +139,7 @@ public class ProductoBO {
         }
     }
     
+    @Override
     public boolean eliminarProducto(Long id)throws NegocioException, BuscarProductoException{
         if(id == null || id <= 0){
             throw new NegocioException("el id no puede ser nulo");
