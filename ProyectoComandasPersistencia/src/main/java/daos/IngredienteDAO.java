@@ -8,10 +8,12 @@ import conexion.Conexion;
 import entidades.Ingrediente;
 import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorNombreException;
 import interfaces.IIngredienteDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -56,6 +58,27 @@ public class IngredienteDAO implements IIngredienteDAO {
             em.close();
         }
 
+    }
+    
+    public List<Ingrediente> buscarPorNombre(String nombre) throws BuscarPorNombreException{
+        EntityManager em= Conexion.crearConexion();
+        try {
+       
+           TypedQuery<Ingrediente> query = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", Ingrediente.class);
+            query.setParameter("nombre", nombre);
+            List<Ingrediente> ingredientes = query.getResultList();
+
+            
+            if(ingredientes.isEmpty()){
+                throw new BuscarPorNombreException("No hay ingredientes registrados con el nombre "+ nombre);
+            }
+            return ingredientes;
+        } catch(Exception e){
+            throw new BuscarPorNombreException("Error al buscar ingrediente por nombre" + e.getMessage());
+            
+        } finally{
+            em.close();
+        }
     }
 
 }

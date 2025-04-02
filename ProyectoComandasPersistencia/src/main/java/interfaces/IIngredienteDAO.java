@@ -6,6 +6,8 @@ package interfaces;
 
 import entidades.Ingrediente;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorNombreException;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,5 @@ import excepciones.AgregarIngredienteException;
  */
 public interface IIngredienteDAO {
  public Ingrediente agregarIngrediente(Ingrediente ingrediente) throws AgregarIngredienteException;
+    public List<Ingrediente> buscarPorNombre(String nombre) throws BuscarPorNombreException;
 }
