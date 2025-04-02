@@ -80,5 +80,12 @@ public class IngredienteDAO implements IIngredienteDAO {
             em.close();
         }
     }
+    
+    public List<Ingrediente> buscarPorMedida(UnidadMedida unidadMedida) throws BuscarPorMedidaException{
+        EntityManager em= Conexion.crearConexion();
+        try{
+            List<Ingrediente> ingredientes= em.createQuery("SELECT i FROM ingredientes WHERE i.")
+        }
+    }
 
 }
