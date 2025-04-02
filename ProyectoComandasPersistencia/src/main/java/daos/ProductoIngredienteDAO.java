@@ -30,23 +30,25 @@ public class ProductoIngredienteDAO {
         return productoIngredienteDAO;
     }
     
-    public boolean agregarIngredienteAProducto(ProductoIngrediente productoIngrediente) throws AgregarProductoIngredienteException {
-        if (existeIngredienteEnProducto(productoIngrediente.getProducto().getId(), productoIngrediente.getIngrediente().getId())) {
-            throw new AgregarProductoIngredienteException("El ingrediente ya está en el producto.");
-        }
-        EntityManager em = Conexion.crearConexion();
-        try {
-            em.getTransaction().begin();
-            em.persist(productoIngrediente);
-            em.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new AgregarProductoIngredienteException("Error al agregar el ingrediente al producto: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }   
+
+    public ProductoIngrediente agregarIngredienteAProducto(ProductoIngrediente productoIngrediente) throws AgregarProductoIngredienteException {
+    if (existeIngredienteEnProducto(productoIngrediente.getProducto().getId(), productoIngrediente.getIngrediente().getId())) {
+        throw new AgregarProductoIngredienteException("El ingrediente ya está en el producto.");
+    }
+
+    EntityManager em = Conexion.crearConexion();
+    try {
+        em.getTransaction().begin();
+        em.persist(productoIngrediente);
+        em.getTransaction().commit();
+        return true;
+    } catch (Exception e) {
+        em.getTransaction().rollback();
+        throw new AgregarProductoIngredienteException("Error al agregar el ingrediente al producto: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+}
     
     public boolean eliminarProductoIngrediente(Long id)throws EliminarProductoIngredienteException{
         EntityManager em = Conexion.crearConexion();
