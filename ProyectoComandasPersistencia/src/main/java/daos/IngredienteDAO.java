@@ -8,6 +8,7 @@ import conexion.Conexion;
 import entidades.Ingrediente;
 import entidades.UnidadMedida;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import interfaces.IIngredienteDAO;
 import java.util.List;
@@ -81,10 +82,22 @@ public class IngredienteDAO implements IIngredienteDAO {
         }
     }
     
-    public List<Ingrediente> buscarPorMedida(UnidadMedida unidadMedida) throws BuscarPorMedidaException{
+    public List<Ingrediente> BuscarPorMedida(UnidadMedida unidadMedida) throws BuscarPorMedidaException{
         EntityManager em= Conexion.crearConexion();
         try{
-            List<Ingrediente> ingredientes= em.createQuery("SELECT i FROM ingredientes WHERE i.")
+            List<Ingrediente> ingredientes= em.createQuery("SELECT i FROM ingredientes WHERE i.unidadMedida= :unidadMedida")
+                    .setParameter("unidadMedida", unidadMedida)
+                    .getResultList();
+            
+            if(ingredientes.isEmpty()){
+                throw new BuscarPorMedidaException("No hay ingredientes con la unidad de medida" +unidadMedida);
+            }
+            
+            return ingredientes;
+        } catch(Exception e){
+            throw new BuscarPorMedidaException("Error al buscar ingredientes por unidad de medida" + e.getMessage());
+        } finally{
+            em.close();
         }
     }
 
