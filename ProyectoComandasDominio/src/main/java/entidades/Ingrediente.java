@@ -5,13 +5,16 @@
 package entidades;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -32,9 +35,18 @@ public class Ingrediente {
     @Column(nullable = false)
     private Double stock;
     
+    @Column(nullable= true, columnDefinition = "LONGBLOB")
+    @Basic(optional=false, fetch= FetchType.LAZY)
+    @Lob()
+    private byte[] foto;
+    
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private UnidadMedida unidadMedida;
+    
+    
+    
 
     public Ingrediente() {
     }
@@ -48,6 +60,24 @@ public class Ingrediente {
         this.nombre = nombre;
         this.stock = stock;
         this.unidadMedida = unidadMedida;
+    }
+
+    public Ingrediente(Long id, String nombre, Double stock, byte[] foto, UnidadMedida unidadMedida) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+        this.foto = foto;
+        this.unidadMedida = unidadMedida;
+    }
+        
+    
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
     
     
@@ -95,8 +125,9 @@ public class Ingrediente {
 
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", unidadMedida=" + unidadMedida + '}';
+        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", foto=" + foto + ", unidadMedida=" + unidadMedida + '}';
     }
+
     
     
     
