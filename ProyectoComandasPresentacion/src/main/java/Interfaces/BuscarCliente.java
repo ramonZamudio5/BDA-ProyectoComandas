@@ -5,15 +5,19 @@
 package Interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 /**
@@ -26,6 +30,7 @@ public class BuscarCliente extends JFrame {
     private JCheckBox checkNombre, checkCorreo, checkTelefono;
     private JList<String> resultsList;
     private DefaultListModel<String> listModel;
+     private JLabel titleLabel;
 
     public BuscarCliente() {
      
@@ -33,8 +38,7 @@ public class BuscarCliente extends JFrame {
         setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
-       
+        
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.setLayout(new FlowLayout(FlowLayout.LEFT)); 
 
