@@ -47,6 +47,16 @@ public class Cliente  implements Serializable {
     public Cliente() {
     }
 
+    public Cliente(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+        this.nombreCompleto = nombreCompleto;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    
+    
+    
     public Cliente(Long id, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
         this.id = id;
         this.nombreCompleto = nombreCompleto;

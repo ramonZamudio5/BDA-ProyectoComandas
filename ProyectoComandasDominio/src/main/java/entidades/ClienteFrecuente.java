@@ -47,6 +47,12 @@ public class ClienteFrecuente extends Cliente implements Serializable {
         this.ventasAcumuladas = ventasAcumuladas;
     }
 
+    public ClienteFrecuente(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+        super(nombreCompleto, telefono, correoElectronico, fechaRegistro);
+    }
+    
+    
+
     public int getPuntosObtenidos() {
         return puntosObtenidos;
     }
