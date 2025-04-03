@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -26,21 +27,27 @@ import javax.swing.SwingUtilities;
  */
 public class BuscarCliente extends JFrame {
   
-    private JTextField searchField;
     private JCheckBox checkNombre, checkCorreo, checkTelefono;
+    private JTextField searchField;
     private JList<String> resultsList;
     private DefaultListModel<String> listModel;
-     private JLabel titleLabel;
 
     public BuscarCliente() {
-     
+        
         setTitle("Búsqueda de Cliente");
         setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.GRAY);
+        mainPanel.setLayout(new BorderLayout());
+        add(mainPanel);
+
+ 
         JPanel panelBusqueda = new JPanel();
-        panelBusqueda.setLayout(new FlowLayout(FlowLayout.LEFT)); 
+        panelBusqueda.setBackground(Color.GRAY);
+        panelBusqueda.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         checkNombre = new JCheckBox("Buscar por Nombre");
         checkCorreo = new JCheckBox("Buscar por Correo");
@@ -50,22 +57,24 @@ public class BuscarCliente extends JFrame {
         panelBusqueda.add(checkCorreo);
         panelBusqueda.add(checkTelefono);
 
-   
-        add(panelBusqueda, BorderLayout.NORTH);
+        mainPanel.add(panelBusqueda, BorderLayout.NORTH);
 
     
         searchField = new JTextField(20);
         JPanel panelSearchField = new JPanel();
+        panelSearchField.setBackground(Color.GRAY);
         panelSearchField.add(searchField);
-        add(panelSearchField, BorderLayout.CENTER);
+        mainPanel.add(panelSearchField, BorderLayout.CENTER);
 
-        
         listModel = new DefaultListModel<>();
         resultsList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(resultsList);
-        add(scrollPane, BorderLayout.SOUTH);
+        mainPanel.add(scrollPane, BorderLayout.SOUTH);
 
-        setLocationRelativeTo(null); 
+
+        UIManager.put("TitledBorder.titleColor", Color.GREEN);
+
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
