@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ import javax.persistence.Table;
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -38,8 +40,7 @@ public class Producto implements Serializable {
     @Column(nullable = false)
     private Tipo tipoProducto;
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-    @JoinColumn(name = "ingrediente_id", nullable = false)
-    private List<ProductoIngrediente> ingredientes;
+    private List<ProductoIngrediente> ingredientes = new ArrayList<>();
 
     public Producto() {
     }
@@ -48,6 +49,7 @@ public class Producto implements Serializable {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
+        this.ingredientes = new ArrayList<>();
     }
 
     public Producto(String nombre, double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
@@ -99,8 +101,10 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipoProducto=" + tipoProducto + ", ingredientes=" + ingredientes + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipoProducto=" + tipoProducto + '}';
     }
+
+    
 
     
     

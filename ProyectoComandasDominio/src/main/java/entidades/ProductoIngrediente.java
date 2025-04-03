@@ -25,9 +25,9 @@ public class ProductoIngrediente {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "producto_id")
     private Producto producto;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "ingrediente_id", nullable = false)
     private Ingrediente ingrediente;
     @Column(nullable = false)

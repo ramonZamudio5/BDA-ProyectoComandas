@@ -33,9 +33,6 @@ public class ProductoBO implements IProductoBO{
         if (productoDTO.getNombre() == null) {
            throw new NegocioException("el nombre del producto no puede ser nulo");
         }
-        if(productoDTO.getIngredientes().isEmpty()){
-           throw new NegocioException("los ingredientes del producto no pueden ser nulo");
-        }
         if(productoDTO.getPrecio() < 0){
             throw new NegocioException("el precio del producto no puede ser menor a 0");
         }
@@ -117,9 +114,6 @@ public class ProductoBO implements IProductoBO{
         if (productoDTO.getNombre() == null) {
            throw new NegocioException("el nombre del producto no puede ser nulo");
         }
-        if(productoDTO.getIngredientes().isEmpty()){
-           throw new NegocioException("los ingredientes del producto no pueden ser nulo");
-        }
         if(productoDTO.getPrecio() < 0){
             throw new NegocioException("el precio del producto no puede ser menor a 0");
         }
@@ -127,9 +121,10 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("el tipo del producto no puede ser nulo");
         }
         
+        
         Producto prodcutoAActualizar = ProductoMapper.toEntity(productoDTO);
         try{
-            Producto productoActualizado = productoDAO.agregarProducto(prodcutoAActualizar);
+            Producto productoActualizado = productoDAO.actualizarProducto(prodcutoAActualizar);
             if(productoActualizado == null || productoActualizado.getId() == null){
                 throw new NegocioException("El producto no se actualizo");
             }
@@ -152,6 +147,27 @@ public class ProductoBO implements IProductoBO{
             return true;
         }catch(Exception e){
             throw new NegocioException("Error al buscar el producto");
+        }
+    }
+    
+    public boolean agregarIngredientes(ProductoDTO productoDTO) throws NegocioException{
+        if(productoDTO==null){
+            throw new NegocioException("el producto no puede ser nulo");
+        }
+        if (productoDTO.getNombre() == null) {
+           throw new NegocioException("el nombre del producto no puede ser nulo");
+        }
+        if(productoDTO.getPrecio() < 0){
+            throw new NegocioException("el precio del producto no puede ser menor a 0");
+        }
+        if(productoDTO.getTipoProducto()==null){
+            throw new NegocioException("el tipo del producto no puede ser nulo");
+        }
+        try{
+            boolean productoActualizado = productoDAO.agregarIngredientes(productoDTO.getNombre(), productoDTO.getIngredientes());
+            return productoActualizado;
+        }catch(Exception e){
+            throw new NegocioException("Error al actualizar producto");
         }
     }
 

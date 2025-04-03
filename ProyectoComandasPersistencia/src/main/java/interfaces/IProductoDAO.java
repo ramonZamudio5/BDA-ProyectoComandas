@@ -5,10 +5,12 @@
 package interfaces;
 
 import entidades.Producto;
+import entidades.ProductoIngrediente;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarProductoException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
+import excepciones.ProductoNoEncontradoException;
 import java.util.List;
 
 /**
@@ -22,4 +24,5 @@ public interface IProductoDAO {
     public List<Producto> obtenerTodos()throws BuscarProductoException;
     public Producto actualizarProducto(Producto producto)throws ActualizarProductoException;
     public boolean eliminarProducto(long id) throws EliminarProductoException;
+    public boolean agregarIngredientes(String nombreProducto, List<ProductoIngrediente> nuevosIngredientes) throws ProductoNoEncontradoException, BuscarProductoException;
 }

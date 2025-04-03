@@ -35,11 +35,21 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
-            if (productoIngrediente.getIngrediente().getId() == null) {
+
+            // Verificar si el ingrediente ya existe en la base de datos por su nombre (o cualquier otro atributo único)
+            Ingrediente ingredienteExistente = em.find(Ingrediente.class, productoIngrediente.getIngrediente().getId());
+
+            if (ingredienteExistente == null) {
+                // Si no existe, guardar el ingrediente nuevo
                 IngredienteDAO ingredienteDAO = new IngredienteDAO();
                 Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(productoIngrediente.getIngrediente());
                 productoIngrediente.setIngrediente(ingredientePersistido);
+            } else {
+                // Si ya existe, usar el ingrediente existente
+                productoIngrediente.setIngrediente(ingredienteExistente);
             }
+
+            // Persistir el ProductoIngrediente
             em.persist(productoIngrediente);
             em.getTransaction().commit();
             return productoIngrediente;
