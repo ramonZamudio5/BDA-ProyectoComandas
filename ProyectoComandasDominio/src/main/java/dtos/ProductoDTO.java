@@ -27,6 +27,12 @@ public class ProductoDTO {
         this.tipoProducto = tipoProducto;
         this.ingredientes = ingredientes;
     }
+
+    public ProductoDTO(String nombre, double precio, Tipo tipoProducto) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+    }
     
     public String getNombre() {
         return nombre;

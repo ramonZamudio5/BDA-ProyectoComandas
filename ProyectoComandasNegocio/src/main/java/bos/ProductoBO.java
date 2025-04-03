@@ -7,6 +7,7 @@ package bos;
 import excepciones.NegocioException;
 import dtos.ProductoDTO;
 import entidades.Producto;
+import entidades.Tipo;
 import excepciones.BuscarProductoException;
 import interfaces.IProductoBO;
 import interfaces.IProductoDAO;
@@ -170,6 +171,25 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al actualizar producto");
         }
     }
-
+    
+    public List<ProductoDTO> buscarPorTipo(String tipo)throws BuscarProductoException{
+        if(tipo == null){
+            throw new BuscarProductoException("el tipo no puede ser nulo");
+        }
+        if(tipo!= "POSTRE" || tipo != "BEBIDA" || tipo != "PLATILLO"){
+            throw new BuscarProductoException("el tipo no puede ser distinto a los establecidos");
+        }
+        if(tipo.toUpperCase()=="POSTRE"){
+            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.POSTRE));
+        }
+        if(tipo.toUpperCase()=="BEBIDA"){
+            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.BEBIDA));
+        }
+        if(tipo.toUpperCase()=="PLATILLO"){
+            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.PLATILLO));
+        }
+        return null;
+    } 
+    
     
 }

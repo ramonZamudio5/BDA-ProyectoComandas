@@ -22,4 +22,5 @@ public interface IProductoBO {
     public List<ProductoDTO> obtenerTodos()throws NegocioException;
     public ProductoDTO actualizarProducto(ProductoDTO productoDTO)throws NegocioException;
     public boolean eliminarProducto(Long id)throws NegocioException, BuscarProductoException;
+    public List<ProductoDTO> buscarPorTipo(String tipo)throws BuscarProductoException;
 }

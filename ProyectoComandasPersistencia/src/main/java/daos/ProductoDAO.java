@@ -8,6 +8,7 @@ import conexion.Conexion;
 import entidades.Ingrediente;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
+import entidades.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
@@ -202,4 +203,21 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
+
+    @Override
+    public List<Producto> buscarPorTipo(Tipo tipo)throws BuscarProductoException  {
+        EntityManager em = Conexion.crearConexion();
+        try{
+            Query query = em.createQuery("SELECT p FROM Producto p WHERE p.tipoProducto = :tipoProducto");
+            query.setParameter("tipoProducto", tipo );
+            List<Producto> productos = query.getResultList();
+            return productos;
+        }catch(Exception e){
+            throw new BuscarProductoException("Error al buscar productos");
+        }finally{
+            em.close();
+        }
+    }
+    
+    
 }
