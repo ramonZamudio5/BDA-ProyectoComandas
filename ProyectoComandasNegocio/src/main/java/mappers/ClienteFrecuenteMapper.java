@@ -14,8 +14,12 @@ import java.util.List;
  * @author Cricri
  */
 public class ClienteFrecuenteMapper {
-     public static ClienteFrecuente toEntity(ClienteFrecuenteDTO clienteDTO) {
+     
+    public static ClienteFrecuente toEntity(ClienteFrecuenteDTO clienteDTO) {
         return new ClienteFrecuente(
+                clienteDTO.getPuntosObtenidos(),
+                clienteDTO.getGastoTotalAcumulado(),
+                clienteDTO.getVentasAcumuladas(),
                 clienteDTO.getNombreCompleto(),
                 clienteDTO.getTelefono(),
                 clienteDTO.getCorreoElectronico(),
@@ -28,7 +32,10 @@ public class ClienteFrecuenteMapper {
                 cliente.getNombreCompleto(),
                 cliente.getTelefono(),
                 cliente.getCorreoElectronico(),
-                cliente.getFechaRegistro()
+                cliente.getFechaRegistro(),
+                cliente.getPuntosObtenidos(),
+                cliente.getGastoTotalAcumulado(),
+                cliente.getVentasAcumuladas()
         );
     }
 

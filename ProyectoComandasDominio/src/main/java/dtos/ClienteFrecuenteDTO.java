@@ -13,21 +13,53 @@ import java.time.LocalDate;
 public class ClienteFrecuenteDTO {
    
     private String nombreCompleto;
-    
     private String telefono;
-    
     private String correoElectronico;
-    
     private LocalDate fechaRegistro;
+
+    // Nuevos campos
+    private int puntosObtenidos;
+    private double gastoTotalAcumulado;
+    private int ventasAcumuladas;
 
     public ClienteFrecuenteDTO() {
     }
 
-    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+    // Constructor actualizado con todos los parámetros
+    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro,
+                               int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
         this.nombreCompleto = nombreCompleto;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
         this.fechaRegistro = fechaRegistro;
+        this.puntosObtenidos = puntosObtenidos;
+        this.gastoTotalAcumulado = gastoTotalAcumulado;
+        this.ventasAcumuladas = ventasAcumuladas;
+    }
+
+    // Getters y setters para los nuevos atributos
+    public int getPuntosObtenidos() {
+        return puntosObtenidos;
+    }
+
+    public void setPuntosObtenidos(int puntosObtenidos) {
+        this.puntosObtenidos = puntosObtenidos;
+    }
+
+    public double getGastoTotalAcumulado() {
+        return gastoTotalAcumulado;
+    }
+
+    public void setGastoTotalAcumulado(double gastoTotalAcumulado) {
+        this.gastoTotalAcumulado = gastoTotalAcumulado;
+    }
+
+    public int getVentasAcumuladas() {
+        return ventasAcumuladas;
+    }
+
+    public void setVentasAcumuladas(int ventasAcumuladas) {
+        this.ventasAcumuladas = ventasAcumuladas;
     }
 
     public String getNombreCompleto() {
@@ -64,10 +96,12 @@ public class ClienteFrecuenteDTO {
 
     @Override
     public String toString() {
-        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + '}';
+        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + 
+               ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + 
+               ", ventasAcumuladas=" + ventasAcumuladas + '}';
     }
-    
-    
-    
-    
 }
+
+
+    
+
