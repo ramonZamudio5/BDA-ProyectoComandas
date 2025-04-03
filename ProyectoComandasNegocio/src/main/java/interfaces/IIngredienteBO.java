@@ -4,10 +4,15 @@
  */
 package interfaces;
 
+import dtos.IngredienteDTO;
+import excepciones.BuscarPorNombreException;
+import excepciones.NegocioException;
+import java.util.List;
+
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public interface IIngredienteBO {
-    
+       public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException;
 }
