@@ -4,25 +4,30 @@
  */
 package Interfaces;
 
+import ControlNavegacion.ControlNavegacion;
 import dtos.ProductoDTO;
 import entidades.Tipo;
+import interfaces.IManejadorDeObjetos;
 import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
  *
  * @author Ramón Zamudio
  */
 public class AgregarProductoFrame extends javax.swing.JFrame {
-    public ProductoDTO producto;
-     private JComboBox<Tipo> tipoComboBox;
+    private ProductoDTO producto;
+    private JComboBox<Tipo> tipoComboBox;
+    private ControlNavegacion control;
     /**
      * Creates new form AgregarProductoFrame
      */
-    public AgregarProductoFrame(){ 
+    public AgregarProductoFrame(ControlNavegacion control){ 
         initComponents();
+        this.control = control;
         tipoComboBox = new JComboBox<>(new DefaultComboBoxModel<>(Tipo.values()));
         tipoComboBox.setBounds(45, 295,130,70);
         jPanel1.add(tipoComboBox);     
@@ -210,7 +215,9 @@ public class AgregarProductoFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarProductoFrame().setVisible(true);
+                IManejadorDeObjetos manejador = new ManejadorDeObjetos();
+                ControlNavegacion control = new ControlNavegacion(manejador);
+                new AgregarProductoFrame(control).setVisible(true);
             }
         });
     }

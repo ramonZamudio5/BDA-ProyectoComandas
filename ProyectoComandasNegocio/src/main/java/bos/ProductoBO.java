@@ -172,24 +172,23 @@ public class ProductoBO implements IProductoBO{
         }
     }
     
-    public List<ProductoDTO> buscarPorTipo(String tipo)throws BuscarProductoException{
-        if(tipo == null){
-            throw new BuscarProductoException("el tipo no puede ser nulo");
+    public List<ProductoDTO> buscarPorTipo(String tipo) throws BuscarProductoException {
+        if (tipo == null) {
+            throw new BuscarProductoException("El tipo no puede ser nulo");
         }
-        if(tipo!= "POSTRE" || tipo != "BEBIDA" || tipo != "PLATILLO"){
-            throw new BuscarProductoException("el tipo no puede ser distinto a los establecidos");
+        String tipoUpper = tipo.toUpperCase();
+        if (!tipoUpper.equals("POSTRE") && !tipoUpper.equals("BEBIDA") && !tipoUpper.equals("PLATILLO")) {
+            throw new BuscarProductoException("El tipo debe ser 'POSTRE', 'BEBIDA' o 'PLATILLO'");
         }
-        if(tipo.toUpperCase()=="POSTRE"){
+        if (tipoUpper.equals("POSTRE")) {
             return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.POSTRE));
-        }
-        if(tipo.toUpperCase()=="BEBIDA"){
+        } else if (tipoUpper.equals("BEBIDA")) {
             return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.BEBIDA));
-        }
-        if(tipo.toUpperCase()=="PLATILLO"){
+        } else { // Solo queda "PLATILLO" como opción válida
             return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.PLATILLO));
         }
-        return null;
-    } 
+    }
+
     
     
 }

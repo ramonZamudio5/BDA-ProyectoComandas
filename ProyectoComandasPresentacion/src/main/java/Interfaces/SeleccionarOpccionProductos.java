@@ -4,19 +4,23 @@
  */
 package Interfaces;
 
+import ControlNavegacion.ControlNavegacion;
+import interfaces.IManejadorDeObjetos;
 import java.awt.Color;
+import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
  *
  * @author Ramón Zamudio
  */
 public class SeleccionarOpccionProductos extends javax.swing.JFrame {
-
+    ControlNavegacion control;
     /**
      * Creates new form AñadirOEditarProductos
      */
-    public SeleccionarOpccionProductos() {
+    public SeleccionarOpccionProductos(ControlNavegacion control) {
         initComponents();
+        this.control = control;
         getContentPane().setBackground(new java.awt.Color(248, 248, 241));
     }
 
@@ -31,9 +35,9 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
 
         jColorChooser1 = new javax.swing.JColorChooser();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
+        botonAñadir = new javax.swing.JButton();
+        BotonEditar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -43,21 +47,26 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
         jLabel2.setText("Productos");
         jLabel2.setMaximumSize(new java.awt.Dimension(610, 722));
 
-        jButton1.setText("Eliminar Producto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminar.setText("Eliminar Producto");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonEliminarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Añadir Producto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonAñadir.setText("Añadir Producto");
+        botonAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonAñadirActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Editar Producto");
+        BotonEditar.setText("Editar Producto");
+        BotonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEditarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jLabel1.setText("Casa magna");
@@ -86,9 +95,9 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
                 .addGap(137, 137, 137)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 138, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -99,24 +108,30 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BotonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAñadirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        control.openFormAgregarProductoFrame();
+    }//GEN-LAST:event_botonAñadirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void BotonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarActionPerformed
+        // TODO add your handling code here:
+        control.openBuscadorProductosFrame();
+    }//GEN-LAST:event_BotonEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,15 +164,17 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeleccionarOpccionProductos().setVisible(true);
+                IManejadorDeObjetos manejador = new ManejadorDeObjetos();
+                ControlNavegacion control = new ControlNavegacion(manejador);
+                new SeleccionarOpccionProductos(control).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton BotonEditar;
+    private javax.swing.JButton botonAñadir;
+    private javax.swing.JButton botonEliminar;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
