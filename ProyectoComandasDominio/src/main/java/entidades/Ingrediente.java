@@ -35,17 +35,16 @@ public class Ingrediente {
     @Column(nullable = false)
     private Double stock;
     
-    @Column(nullable= true, columnDefinition = "LONGBLOB")
-    @Basic(optional=false, fetch= FetchType.LAZY)
-    @Lob()
-    private byte[] foto;
-    
-    
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private UnidadMedida unidadMedida;
     
     
+    
+    @Column(nullable= true, columnDefinition = "LONGBLOB")
+    @Basic(optional=false, fetch= FetchType.LAZY)
+    @Lob()
+    private byte[] foto;
     
 
     public Ingrediente() {
@@ -62,14 +61,21 @@ public class Ingrediente {
         this.unidadMedida = unidadMedida;
     }
 
-    public Ingrediente(Long id, String nombre, Double stock, byte[] foto, UnidadMedida unidadMedida) {
+    public Ingrediente(Long id, String nombre, Double stock, UnidadMedida unidadMedida, byte[] foto) {
         this.id = id;
         this.nombre = nombre;
         this.stock = stock;
-        this.foto = foto;
         this.unidadMedida = unidadMedida;
+        this.foto = foto;
     }
-        
+
+    public Ingrediente(String nombre, Double stock, UnidadMedida unidadMedida, byte[] foto) {
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+        this.foto = foto;
+    }
+
     
 
     public byte[] getFoto() {
@@ -125,10 +131,9 @@ public class Ingrediente {
 
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", foto=" + foto + ", unidadMedida=" + unidadMedida + '}';
+        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", unidadMedida=" + unidadMedida + ", foto=" + foto + '}';
     }
 
-    
     
     
 

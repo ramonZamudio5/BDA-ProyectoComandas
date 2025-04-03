@@ -14,6 +14,7 @@ public class IngredienteDTO {
     private String nombre;
     Double stock;
     private UnidadMedida unidadMedida;
+    private byte[] foto;
 
     public IngredienteDTO() {
     }
@@ -23,6 +24,24 @@ public class IngredienteDTO {
         this.stock = stock;
         this.unidadMedida = unidadMedida;
     }
+
+    public IngredienteDTO(String nombre, Double stock, UnidadMedida unidadMedida, byte[] foto) {
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+        this.foto = foto;
+    }
+    
+    
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+    
 
     public String getNombre() {
         return nombre;
@@ -50,9 +69,9 @@ public class IngredienteDTO {
 
     @Override
     public String toString() {
-        return "IngredienteDTO{" + "nombre=" + nombre + ", stock=" + stock + ", unidadMedida=" + unidadMedida + '}';
+        return "IngredienteDTO{" + "nombre=" + nombre + ", stock=" + stock + ", unidadMedida=" + unidadMedida + ", foto=" + foto + '}';
     }
-    
+
     
     
 }

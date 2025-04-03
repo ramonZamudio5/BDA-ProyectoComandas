@@ -6,6 +6,7 @@ package mappers;
 
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
+import entidades.UnidadMedida;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,8 @@ public class IngredienteMapper {
         return new IngredienteDTO(
                 ingrediente.getNombre(),
                 ingrediente.getStock(),
-                ingrediente.getUnidadMedida()
+                ingrediente.getUnidadMedida(),
+                ingrediente.getFoto()
         );
         
     }
@@ -42,8 +44,9 @@ public class IngredienteMapper {
         } return new Ingrediente(
                 ingredienteDTO.getNombre(), 
                 ingredienteDTO.getStock(), 
-                ingredienteDTO.getUnidadMedida()
-        );
+                ingredienteDTO.getUnidadMedida(),
+                ingredienteDTO.getFoto());
+        
     }
     
     
