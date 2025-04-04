@@ -219,5 +219,33 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    @Override
+    public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException {
+    EntityManager em = Conexion.crearConexion();
+    try {
+        em.getTransaction().begin();
+
+        Producto productoEliminar = buscarPorNombreUnico(nombreProducto);
+
+        if (productoEliminar == null) {
+            em.getTransaction().rollback();
+            throw new EliminarProductoException("No se encontró el producto con nombre: " + nombreProducto);
+        }
+        productoEliminar = em.merge(productoEliminar);
+
+        em.remove(productoEliminar);
+        em.getTransaction().commit();
+        return true;
+
+    } catch (BuscarProductoException e) {
+        em.getTransaction().rollback();
+        throw new EliminarProductoException("No se pudo encontrar el producto: " + e.getMessage());
+    } catch (Exception e) {
+        em.getTransaction().rollback();
+        throw new EliminarProductoException("Error al eliminar el producto.");
+    } finally {
+        em.close();
+    }
+}
     
 }

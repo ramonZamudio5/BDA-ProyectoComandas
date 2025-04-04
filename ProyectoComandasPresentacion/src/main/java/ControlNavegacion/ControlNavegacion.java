@@ -7,13 +7,16 @@ package ControlNavegacion;
 import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
 import Interfaces.EditarProductoFrame;
+import Interfaces.EliminarProducto;
 import Interfaces.SeleccionarOpccionProductos;
 import dtos.ProductoDTO;
 import excepciones.ActualizarProductoException;
 import excepciones.BuscarProductoException;
+import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +39,9 @@ public class ControlNavegacion {
     }
     public void openFormEditarProdutoFrame(ProductoDTO producto){
         new EditarProductoFrame(this,producto).setVisible(true);
+    }
+    public void openFormEliminarProductoFrame(){
+        new EliminarProducto(this).setVisible(true);
     }
     
     
@@ -68,6 +74,39 @@ public class ControlNavegacion {
             return manejador.actualizarProducto(producto);
         }catch(Exception e){
             throw new ActualizarProductoException("Error al actualizar el producto");
+        }
+    }
+
+    public void MostrarMensajeParaEliminar(String mensaje,String nombreProducto) {
+        int respuesta = JOptionPane.showConfirmDialog(null, mensaje, "Confirmación", JOptionPane.OK_CANCEL_OPTION);
+
+        if (respuesta == JOptionPane.OK_OPTION) {
+            try {
+                // Aquí invocas directamente la eliminación desde el ControlNavegacion
+                boolean eliminado = eliminarProducto(nombreProducto);
+
+                // Si la eliminación fue exitosa
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
+                } else {
+                    // Si no se pudo eliminar por alguna razón
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto.");
+                }
+            } catch (Exception e) {
+                // Mostrar error si algo salió mal al eliminar
+                JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage());
+            }
+        } else {
+            // Si el usuario ha cancelado
+            JOptionPane.showMessageDialog(null, "Eliminación cancelada.");
+        }
+    }
+    
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException, EliminarProductoException{
+        try{
+            return manejador.eliminarProducto(nombreProducto);
+        }catch(Exception e){
+            throw new EliminarProductoException("Error al actualizar el producto");
         }
     }
 }

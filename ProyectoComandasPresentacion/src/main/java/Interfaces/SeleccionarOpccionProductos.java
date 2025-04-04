@@ -126,6 +126,7 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
+        control.openFormEliminarProductoFrame();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BotonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarActionPerformed

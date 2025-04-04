@@ -9,6 +9,7 @@ import dtos.ProductoDTO;
 import entidades.Producto;
 import entidades.Tipo;
 import excepciones.BuscarProductoException;
+import excepciones.EliminarProductoException;
 import interfaces.IProductoBO;
 import interfaces.IProductoDAO;
 import java.util.List;
@@ -188,7 +189,19 @@ public class ProductoBO implements IProductoBO{
             return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.PLATILLO));
         }
     }
-
+    
+    public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException {
+        if (nombreProducto == null) {
+            throw new EliminarProductoException("El nombre del producto no puede ser null.");
+        }
+        if (nombreProducto.trim().isEmpty()) {
+            throw new EliminarProductoException("El nombre del producto no puede estar vacío.");
+        }
+        if (nombreProducto.length() < 3) {
+            throw new EliminarProductoException("El nombre del producto debe tener al menos 3 caracteres.");
+        }
+        return productoDAO.eliminarProductoPorNombre(nombreProducto);
+    }
     
     
 }

@@ -5,19 +5,12 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
-import bos.ProductoBO;
-import daos.ProductoDAO;
 import dtos.ProductoDTO;
-import entidades.Producto;
 import excepciones.BuscarProductoException;
 import interfaces.IManejadorDeObjetos;
-import interfaces.IProductoBO;
-import interfaces.IProductoDAO;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,18 +18,18 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
 import manejadorDeObjetos.ManejadorDeObjetos;
-
 /**
  *
  * @author Ramón Zamudio
  */
-public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
+public class EliminarProducto extends javax.swing.JFrame {
     ControlNavegacion control;
     /**
-     * Creates new form BuscadorDeProductosFrame
+     * Creates new form EliminarProducto
      */
-    public BuscadorDeProductosFrame(ControlNavegacion control) {
+    public EliminarProducto(ControlNavegacion control) {
         initComponents();
         this.control = control;
         getContentPane().setBackground(new java.awt.Color(248, 248, 241));
@@ -44,7 +37,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         ButtonGroup buttonGroup= new ButtonGroup();
         buttonGroup.add(jCheckBox1);
         buttonGroup.add(jCheckBox2);
-        jButton1.setEnabled(false);
+        jButton1.setEnabled(false); 
     }
 
     /**
@@ -56,37 +49,23 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        choice1 = new java.awt.Choice();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel7 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jTextField2 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel6.setFont(new java.awt.Font("Devanagari MT", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 128, 0));
         jLabel6.setText("Productos");
-
-        jTextField1.setColumns(50);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(jPanel1);
 
         jCheckBox1.setText("Filtrar por nombre");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,12 +81,9 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
             }
         });
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jTextField1.setColumns(50);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -120,7 +96,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 750, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,134 +106,182 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                 .addContainerGap())
         );
 
+        jLabel7.setFont(new java.awt.Font("Devanagari MT", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 128, 0));
+        jLabel7.setText("Productos");
+
+        jCheckBox3.setText("Filtrar por nombre");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox4.setText("Filtrar por tipo");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setColumns(50);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 341, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(294, 294, 294)
-                                .addComponent(jCheckBox1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox3)
                                 .addGap(67, 67, 67)
-                                .addComponent(jCheckBox2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(360, 360, 360)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(276, 276, 276)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jCheckBox4))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
+                        .addGap(118, 118, 118)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 203, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(331, 331, 331)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jCheckBox4)
+                    .addComponent(jCheckBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(34, 34, 34))
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+       //no se usa
         if (jCheckBox1.isSelected()) {
-                    jTextField1.setEnabled(true);  
-                    jButton1.setEnabled(true);  
-                } else {
-                    jTextField1.setEnabled(false); 
-                    jButton1.setEnabled(false);  
+                    System.out.println("1");
                 }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
+         //no se usa
         if (jCheckBox2.isSelected()) {
-                    jTextField1.setEnabled(true); 
-                    jButton1.setEnabled(true);    
-                } else {
-                    jTextField1.setEnabled(false);  
-                    jButton1.setEnabled(false);     
+                    System.out.println("2");
                 }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        if (jCheckBox3.isSelected()) {
+            jCheckBox4.setSelected(false);
+            jTextField1.setEnabled(true);  
+            jButton1.setEnabled(true);
+        }else {
+            if (!jCheckBox4.isSelected()) {
+                jTextField1.setEnabled(false);
+                jButton1.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        if (jCheckBox4.isSelected()) {
+            jCheckBox3.setSelected(false); 
+            jTextField1.setEnabled(true);  
+            jButton1.setEnabled(true);
+        } else {
+            if (!jCheckBox3.isSelected()) {
+                jTextField1.setEnabled(false);
+                jButton1.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-                String busqueda = jTextField1.getText();
-                jPanel1.removeAll();
-                jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
-                if (jCheckBox1.isSelected()) {
-                    try {
-                        List<ProductoDTO> listaProductos = control.obtenerPorNombre(busqueda);
-                        for (ProductoDTO producto : listaProductos) {
-                            JButton btn = new JButton(producto.getNombre());
-                            btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
-                            btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                            btn.setHorizontalAlignment(SwingConstants.CENTER);
-                            btn.setVerticalAlignment(SwingConstants.CENTER); 
-                            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        String busqueda = jTextField2.getText().trim();
+        jPanel1.removeAll();
+        jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
 
-                            btn.addActionListener(e -> {
-                                control.openFormEditarProdutoFrame(producto);
-                            });
-                            jPanel1.add(btn);
-                        }
-                        jPanel1.revalidate();
-                        jPanel1.repaint();
-                    } catch (Exception ex) {
-                        try {
-                            throw new BuscarProductoException("Error al buscar el producto");
-                        } catch (BuscarProductoException ex1) {
-                            Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
-                        }
-                    }
-                } else if (jCheckBox2.isSelected()) {
-                    try {
-                        List<ProductoDTO> listaProductos = control.obtenerPorTipo(busqueda);
-                        for (ProductoDTO producto : listaProductos) {
-                            JButton btn = new JButton(producto.getNombre());
-                            btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
-                            btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                            btn.setHorizontalAlignment(SwingConstants.CENTER);
-                            btn.setVerticalAlignment(SwingConstants.CENTER); 
-                            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        try {
+            List<ProductoDTO> listaProductos = new ArrayList<>();
 
-                            btn.addActionListener(e -> System.out.println(producto.toString()));
+            if (jCheckBox3.isSelected()) {
+                listaProductos = control.obtenerPorNombre(busqueda);
+            } else if (jCheckBox4.isSelected()) {
+                listaProductos = control.obtenerPorTipo(busqueda);
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor selecciona un criterio de búsqueda.");
+            return;
+            }
 
-                            jPanel1.add(btn);
-                        }
-                        jPanel1.revalidate();
-                        jPanel1.repaint();
-                    }catch (Exception ex) {
-                            try {
-                            throw new BuscarProductoException("Error al buscar el producto");
-                        } catch (BuscarProductoException ex1) {
-                            Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
-                        }
-                    }
-                }
+            if (listaProductos.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron productos.");
+            return;
+            }
+
+            for (ProductoDTO producto : listaProductos) {
+                JButton btn = new JButton(producto.getNombre());
+                btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50));
+                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+                btn.setHorizontalAlignment(SwingConstants.CENTER);
+                btn.setVerticalAlignment(SwingConstants.CENTER);
+                btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                btn.addActionListener(e -> {
+                    control.MostrarMensajeParaEliminar("¿Seguro que desea eliminar este producto? " + producto.getNombre(),producto.getNombre());
+                });
+
+                jPanel1.add(btn);
+            }
+
+            jPanel1.revalidate();
+            jPanel1.repaint();
+
+            } catch (BuscarProductoException ex) {
+                Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ocurrió un error al buscar el producto.");
+            } catch (Exception ex) {
+            Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -277,13 +301,13 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EliminarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -292,21 +316,24 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
             public void run() {
                 IManejadorDeObjetos manejador = new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);
-                new BuscadorDeProductosFrame(control).setVisible(true);
+                new EliminarProducto(control).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Choice choice1;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

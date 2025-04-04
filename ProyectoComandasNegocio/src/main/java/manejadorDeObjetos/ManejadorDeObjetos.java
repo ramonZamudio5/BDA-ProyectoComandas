@@ -11,9 +11,12 @@ import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ProductoDTO;
 import excepciones.BuscarProductoException;
+import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,5 +48,16 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return productoBO.actualizarProducto(producto);
     }
     
+    @Override
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException{
+        ProductoDAO productoDAO = ProductoDAO.getInstance();
+        ProductoBO productoBO = new ProductoBO(productoDAO);
+        try {
+            return productoBO.eliminarProductoPorNombre(nombreProducto);
+        } catch (EliminarProductoException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
 }

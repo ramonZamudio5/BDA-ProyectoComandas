@@ -24,4 +24,6 @@ public interface IManejadorDeObjetos {
     public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException;
     
     public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException;
+    
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException;
 }

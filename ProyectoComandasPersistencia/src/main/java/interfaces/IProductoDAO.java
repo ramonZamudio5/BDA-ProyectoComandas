@@ -27,4 +27,5 @@ public interface IProductoDAO {
     public boolean eliminarProducto(long id) throws EliminarProductoException;
     public boolean agregarIngredientes(String nombreProducto, List<ProductoIngrediente> nuevosIngredientes) throws ProductoNoEncontradoException, BuscarProductoException;
     public List<Producto> buscarPorTipo(Tipo tipo)throws BuscarProductoException;
+    public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException;
 }
