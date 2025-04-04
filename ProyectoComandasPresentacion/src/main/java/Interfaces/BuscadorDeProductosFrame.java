@@ -244,7 +244,9 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                             btn.setVerticalAlignment(SwingConstants.CENTER); 
                             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                            btn.addActionListener(e -> System.out.println(producto.toString()));
+                            btn.addActionListener(e -> {
+                                control.openFormEditarProdutoFrame(producto);
+                            });
 
                             jPanel1.add(btn);
                         }
