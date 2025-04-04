@@ -8,8 +8,8 @@ import conexion.Conexion;
 import entidades.Ingrediente;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
-import entidades.Tipo;
-import entidades.UnidadMedida;
+import enums.Tipo;
+import enums.UnidadMedida;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -61,14 +61,14 @@ public class ProductoDAOTest {
 //     * Test of agregarProducto method, of class ProductoDAO.
 //     */
 //    @Test
-//    public void testAgregarProducto() throws Exception {
-//        System.out.println("agregarProducto");
-//        Producto producto = new Producto("pizza", 50, Tipo.PLATILLO);
-//        ProductoDAO instance = new ProductoDAO();
-//        Producto expResult = producto;
-//        Producto result = instance.agregarProducto(producto);
-//        assertEquals(expResult, result);
-//    }
+    public void testAgregarProducto() throws Exception {
+        System.out.println("agregarProducto");
+        Producto producto = new Producto("pizza", 50.0, Tipo.PLATILLO);
+        ProductoDAO instance = new ProductoDAO();
+        Producto expResult = producto;
+        Producto result = instance.agregarProducto(producto);
+        assertEquals(expResult, result);
+    }
 //    /**
 //     * Test of obtenerProducto method, of class ProductoDAO.
 //     */

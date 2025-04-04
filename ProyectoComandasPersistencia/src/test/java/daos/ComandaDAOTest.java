@@ -7,7 +7,7 @@ package daos;
 import entidades.Cliente;
 import entidades.Comanda;
 import entidades.DetalleComanda;
-import entidades.EstadoComanda;
+import enums.EstadoComanda;
 import entidades.Producto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

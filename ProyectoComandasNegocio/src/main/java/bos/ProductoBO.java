@@ -7,7 +7,7 @@ package bos;
 import excepciones.NegocioException;
 import dtos.ProductoDTO;
 import entidades.Producto;
-import entidades.Tipo;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import interfaces.IProductoBO;
@@ -35,7 +35,7 @@ public class ProductoBO implements IProductoBO{
         if (productoDTO.getNombre() == null) {
            throw new NegocioException("el nombre del producto no puede ser nulo");
         }
-        if(productoDTO.getPrecio() < 0){
+        if(productoDTO.getPrecio() == null || productoDTO.getPrecio() < 0){
             throw new NegocioException("el precio del producto no puede ser menor a 0");
         }
         if(productoDTO.getTipoProducto()==null){
@@ -116,7 +116,7 @@ public class ProductoBO implements IProductoBO{
         if (productoDTO.getNombre() == null) {
            throw new NegocioException("el nombre del producto no puede ser nulo");
         }
-        if(productoDTO.getPrecio() < 0){
+        if(productoDTO.getPrecio() < 0 ||productoDTO.getPrecio() == null){
             throw new NegocioException("el precio del producto no puede ser menor a 0");
         }
         if(productoDTO.getTipoProducto()==null){
@@ -159,7 +159,7 @@ public class ProductoBO implements IProductoBO{
         if (productoDTO.getNombre() == null) {
            throw new NegocioException("el nombre del producto no puede ser nulo");
         }
-        if(productoDTO.getPrecio() < 0){
+        if(productoDTO.getPrecio() == null || productoDTO.getPrecio()<0){
             throw new NegocioException("el precio del producto no puede ser menor a 0");
         }
         if(productoDTO.getTipoProducto()==null){

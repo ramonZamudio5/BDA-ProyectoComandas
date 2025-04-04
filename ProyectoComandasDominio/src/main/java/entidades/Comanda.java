@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import enums.EstadoComanda;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Comanda implements Serializable {
     private LocalDateTime fechaHoraCreacion;
     
     @Column(nullable = false)
-    private double totalVenta;
+    private Double totalVenta;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,13 +45,13 @@ public class Comanda implements Serializable {
     @ManyToOne
     private Cliente cliente; 
 
-    @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)//cambiar cascada
     private List<DetalleComanda> detalles;
 
     public Comanda() {
     }
 
-    public Comanda(String folio, LocalDateTime fechaHoraCreacion, double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
+    public Comanda(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.totalVenta = totalVenta;

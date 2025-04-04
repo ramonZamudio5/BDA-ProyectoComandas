@@ -6,7 +6,7 @@ package mappers;
 
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
-import entidades.UnidadMedida;
+import enums.UnidadMedida;
 import java.util.List;
 import java.util.stream.Collectors;
 

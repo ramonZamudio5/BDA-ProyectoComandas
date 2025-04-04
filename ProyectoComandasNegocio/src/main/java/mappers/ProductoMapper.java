@@ -6,7 +6,7 @@ package mappers;
 
 import dtos.ProductoDTO;
 import entidades.Producto;
-import entidades.Tipo;
+import enums.Tipo;
 import java.util.LinkedList;
 import java.util.List;
 

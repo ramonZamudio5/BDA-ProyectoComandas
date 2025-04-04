@@ -5,7 +5,7 @@
 package dtos;
 
 import entidades.ProductoIngrediente;
-import entidades.Tipo;
+import enums.Tipo;
 import java.util.List;
 
 /**
@@ -14,21 +14,21 @@ import java.util.List;
  */
 public class ProductoDTO {
     private String nombre;
-    private double precio;
+    private Double precio;
     private Tipo tipoProducto;
     private List<ProductoIngrediente> ingredientes;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(String nombre, double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
+    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
         this.ingredientes = ingredientes;
     }
 
-    public ProductoDTO(String nombre, double precio, Tipo tipoProducto) {
+    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
@@ -42,11 +42,11 @@ public class ProductoDTO {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

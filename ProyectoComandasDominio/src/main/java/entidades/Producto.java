@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import enums.Tipo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,29 +31,31 @@ public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String nombre;
     @Column(nullable = false)
-    private double precio;
+    private Double precio;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Tipo tipoProducto;
-    @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE,CascadeType.MERGE}, orphanRemoval = true)
     private List<ProductoIngrediente> ingredientes = new ArrayList<>();
+    
+    private boolean estado;
 
     public Producto() {
     }
 
-    public Producto(String nombre, double precio, Tipo tipoProducto) {
+    public Producto(String nombre, Double precio, Tipo tipoProducto) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
         this.ingredientes = new ArrayList<>();
     }
 
-    public Producto(String nombre, double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
+    public Producto(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
@@ -75,11 +78,11 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

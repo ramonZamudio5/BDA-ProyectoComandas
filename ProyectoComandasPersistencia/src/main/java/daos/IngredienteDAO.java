@@ -6,7 +6,7 @@ package daos;
 
 import conexion.Conexion;
 import entidades.Ingrediente;
-import entidades.UnidadMedida;
+import enums.UnidadMedida;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;

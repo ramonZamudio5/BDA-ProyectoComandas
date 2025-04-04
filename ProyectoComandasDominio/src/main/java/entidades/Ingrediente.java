@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import enums.UnidadMedida;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Ingrediente {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nombre;
     
     @Column(nullable = false)

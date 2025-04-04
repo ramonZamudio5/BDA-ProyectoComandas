@@ -6,7 +6,7 @@ package interfaces;
 
 import entidades.Producto;
 import entidades.ProductoIngrediente;
-import entidades.Tipo;
+import enums.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarProductoException;
 import excepciones.BuscarProductoException;

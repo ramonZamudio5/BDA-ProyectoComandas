@@ -6,7 +6,7 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import dtos.ProductoDTO;
-import entidades.Tipo;
+import enums.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
