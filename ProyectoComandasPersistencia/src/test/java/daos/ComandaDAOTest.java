@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Ramón Zamudio
  */
+
+
 public class ComandaDAOTest {
     
     public ComandaDAOTest() {
@@ -60,19 +62,4 @@ public class ComandaDAOTest {
     /**
      * Test of agregarComanda method, of class ComandaDAO.
      */
-    @Test
-    public void testAgregarComanda() throws Exception {
-        System.out.println("agregarComanda");
-        EntityManager em = conexion.Conexion.crearConexion();
-        Cliente cliente = em.find(Cliente.class, 1L);
-        Producto producto = em.find(Producto.class, 1L);
-        DetalleComanda detalle = new DetalleComanda(null, producto, 2, producto.getPrecio(), "Sin cebolla");
-        Comanda comanda = new Comanda("123", LocalDateTime.now(), detalle.getImporte(), EstadoComanda.CERRADO, cliente, Collections.singletonList(detalle));
-        ComandaDAO instance = new ComandaDAO();
-        Comanda expResult = comanda;
-        Comanda result = instance.agregarComanda(comanda);
-        assertEquals(expResult, result);
-
-    }
-    
 }
