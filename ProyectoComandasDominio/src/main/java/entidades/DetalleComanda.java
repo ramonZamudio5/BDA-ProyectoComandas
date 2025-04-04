@@ -55,6 +55,13 @@ public class DetalleComanda implements Serializable {
         this.importe = cantidad * precioUnitario;
         this.notas = notas;
     }
+    public DetalleComanda(Producto producto, int cantidad, double precioUnitario, String notas) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.importe = cantidad * precioUnitario;
+        this.notas = notas;
+    }
 
    
     public Long getId() {

@@ -7,6 +7,7 @@ package entidades;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,19 +38,19 @@ public class Comanda implements Serializable {
     private double totalVenta;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoComanda estado;
 
     @ManyToOne
     private Cliente cliente; 
 
-    @OneToMany(mappedBy = "comanda")
+    @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleComanda> detalles;
 
     public Comanda() {
     }
 
-    public Comanda(Long id, String folio, LocalDateTime fechaHoraCreacion, double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
-        this.id = id;
+    public Comanda(String folio, LocalDateTime fechaHoraCreacion, double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.totalVenta = totalVenta;
@@ -57,6 +58,8 @@ public class Comanda implements Serializable {
         this.cliente = cliente;
         this.detalles = detalles;
     }
+
+   
 
     public Long getId() {
         return id;
