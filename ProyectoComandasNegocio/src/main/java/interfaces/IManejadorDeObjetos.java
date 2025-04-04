@@ -20,4 +20,8 @@ public interface IManejadorDeObjetos {
     public abstract List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException;
     
     public abstract List<ProductoDTO> obtenerPorTipo(String tipo) throws NegocioException, BuscarProductoException;
+    
+    public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException;
+    
+    public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException;
 }

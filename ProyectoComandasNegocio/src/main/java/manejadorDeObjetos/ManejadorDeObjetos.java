@@ -33,5 +33,17 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return productoBO.buscarPorTipo(tipo);
     }
     
+    public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException{
+        ProductoDAO productoDAO = ProductoDAO.getInstance();
+        ProductoBO productoBO = new ProductoBO(productoDAO);
+        return productoBO.obtenerProducto(id);
+    }
+    
+    public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException{
+        ProductoDAO productoDAO = ProductoDAO.getInstance();
+        ProductoBO productoBO = new ProductoBO(productoDAO);
+        return productoBO.actualizarProducto(producto);
+    }
+    
     
 }

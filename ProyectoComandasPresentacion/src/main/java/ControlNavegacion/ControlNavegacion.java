@@ -6,8 +6,10 @@ package ControlNavegacion;
 
 import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
+import Interfaces.EditarProductoFrame;
 import Interfaces.SeleccionarOpccionProductos;
 import dtos.ProductoDTO;
+import excepciones.ActualizarProductoException;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
@@ -23,7 +25,6 @@ public class ControlNavegacion {
     public ControlNavegacion(IManejadorDeObjetos manejador) {
         this.manejador = manejador;
     }
-    
     public void openFormSeleccionarOpccionProducto(){
         new SeleccionarOpccionProductos(this).setVisible(true);
     }
@@ -32,6 +33,9 @@ public class ControlNavegacion {
     }
     public void openBuscadorProductosFrame(){
         new BuscadorDeProductosFrame(this).setVisible(true);
+    }
+    public void openEditarProdutoFrame(ProductoDTO producto){
+        new EditarProductoFrame(this,producto).setVisible(true);
     }
     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
@@ -48,5 +52,21 @@ public class ControlNavegacion {
         }catch(Exception e){
             throw new BuscarProductoException("Error al buscar el producto", e);
         }   
+    }
+    
+    public ProductoDTO obtenerProducto(Long id) throws BuscarProductoException{
+        try{
+            return manejador.obtenerProducto(id);
+        }catch(Exception e){
+            throw new BuscarProductoException("Error al buscar el producto", e);
+        }
+    }
+    
+    public ProductoDTO actualiarProduto(ProductoDTO producto) throws NegocioException, ActualizarProductoException{
+        try{
+            return manejador.actualizarProducto(producto);
+        }catch(Exception e){
+            throw new ActualizarProductoException("Error al actualizar el producto");
+        }
     }
 }
