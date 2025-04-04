@@ -8,6 +8,7 @@ import bos.ClienteFrecuenteBO;
 import daos.ClienteFrecuenteDAO;
 import dtos.ClienteFrecuenteDTO;
 import entidades.ClienteFrecuente;
+import excepciones.BuscarClienteFrecuenteException;
 import excepciones.NegocioException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,13 +39,116 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import manejadoresDeObjetosNegocio.ManejadorObjetosNegocio;
-
+import interfaces.IClienteFrecuenteBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Cricri
  */
 
 public class BuscarCliente extends JFrame {
+    
+    private JTextField textFieldNombre;
+    private JTextField textFieldTelefono;
+    private JTextField textFieldCorreo;
+    private JButton buttonBuscar;
+    private JTextArea textAreaResultados;
 
+    private  IClienteFrecuenteBO clienteFrecuenteBO;
 
+    public BuscarCliente() {
+        
+        setTitle("Buscar Cliente Frecuente");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
+        
+        clienteFrecuenteBO = new ClienteFrecuenteBO(new ClienteFrecuenteDAO());
+
+      
+        JPanel panelBusqueda = new JPanel();
+        panelBusqueda.setLayout(new GridLayout(4, 2));
+        
+        panelBusqueda.add(new JLabel("Nombre:"));
+        textFieldNombre = new JTextField();
+        panelBusqueda.add(textFieldNombre);
+        
+        panelBusqueda.add(new JLabel("Teléfono:"));
+        textFieldTelefono = new JTextField();
+        panelBusqueda.add(textFieldTelefono);
+        
+        panelBusqueda.add(new JLabel("Correo:"));
+        textFieldCorreo = new JTextField();
+        panelBusqueda.add(textFieldCorreo);
+        
+        buttonBuscar = new JButton("Buscar");
+        panelBusqueda.add(buttonBuscar);
+        
+        add(panelBusqueda, BorderLayout.NORTH);
+        
+    
+        textAreaResultados = new JTextArea();
+        textAreaResultados.setEditable(false);
+        add(new JScrollPane(textAreaResultados), BorderLayout.CENTER);
+        
+   
+        buttonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    buscarCliente();
+                } catch (BuscarClienteFrecuenteException ex) {
+                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        setVisible(true);
+    }
+
+    private void buscarCliente() throws BuscarClienteFrecuenteException {
+        String nombre = textFieldNombre.getText().trim();
+        String telefono = textFieldTelefono.getText().trim();
+        String correo = textFieldCorreo.getText().trim();
+        
+        List<ClienteFrecuenteDTO> clientes = null;
+        
+        try {
+            if (!nombre.isEmpty()) {
+                clientes = clienteFrecuenteBO.buscarPorNombre(nombre);
+            } else if (!telefono.isEmpty()) {
+                clientes = clienteFrecuenteBO.buscarPorTelefono(telefono);
+            } else if (!correo.isEmpty()) {
+                clientes = clienteFrecuenteBO.buscarPorCorreo(correo);
+            }
+            
+            if (clientes != null && !clientes.isEmpty()) {
+                mostrarResultados(clientes);
+            } else {
+                textAreaResultados.setText("No se encontraron resultados.");
+            }
+        } catch (NegocioException ex) {
+            textAreaResultados.setText("Error al realizar la búsqueda: " + ex.getMessage());
+        }
+    }
+    
+    private void mostrarResultados(List<ClienteFrecuenteDTO> clientes) {
+        StringBuilder sb = new StringBuilder();
+        
+        for (ClienteFrecuenteDTO cliente : clientes) {
+            sb.append(cliente.toString()).append("\n");
+        }
+        
+        textAreaResultados.setText(sb.toString());
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new BuscarCliente();
+            }
+        });
+    }
 }
