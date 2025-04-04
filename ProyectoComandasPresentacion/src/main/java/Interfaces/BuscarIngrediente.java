@@ -23,12 +23,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import Utilerias.Utileria;
+import bos.IngredienteBO;
+import dtos.IngredienteDTO;
+import java.io.IOException;
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public class BuscarIngrediente extends javax.swing.JFrame {
-
+    private Utileria utileria;
     private UnidadMedida unidadSeleccionada;
     private JTextField campoRuta;
  //   private JLabel labelImagen;
@@ -49,17 +53,20 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-    public void guardar(){
+    public void guardar() throws IOException{
         String nombre= inputNombre.getName();
-        int stock;
+        Double stock;
         try{
-            stock= Integer.parseInt(inputStock.getText());          
+            stock= Double.parseDouble(inputStock.getText());          
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         UnidadMedida unidad= this.unidadSeleccionada;
         String rutaImagen= campoRuta.getText();
+        byte[]foto= utileria.convertirImagenABytes(rutaImagen);
+        IngredienteDTO ingredienteDTO= new IngredienteDTO(nombre, stock, unidad, foto);
+  
        
     }
     
