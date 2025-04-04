@@ -5,6 +5,8 @@
 package interfaces;
 
 import dtos.IngredienteDTO;
+import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import java.util.List;
@@ -15,4 +17,7 @@ import java.util.List;
  */
 public interface IIngredienteBO {
        public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException;
+       public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException;
+       public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException;
+       
 }

@@ -25,13 +25,16 @@ import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Utilerias.Utileria;
 import bos.IngredienteBO;
+import static daos.IngredienteDAO.ingredienteDAO;
 import dtos.IngredienteDTO;
+import excepciones.AgregarIngredienteException;
+import excepciones.NegocioException;
 import java.io.IOException;
 /**
  *
  * @author janethcristinagalvanquinonez
  */
-public class BuscarIngrediente extends javax.swing.JFrame {
+public class AgregarIngrediente extends javax.swing.JFrame {
     private Utileria utileria;
     private UnidadMedida unidadSeleccionada;
     private JTextField campoRuta;
@@ -39,7 +42,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     /**
      * Creates new form BuscarIngrediente
      */
-    public BuscarIngrediente() {
+    public AgregarIngrediente() {
         initComponents();
         jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -53,8 +56,8 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-    public void guardar() throws IOException{
-        String nombre= inputNombre.getName();
+    public void guardar() throws IOException, AgregarIngredienteException{
+        String nombre= inputNombre.getText();
         Double stock;
         try{
             stock= Double.parseDouble(inputStock.getText());          
@@ -66,10 +69,16 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         String rutaImagen= campoRuta.getText();
         byte[]foto= utileria.convertirImagenABytes(rutaImagen);
         IngredienteDTO ingredienteDTO= new IngredienteDTO(nombre, stock, unidad, foto);
+        IngredienteBO ingredienteBO= new IngredienteBO(ingredienteDAO);
+        try{
+        IngredienteDTO ingredienteRegistrado= ingredienteBO.agregarIngrediente(ingredienteDTO);
+        JOptionPane.showMessageDialog(this, "Ingrediente guardado", "Exito", JOptionPane.INFORMATION_MESSAGE);
   
        
+    } catch(NegocioException e){
+        JOptionPane.showMessageDialog(this, "Error al guardar ingrediente" +e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    
+    }
     
     public void botonUnidadDinamico(){
         ButtonGroup grupoBotones= new ButtonGroup();
@@ -422,20 +431,21 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarIngrediente().setVisible(true);
+                new AgregarIngrediente().setVisible(true);
             }
         });
     }

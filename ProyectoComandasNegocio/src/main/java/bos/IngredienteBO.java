@@ -81,6 +81,7 @@ public class IngredienteBO implements IIngredienteBO {
         if(ingredienteDTO.getUnidadMedida()==null){
             throw new NegocioException("La unidad de medida es obligatoria");
         }
+       
         Ingrediente ingredienteAgregar= IngredienteMapper.toEntity(ingredienteDTO);
         try{
             Ingrediente ingredienteGuardado= ingredienteDAO.agregarIngrediente(ingredienteAgregar);
