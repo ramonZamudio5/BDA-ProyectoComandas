@@ -42,6 +42,8 @@ import manejadoresDeObjetosNegocio.ManejadorObjetosNegocio;
 import interfaces.IClienteFrecuenteBO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 /**
  *
  * @author Cricri
@@ -49,49 +51,84 @@ import java.util.logging.Logger;
 
 public class BuscarCliente extends JFrame {
     
-    private JTextField textFieldNombre;
-    private JTextField textFieldTelefono;
-    private JTextField textFieldCorreo;
-    private JButton buttonBuscar;
+    
+    private JTextField textFieldNombre, textFieldTelefono, textFieldCorreo;
     private JTextArea textAreaResultados;
+    private JButton buttonBuscar;
+    private IClienteFrecuenteBO clienteFrecuenteBO;
 
-    private  IClienteFrecuenteBO clienteFrecuenteBO;
+    private JRadioButton rbNombre, rbTelefono, rbCorreo;
+    private ButtonGroup grupoBusqueda;
 
     public BuscarCliente() {
-        
         setTitle("Buscar Cliente Frecuente");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        
+
         clienteFrecuenteBO = new ClienteFrecuenteBO(new ClienteFrecuenteDAO());
 
-      
+        JPanel panelOpciones = new JPanel();
+        panelOpciones.setLayout(new FlowLayout());
+
+        rbNombre = new JRadioButton("Nombre");
+        rbTelefono = new JRadioButton("Teléfono");
+        rbCorreo = new JRadioButton("Correo");
+        grupoBusqueda = new ButtonGroup();
+        grupoBusqueda.add(rbNombre);
+        grupoBusqueda.add(rbTelefono);
+        grupoBusqueda.add(rbCorreo);
+
+        panelOpciones.add(new JLabel("Buscar por:"));
+        panelOpciones.add(rbNombre);
+        panelOpciones.add(rbTelefono);
+        panelOpciones.add(rbCorreo);
+
+        add(panelOpciones, BorderLayout.NORTH);
+
+        // Panel campos de búsqueda
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.setLayout(new GridLayout(4, 2));
-        
+
         panelBusqueda.add(new JLabel("Nombre:"));
         textFieldNombre = new JTextField();
         panelBusqueda.add(textFieldNombre);
-        
+
         panelBusqueda.add(new JLabel("Teléfono:"));
         textFieldTelefono = new JTextField();
         panelBusqueda.add(textFieldTelefono);
-        
+
         panelBusqueda.add(new JLabel("Correo:"));
         textFieldCorreo = new JTextField();
         panelBusqueda.add(textFieldCorreo);
-        
+
         buttonBuscar = new JButton("Buscar");
+        panelBusqueda.add(new JLabel()); 
         panelBusqueda.add(buttonBuscar);
-        
-        add(panelBusqueda, BorderLayout.NORTH);
-        
-    
+
+        add(panelBusqueda, BorderLayout.CENTER);
+
         textAreaResultados = new JTextArea();
         textAreaResultados.setEditable(false);
-        add(new JScrollPane(textAreaResultados), BorderLayout.CENTER);
-        
+        add(new JScrollPane(textAreaResultados), BorderLayout.SOUTH);
+
+     
+        ActionListener actualizarCampos = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textFieldNombre.setEnabled(rbNombre.isSelected());
+                textFieldTelefono.setEnabled(rbTelefono.isSelected());
+                textFieldCorreo.setEnabled(rbCorreo.isSelected());
+
+                if (!rbNombre.isSelected()) textFieldNombre.setText("");
+                if (!rbTelefono.isSelected()) textFieldTelefono.setText("");
+                if (!rbCorreo.isSelected()) textFieldCorreo.setText("");
+            }
+        };
+
+        rbNombre.addActionListener(actualizarCampos);
+        rbTelefono.addActionListener(actualizarCampos);
+        rbCorreo.addActionListener(actualizarCampos);
+
    
         buttonBuscar.addActionListener(new ActionListener() {
             @Override
@@ -103,26 +140,28 @@ public class BuscarCliente extends JFrame {
                 }
             }
         });
-        
+
         setVisible(true);
     }
 
     private void buscarCliente() throws BuscarClienteFrecuenteException {
-        String nombre = textFieldNombre.getText().trim();
-        String telefono = textFieldTelefono.getText().trim();
-        String correo = textFieldCorreo.getText().trim();
-        
         List<ClienteFrecuenteDTO> clientes = null;
-        
+
         try {
-            if (!nombre.isEmpty()) {
+            if (rbNombre.isSelected()) {
+                String nombre = textFieldNombre.getText().trim();
                 clientes = clienteFrecuenteBO.buscarPorNombre(nombre);
-            } else if (!telefono.isEmpty()) {
+            } else if (rbTelefono.isSelected()) {
+                String telefono = textFieldTelefono.getText().trim();
                 clientes = clienteFrecuenteBO.buscarPorTelefono(telefono);
-            } else if (!correo.isEmpty()) {
+            } else if (rbCorreo.isSelected()) {
+                String correo = textFieldCorreo.getText().trim();
                 clientes = clienteFrecuenteBO.buscarPorCorreo(correo);
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona un criterio de búsqueda.");
+                return;
             }
-            
+
             if (clientes != null && !clientes.isEmpty()) {
                 mostrarResultados(clientes);
             } else {
@@ -132,23 +171,16 @@ public class BuscarCliente extends JFrame {
             textAreaResultados.setText("Error al realizar la búsqueda: " + ex.getMessage());
         }
     }
-    
+
     private void mostrarResultados(List<ClienteFrecuenteDTO> clientes) {
         StringBuilder sb = new StringBuilder();
-        
         for (ClienteFrecuenteDTO cliente : clientes) {
             sb.append(cliente.toString()).append("\n");
         }
-        
         textAreaResultados.setText(sb.toString());
     }
-    
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new BuscarCliente();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new BuscarCliente());
     }
 }
