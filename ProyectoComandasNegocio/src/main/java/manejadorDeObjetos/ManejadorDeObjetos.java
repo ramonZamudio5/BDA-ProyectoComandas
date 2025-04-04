@@ -4,9 +4,9 @@
  */
 package manejadorDeObjetos;
 
-import Interfaces.AgregarProductoFrame;
-import Interfaces.BuscadorDeProductosFrame;
-import Interfaces.SeleccionarOpccionProductos;
+//import Interfaces.AgregarProductoFrame;
+//import Interfaces.BuscadorDeProductosFrame;
+//import Interfaces.SeleccionarOpccionProductos;
 import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ProductoDTO;
@@ -17,6 +17,7 @@ import interfaces.IManejadorDeObjetos;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
