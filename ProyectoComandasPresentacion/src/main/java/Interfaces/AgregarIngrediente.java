@@ -25,11 +25,14 @@ import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Utilerias.Utileria;
 import bos.IngredienteBO;
+import daos.IngredienteDAO;
 import static daos.IngredienteDAO.ingredienteDAO;
 import dtos.IngredienteDTO;
 import excepciones.AgregarIngredienteException;
 import excepciones.NegocioException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author janethcristinagalvanquinonez
@@ -38,6 +41,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     private Utileria utileria;
     private UnidadMedida unidadSeleccionada;
     private JTextField campoRuta;
+    private IngredienteBO ingredienteBO;
+    
  //   private JLabel labelImagen;
     /**
      * Creates new form BuscarIngrediente
@@ -54,6 +59,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         labelImagen.setPreferredSize(new Dimension(50,50));
         jPanel4.add(labelImagen);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        IngredienteDAO ingredienteDAO = new IngredienteDAO();
+        ingredienteBO= new IngredienteBO(ingredienteDAO);
 
     }
     public void guardar() throws IOException, AgregarIngredienteException{
@@ -67,9 +74,10 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         }
         UnidadMedida unidad= this.unidadSeleccionada;
         String rutaImagen= campoRuta.getText();
-        byte[]foto= utileria.convertirImagenABytes(rutaImagen);
+        byte[]foto= Utileria.convertirImagenABytes(rutaImagen);
+      
         IngredienteDTO ingredienteDTO= new IngredienteDTO(nombre, stock, unidad, foto);
-        IngredienteBO ingredienteBO= new IngredienteBO(ingredienteDAO);
+    
         try{
         IngredienteDTO ingredienteRegistrado= ingredienteBO.agregarIngrediente(ingredienteDTO);
         JOptionPane.showMessageDialog(this, "Ingrediente guardado", "Exito", JOptionPane.INFORMATION_MESSAGE);
@@ -391,7 +399,13 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            guardar();
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AgregarIngredienteException ex) {
+            Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void inputNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNombreActionPerformed

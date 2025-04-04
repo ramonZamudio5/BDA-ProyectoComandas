@@ -13,7 +13,7 @@ import java.nio.file.Files;
  * @author janethcristinagalvanquinonez
  */
 public class Utileria {
-    public byte[] convertirImagenABytes(String ruta) throws IOException{
+    public static byte[] convertirImagenABytes(String ruta) throws IOException{
         File file= new File(ruta);
         return Files.readAllBytes(file.toPath());
     }
