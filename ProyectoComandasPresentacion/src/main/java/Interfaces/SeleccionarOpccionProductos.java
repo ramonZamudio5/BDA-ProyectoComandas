@@ -122,16 +122,19 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
     private void botonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAñadirActionPerformed
         // TODO add your handling code here:
         control.openFormAgregarProductoFrame();
+        dispose();
     }//GEN-LAST:event_botonAñadirActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
         control.openFormEliminarProductoFrame();
+        dispose();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BotonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarActionPerformed
         // TODO add your handling code here:
         control.openFormBuscadorProductosFrame();
+        dispose();
     }//GEN-LAST:event_BotonEditarActionPerformed
 
     /**

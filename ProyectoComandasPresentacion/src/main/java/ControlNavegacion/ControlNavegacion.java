@@ -8,6 +8,9 @@ import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
 import Interfaces.EditarProductoFrame;
 import Interfaces.EliminarProducto;
+import Interfaces.PantallaAdministrador;
+import Interfaces.PantallaMeseroComandas;
+import Interfaces.PantallaPrincipalRol;
 import Interfaces.SeleccionarOpccionProductos;
 import dtos.ProductoDTO;
 import excepciones.ActualizarProductoException;
@@ -43,6 +46,16 @@ public class ControlNavegacion {
     public void openFormEliminarProductoFrame(){
         new EliminarProducto(this).setVisible(true);
     }
+    public void openFormPantallaPrincipalRol(){
+        new PantallaPrincipalRol(this).setVisible(true);
+    }
+    public void openFormPantallaMeseroComandas(){
+        new PantallaMeseroComandas(this).setVisible(true);
+    }
+    public void openFormPantallaAdministrador(){
+        new PantallaAdministrador(this).setVisible(true);
+    }
+    
     
     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
@@ -82,22 +95,16 @@ public class ControlNavegacion {
 
         if (respuesta == JOptionPane.OK_OPTION) {
             try {
-                // Aquí invocas directamente la eliminación desde el ControlNavegacion
                 boolean eliminado = eliminarProducto(nombreProducto);
-
-                // Si la eliminación fue exitosa
                 if (eliminado) {
                     JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
                 } else {
-                    // Si no se pudo eliminar por alguna razón
                     JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto.");
                 }
             } catch (Exception e) {
-                // Mostrar error si algo salió mal al eliminar
                 JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage());
             }
         } else {
-            // Si el usuario ha cancelado
             JOptionPane.showMessageDialog(null, "Eliminación cancelada.");
         }
     }

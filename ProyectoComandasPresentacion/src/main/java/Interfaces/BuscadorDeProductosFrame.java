@@ -221,6 +221,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
 
                             btn.addActionListener(e -> {
                                 control.openFormEditarProdutoFrame(producto);
+                                dispose();
                             });
                             jPanel1.add(btn);
                         }
@@ -246,6 +247,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
 
                             btn.addActionListener(e -> {
                                 control.openFormEditarProdutoFrame(producto);
+                                dispose();
                             });
 
                             jPanel1.add(btn);
