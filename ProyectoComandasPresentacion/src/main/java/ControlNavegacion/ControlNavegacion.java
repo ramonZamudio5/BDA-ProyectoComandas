@@ -31,12 +31,13 @@ public class ControlNavegacion {
     public void openFormAgregarProductoFrame(){
         new AgregarProductoFrame(this).setVisible(true);
     }
-    public void openBuscadorProductosFrame(){
+    public void openFormBuscadorProductosFrame(){
         new BuscadorDeProductosFrame(this).setVisible(true);
     }
-    public void openEditarProdutoFrame(ProductoDTO producto){
+    public void openFormEditarProdutoFrame(ProductoDTO producto){
         new EditarProductoFrame(this,producto).setVisible(true);
     }
+    
     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
         try{

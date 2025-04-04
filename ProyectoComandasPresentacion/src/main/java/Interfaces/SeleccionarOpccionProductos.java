@@ -130,7 +130,7 @@ public class SeleccionarOpccionProductos extends javax.swing.JFrame {
 
     private void BotonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarActionPerformed
         // TODO add your handling code here:
-        control.openBuscadorProductosFrame();
+        control.openFormBuscadorProductosFrame();
     }//GEN-LAST:event_BotonEditarActionPerformed
 
     /**
