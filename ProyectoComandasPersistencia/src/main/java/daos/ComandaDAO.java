@@ -10,6 +10,7 @@ import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import excepciones.AgregarComandaException;
+import excepciones.BusquedaComandaException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,6 +73,25 @@ public class ComandaDAO {
             em.close();
         }
     }
+    
+    public List<Comanda> ObtenerTodo() throws BusquedaComandaException{
+        EntityManager em = Conexion.crearConexion();
+        try{
+            return em.createQuery("SELECT c FROM Comanda c ").getResultList();
+        }catch(Exception e){
+            throw new BusquedaComandaException("Error al buscar la comanda",e);
+        }
+    }
+    
+    public Comanda buscarPorFolio(String folio) throws BusquedaComandaException{
+        EntityManager em = Conexion.crearConexion();
+        try{
+            return (Comanda) em.createQuery("SELECT c FROM Comanda c WHERE folio = :folio").setParameter("folio", folio).getSingleResult();
+        }catch(Exception e){
+            throw new BusquedaComandaException("Error al buscar la comanda",e);
+        }
+    }
+    
 }
     
     
