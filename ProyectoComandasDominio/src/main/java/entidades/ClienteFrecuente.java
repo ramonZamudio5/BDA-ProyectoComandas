@@ -31,22 +31,22 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     @Transient
     private double gastoTotalAcumulado;
     @Transient
-    private int ventasAcumuladas;
+    private int conteoVisitas;
 
     public ClienteFrecuente() {
     }
 
-    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
+    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int conteoVisitas) {
         this.puntosObtenidos = puntosObtenidos;
         this.gastoTotalAcumulado = gastoTotalAcumulado;
-        this.ventasAcumuladas = ventasAcumuladas;
+        this.conteoVisitas = conteoVisitas;
     }
 
-    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas, Long id, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int conteoVisitas, Long id, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
         super(id, nombreCompleto, telefono, correoElectronico, fechaRegistro);
         this.puntosObtenidos = puntosObtenidos;
         this.gastoTotalAcumulado = gastoTotalAcumulado;
-        this.ventasAcumuladas = ventasAcumuladas;
+        this.conteoVisitas = conteoVisitas;
     }
     
 
@@ -54,14 +54,12 @@ public class ClienteFrecuente extends Cliente implements Serializable {
         super(nombreCompleto, telefono, correoElectronico, fechaRegistro);
     }
 
-    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+    public ClienteFrecuente(int puntosObtenidos, double gastoTotalAcumulado, int conteoVisitas, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
         super(nombreCompleto, telefono, correoElectronico, fechaRegistro);
         this.puntosObtenidos = puntosObtenidos;
         this.gastoTotalAcumulado = gastoTotalAcumulado;
-        this.ventasAcumuladas = ventasAcumuladas;
+        this.conteoVisitas= conteoVisitas;
     }
-    
-    
 
     public int getPuntosObtenidos() {
         return puntosObtenidos;
@@ -79,18 +77,20 @@ public class ClienteFrecuente extends Cliente implements Serializable {
         this.gastoTotalAcumulado = gastoTotalAcumulado;
     }
 
-    public int getVentasAcumuladas() {
-        return ventasAcumuladas;
+    public int getConteoVisitas() {
+        return conteoVisitas;
     }
 
-    public void setVentasAcumuladas(int ventasAcumuladas) {
-        this.ventasAcumuladas = ventasAcumuladas;
+    public void setConteoVisitas(int conteoVisitas) {
+        this.conteoVisitas = conteoVisitas;
     }
 
     @Override
     public String toString() {
-        return "ClienteFrecuente{" + "puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", ventasAcumuladas=" + ventasAcumuladas + '}';
+        return "ClienteFrecuente{" + "puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", conteoVisitas=" + conteoVisitas + '}';
     }
+    
+    
     
     
     
