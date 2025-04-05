@@ -6,10 +6,12 @@ package interfaces;
 
 import bos.ProductoBO;
 import daos.ProductoDAO;
+import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
@@ -37,4 +39,10 @@ public interface IManejadorDeObjetos {
     public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException;
     
     public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException;
+ 
+    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException;
+
+    public List<ClienteFrecuenteDTO> buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException;
+
+    public List<ClienteFrecuenteDTO> buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException;
 }

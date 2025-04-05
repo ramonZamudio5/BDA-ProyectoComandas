@@ -16,11 +16,13 @@ import Interfaces.PantallaAdministrador;
 import Interfaces.PantallaMeseroComandas;
 import Interfaces.PantallaPrincipalRol;
 import Interfaces.SeleccionarOpccionProductos;
+import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
@@ -166,6 +168,18 @@ public class ControlNavegacion {
           return manejador.buscarPorMedida(medida);
       }
       
+            public List<ClienteFrecuenteDTO> buscarClientesPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
+          return manejador.buscarClientePorNombre(nombre);
+      }
+
+      public List<ClienteFrecuenteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+          return manejador.buscarClientePorTelefono(telefono);
+      }
+
+      public List<ClienteFrecuenteDTO> buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+          return manejador.buscarClientePorCorreo(correo);
+      }
+
    
 }
      

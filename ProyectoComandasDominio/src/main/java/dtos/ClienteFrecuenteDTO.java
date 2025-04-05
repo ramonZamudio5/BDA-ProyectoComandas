@@ -18,7 +18,6 @@ public class ClienteFrecuenteDTO {
     private String telefono;
     private String correoElectronico;
     private LocalDate fechaRegistro;
-
     private int puntosObtenidos;
     private double gastoTotalAcumulado;
     private int conteoVisitas;

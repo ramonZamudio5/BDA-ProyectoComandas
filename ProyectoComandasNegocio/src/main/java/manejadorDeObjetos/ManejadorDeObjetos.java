@@ -7,14 +7,18 @@ package manejadorDeObjetos;
 //import Interfaces.AgregarProductoFrame;
 //import Interfaces.BuscadorDeProductosFrame;
 //import Interfaces.SeleccionarOpccionProductos;
+import bos.ClienteFrecuenteBO;
 import bos.IngredienteBO;
 import bos.ProductoBO;
+import daos.ClienteFrecuenteDAO;
 import daos.IngredienteDAO;
 import daos.ProductoDAO;
+import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
@@ -35,12 +39,17 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     
     private final IIngredienteBO ingredienteBO;
     private final ProductoBO productoBO;
+    private final ClienteFrecuenteBO clienteFrecuenteBO;
+    
 
     public ManejadorDeObjetos() {
         IngredienteDAO ingredienteDAO = IngredienteDAO.getInstance();
         ProductoDAO productoDAO = ProductoDAO.getInstance();
+        ClienteFrecuenteDAO clienteFrecuenteDAO = ClienteFrecuenteDAO.getInstance();
         this.ingredienteBO = new IngredienteBO(ingredienteDAO);
         this.productoBO = new ProductoBO(productoDAO);
+        this.clienteFrecuenteBO = new ClienteFrecuenteBO(clienteFrecuenteDAO);
+        
     }
     
     
@@ -90,5 +99,19 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
          return ingredienteBO.agregarIngrediente(ingredienteDTO);
      }  
      
-    
+      // Métodos de Cliente Frecuente
+    @Override
+    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
+        return clienteFrecuenteBO.buscarPorNombre(nombre);
+    }
+
+    @Override
+    public List<ClienteFrecuenteDTO> buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+        return clienteFrecuenteBO.buscarPorTelefono(telefono);
+    }
+
+    @Override
+    public List<ClienteFrecuenteDTO> buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+        return clienteFrecuenteBO.buscarPorCorreo(correo);
+    }
 }
