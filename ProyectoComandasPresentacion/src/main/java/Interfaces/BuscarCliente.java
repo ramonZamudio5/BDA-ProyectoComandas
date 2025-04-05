@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import ControlNavegacion.ControlNavegacion;
 import bos.ClienteFrecuenteBO;
 import daos.ClienteFrecuenteDAO;
 import dtos.ClienteFrecuenteDTO;
@@ -52,15 +53,17 @@ import javax.swing.event.DocumentListener;
  */
 
 public class BuscarCliente extends JFrame {
+    ControlNavegacion control;
    private JTextField textFieldNombre, textFieldTelefono, textFieldCorreo;
     private JTextArea textAreaResultados;
     private IClienteFrecuenteBO clienteFrecuenteBO;
     private JRadioButton rbNombre, rbTelefono, rbCorreo;
     private ButtonGroup grupoBusqueda;
 
-    public BuscarCliente() {
+    public BuscarCliente(ControlNavegacion control) {
+        this.control = control; 
         setTitle("Buscar Cliente Frecuente");
-        setSize(500, 400);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -216,7 +219,5 @@ public class BuscarCliente extends JFrame {
         textAreaResultados.setText(sb.toString());
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new BuscarCliente());
-    }
+   
 }

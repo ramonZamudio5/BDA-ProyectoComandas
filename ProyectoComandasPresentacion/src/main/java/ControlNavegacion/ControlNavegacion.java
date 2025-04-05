@@ -8,6 +8,7 @@ package ControlNavegacion;
 import Interfaces.AgregarIngrediente;
 import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
+import Interfaces.BuscarCliente;
 import Interfaces.BuscarIngrediente;
 import Interfaces.EditarProductoFrame;
 import Interfaces.EliminarProducto;
@@ -73,6 +74,9 @@ public class ControlNavegacion {
         new AgregarIngrediente(this).setVisible(true);
     }
     
+     public void openFormBuscarCliente(){
+        new BuscarCliente(this).setVisible(true);
+    }
     
     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
