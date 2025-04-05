@@ -20,8 +20,14 @@ import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorObjetoNegocio;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -30,8 +36,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import manejadorObjetoNegocio.ManejadorObjetoNegocio;
@@ -106,15 +114,37 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
     private void mostrarResultados(List<IngredienteDTO> IngredientesEncontrados) {
         panelIngredientes.removeAll();
-        panelIngredientes.setLayout(new GridLayout(IngredientesEncontrados.size(), 1));
+        panelIngredientes.setLayout(new GridLayout(0, 1, 10, 10));
+        
         for (IngredienteDTO ingrediente : IngredientesEncontrados) {
 
-            JPanel panelIngrediente = new JPanel(new FlowLayout());
+            JPanel panelIngrediente = new JPanel(new GridBagLayout());
+            
+            
+           
+            panelIngrediente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            panelIngrediente.setBackground(Color.WHITE);
+            
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 10, 5, 10);
+            gbc.fill = GridBagConstraints.HORIZONTAL; 
+            
             JLabel nombreLabel = new JLabel(ingrediente.getNombre());
-            JLabel unidadLabel = new JLabel("Unidad: " + ingrediente.getUnidadMedida() + ": " + ingrediente.getStock());
+            nombreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            nombreLabel.setHorizontalAlignment(SwingConstants.LEFT);
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            panelIngrediente.add(nombreLabel, gbc);
+            
+            JLabel unidadLabel = new JLabel(ingrediente.getUnidadMedida() + ": " + ingrediente.getStock());
+            unidadLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            unidadLabel.setHorizontalAlignment(SwingConstants.LEFT);
+             gbc.gridx = 0;
+             gbc.gridy = 1;
+             panelIngrediente.add(unidadLabel, gbc);
 
-            panelIngrediente.add(nombreLabel);
-            panelIngrediente.add(unidadLabel);
+          //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
+           // panelIngrediente.add(unidadLabel, BorderLayout.CENTER);
             panelIngredientes.add(panelIngrediente);
 
         }
