@@ -19,7 +19,7 @@ public class ClienteFrecuenteMapper {
         return new ClienteFrecuente(
                 clienteDTO.getPuntosObtenidos(),
                 clienteDTO.getGastoTotalAcumulado(),
-                clienteDTO.getVentasAcumuladas(),
+                clienteDTO.getConteoVisitas(),
                 clienteDTO.getNombreCompleto(),
                 clienteDTO.getTelefono(),
                 clienteDTO.getCorreoElectronico(),
@@ -35,7 +35,7 @@ public class ClienteFrecuenteMapper {
                 cliente.getFechaRegistro(),
                 cliente.getPuntosObtenidos(),
                 cliente.getGastoTotalAcumulado(),
-                cliente.getVentasAcumuladas()
+                cliente.getConteoVisitas()
         );
     }
 

@@ -21,7 +21,7 @@ public class ClienteFrecuenteDTO {
 
     private int puntosObtenidos;
     private double gastoTotalAcumulado;
-    private int ventasAcumuladas;
+    private int conteoVisitas;
 
     public ClienteFrecuenteDTO() {
     }
@@ -33,7 +33,7 @@ public class ClienteFrecuenteDTO {
         this.fechaRegistro = fechaRegistro;
         this.puntosObtenidos = puntosObtenidos;
         this.gastoTotalAcumulado = gastoTotalAcumulado;
-        this.ventasAcumuladas = ventasAcumuladas;
+        this.conteoVisitas = conteoVisitas;
     }
 
     public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
@@ -101,19 +101,20 @@ public class ClienteFrecuenteDTO {
         this.gastoTotalAcumulado = gastoTotalAcumulado;
     }
 
-    public int getVentasAcumuladas() {
-        return ventasAcumuladas;
+    public int getConteoVisitas() {
+        return conteoVisitas;
     }
 
-    public void setVentasAcumuladas(int ventasAcumuladas) {
-        this.ventasAcumuladas = ventasAcumuladas;
+    public void setConteoVisitas(int conteoVisitas) {
+        this.conteoVisitas = conteoVisitas;
     }
 
     @Override
     public String toString() {
-        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", ventasAcumuladas=" + ventasAcumuladas + '}';
+        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", conteoVisitas=" + conteoVisitas + '}';
     }
-    
+
+   
     
     
     
