@@ -4,6 +4,7 @@
  */
 package dtos;
 
+import entidades.ClienteFrecuente;
 import java.time.LocalDate;
 
 /**
@@ -12,12 +13,12 @@ import java.time.LocalDate;
  */
 public class ClienteFrecuenteDTO {
    
+    
     private String nombreCompleto;
     private String telefono;
     private String correoElectronico;
     private LocalDate fechaRegistro;
 
-    // Nuevos campos
     private int puntosObtenidos;
     private double gastoTotalAcumulado;
     private int ventasAcumuladas;
@@ -25,9 +26,7 @@ public class ClienteFrecuenteDTO {
     public ClienteFrecuenteDTO() {
     }
 
-    // Constructor actualizado con todos los parámetros
-    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro,
-                               int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
+    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro, int puntosObtenidos, double gastoTotalAcumulado, int ventasAcumuladas) {
         this.nombreCompleto = nombreCompleto;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
@@ -37,30 +36,22 @@ public class ClienteFrecuenteDTO {
         this.ventasAcumuladas = ventasAcumuladas;
     }
 
-    // Getters y setters para los nuevos atributos
-    public int getPuntosObtenidos() {
-        return puntosObtenidos;
+    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro) {
+        this.nombreCompleto = nombreCompleto;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public void setPuntosObtenidos(int puntosObtenidos) {
-        this.puntosObtenidos = puntosObtenidos;
+    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correoElectronico) {
+        this.nombreCompleto = nombreCompleto;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
     }
+    
+    
 
-    public double getGastoTotalAcumulado() {
-        return gastoTotalAcumulado;
-    }
-
-    public void setGastoTotalAcumulado(double gastoTotalAcumulado) {
-        this.gastoTotalAcumulado = gastoTotalAcumulado;
-    }
-
-    public int getVentasAcumuladas() {
-        return ventasAcumuladas;
-    }
-
-    public void setVentasAcumuladas(int ventasAcumuladas) {
-        this.ventasAcumuladas = ventasAcumuladas;
-    }
+    
 
     public String getNombreCompleto() {
         return nombreCompleto;
@@ -94,12 +85,39 @@ public class ClienteFrecuenteDTO {
         this.fechaRegistro = fechaRegistro;
     }
 
+    public int getPuntosObtenidos() {
+        return puntosObtenidos;
+    }
+
+    public void setPuntosObtenidos(int puntosObtenidos) {
+        this.puntosObtenidos = puntosObtenidos;
+    }
+
+    public double getGastoTotalAcumulado() {
+        return gastoTotalAcumulado;
+    }
+
+    public void setGastoTotalAcumulado(double gastoTotalAcumulado) {
+        this.gastoTotalAcumulado = gastoTotalAcumulado;
+    }
+
+    public int getVentasAcumuladas() {
+        return ventasAcumuladas;
+    }
+
+    public void setVentasAcumuladas(int ventasAcumuladas) {
+        this.ventasAcumuladas = ventasAcumuladas;
+    }
+
     @Override
     public String toString() {
-        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + 
-               ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + 
-               ", ventasAcumuladas=" + ventasAcumuladas + '}';
+        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", ventasAcumuladas=" + ventasAcumuladas + '}';
     }
+    
+    
+    
+    
+    
 }
 
 

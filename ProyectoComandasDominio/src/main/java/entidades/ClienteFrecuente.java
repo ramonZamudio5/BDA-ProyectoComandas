@@ -28,7 +28,7 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     @Transient
     private int puntosObtenidos;
     
-     @Transient
+    @Transient
     private double gastoTotalAcumulado;
     @Transient
     private int ventasAcumuladas;
