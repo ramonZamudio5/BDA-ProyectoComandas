@@ -74,9 +74,7 @@ public class ControlNavegacion {
         new AgregarIngrediente(this).setVisible(true);
     }
     
-     public void openFormBuscarCliente(){
-        new BuscarCliente(this).setVisible(true);
-    }
+     
     
     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
@@ -167,5 +165,8 @@ public class ControlNavegacion {
       public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
           return manejador.buscarPorMedida(medida);
       }
-     
+      
+   
 }
+     
+
