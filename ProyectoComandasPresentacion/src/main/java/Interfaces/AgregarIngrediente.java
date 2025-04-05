@@ -54,7 +54,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
      */
     public AgregarIngrediente(ControlIngrediente control) {
         initComponents();
-        this.control = control;
+        this.control = control; 
         jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         botonUnidadDinamico();

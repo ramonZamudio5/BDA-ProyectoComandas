@@ -65,12 +65,12 @@ public class IngredienteDAO implements IIngredienteDAO {
     public List<Ingrediente> buscarPorNombre(String nombre) throws BuscarPorNombreException{
         EntityManager em= Conexion.crearConexion();
         try {
-       
-           List<Ingrediente> ingredientes = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre")
-                                           .setParameter("nombre", nombre)
+            System.out.println("Buscando ingredientes con nombre: "+nombre);
+           List<Ingrediente> ingredientes = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre LIKE :nombre")
+                                           .setParameter("nombre", nombre + "%")
                                            .getResultList();
-
-            
+           System.out.println("Ingredientes encontrados: " + ingredientes.size());
+          
             if(ingredientes.isEmpty()){
                 throw new BuscarPorNombreException("No hay ingredientes registrados con el nombre "+ nombre);
             }

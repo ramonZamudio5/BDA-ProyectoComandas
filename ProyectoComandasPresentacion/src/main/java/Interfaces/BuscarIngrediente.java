@@ -5,6 +5,8 @@
 package Interfaces;
 
 import ControlIngrediente.ControlIngrediente;
+import Utilerias.Utileria;
+import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import java.awt.CardLayout;
 import javax.swing.ButtonGroup;
@@ -13,9 +15,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import  enums.UnidadMedida;
+import excepciones.BuscarPorMedidaException;
+import excepciones.BuscarPorNombreException;
+import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorObjetoNegocio;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import manejadorObjetoNegocio.ManejadorObjetoNegocio;
@@ -56,6 +72,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         
         panelBusqueda.add(panelNombre, "nombre");
         panelBusqueda.add(panelUnidad, "unidad");
+        manejoEventos();
         
         
     }
@@ -64,34 +81,124 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         campoNombre.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                //actualizarBusqueda();
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                try {
+                    actualizarBusqueda();
+                } catch (NegocioException | BuscarPorNombreException ex) {
+                   JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+               try {
+                    actualizarBusqueda();
+                } catch (NegocioException | BuscarPorNombreException ex) {
+                   JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+                }
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                try {
+                    actualizarBusqueda();
+                } catch (NegocioException | BuscarPorNombreException ex) {
+                   JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
     }
-    
-//    private void actualizarBusqueda(){
-//        String textoBuscado= campoNombre.getText().trim();
-//        
-//        panelIngredientes.removeAll();
-//        if(!textoBuscado.isEmpty()){
-//            try{
-//                List<Ingrediente> IngredientesEncontrados= ingredienteBO.buscarPorNombre(textoBuscado);
+        private void mostrarResultados(List<IngredienteDTO> IngredientesEncontrados){
+            panelIngredientes.removeAll();
+            panelIngredientes.setLayout(new GridLayout(IngredientesEncontrados.size(),1));
+            for(IngredienteDTO ingrediente: IngredientesEncontrados){
+             
+                JPanel panelIngrediente= new JPanel(new FlowLayout());
+                JLabel nombreLabel= new JLabel(ingrediente.getNombre());
+                JLabel unidadLabel= new JLabel("Unidad: " +ingrediente.getUnidadMedida()+ ": " +ingrediente.getStock());
+                
+                panelIngrediente.add(nombreLabel);
+                panelIngrediente.add(unidadLabel);
+                panelIngredientes.add(panelIngrediente);
+             
+               
+                
+}
+            panelIngredientes.revalidate();
+            panelIngredientes.repaint();
+
+                
+                
+             //   ImageIcon imagen= Utileria.convertirImagenABytes(/Users/janethcristinagalvanquinonez/Downloads);
+                
+            } 
+            
+        
+        
+//        private ImageIcon convertirBytesAImagenes(byte[] imagenBytes){
+//            if(imagenBytes==null || imagenBytes.length==0){
+//                return 
 //            }
-//            
+//            try{
+//                ByteArrayInputStream bis = new ByteArrayInputStream(imagenBytes);
+//                BufferedImage bufferedImage = ImageIO.read(bis);
+//                return new ImageIcon("/");
+//            }
 //        }
-//    }
-    
+
+            
+                private void actualizarBusqueda() throws NegocioException, BuscarPorNombreException{
+                    
+                    String textoBuscado= campoNombre.getText().trim();
+                    System.out.println("Texto ingresado: '" + textoBuscado + "'");
+                    panelIngredientes.removeAll();
+                    if(!textoBuscado.isEmpty()){
+                        try{
+                            List<IngredienteDTO> IngredientesEncontrados= control.buscarPorNombre(textoBuscado);
+                            System.out.println("Ingredientes encontrados: " + IngredientesEncontrados.size());
+                            
+                            if(IngredientesEncontrados.isEmpty()){
+                                panelIngredientes.add(new JLabel("No se encontraron resultados"));
+                            }else{
+
+                            mostrarResultados(IngredientesEncontrados);
+                            }
+                            
+                        } catch (NegocioException | BuscarPorNombreException e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            }
+                            
+                        }
+                        
+                    
+                }
+                
+                private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException, BuscarPorMedidaException{
+                    panelIngredientes.removeAll();
+                    if (unidadMedida != null && !unidadMedida.trim().isEmpty()) {
+                        try{
+                            List<IngredienteDTO> ingredientesEncontrados= control.buscarPorMedida(unidadMedida);
+                            System.out.println("Ingredientes encotrados: " +ingredientesEncontrados.size());
+                            
+                            if (ingredientesEncontrados.isEmpty()){
+                                panelIngredientes.add(new JLabel("No se encontraron resultados"));
+                            } else{
+                                 mostrarResultados(ingredientesEncontrados);
+                            }
+                        
+                        } catch (NegocioException | BuscarPorMedidaException e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            }
+                            
+                        
+                        
+                    }
+                }
+
+                
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -248,6 +355,14 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         for(UnidadMedida unidad : UnidadMedida.values()){
             comboUnidad.addItem(unidad.name());
         }
+        comboUnidad.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String unidadSeleccionada= (String) comboUnidad.getSelectedItem();
+                            
+            }
+       
+    });
     }//GEN-LAST:event_botonMedidaActionPerformed
 
     private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
@@ -289,6 +404,8 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 IManejadorObjetoNegocio manejador= new ManejadorObjetoNegocio();
                 ControlIngrediente control= new ControlIngrediente(manejador);
                 new BuscarIngrediente(control).setVisible(true);
+               URL url = getClass().getClassLoader().getResource("Resources/fotoDefecto.png");
+               System.out.println("Ruta encontrada: " + (url != null ? url.getPath() : "Imagen no encontrada"));
                         
             }
         });

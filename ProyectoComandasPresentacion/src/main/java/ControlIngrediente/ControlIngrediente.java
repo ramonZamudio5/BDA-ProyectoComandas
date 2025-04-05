@@ -8,8 +8,11 @@ import Interfaces.BuscarIngrediente;
 import Interfaces.AgregarIngrediente;
 import dtos.IngredienteDTO;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
+import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IManejadorObjetoNegocio;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -36,6 +39,7 @@ public class ControlIngrediente {
         new AgregarIngrediente(this).setVisible(true);
     }
     
+    
      public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
          try{
              IngredienteDTO ingredienteRegistrado= manejador.agregarIngrediente(ingredienteDTO);
@@ -52,5 +56,19 @@ public class ControlIngrediente {
 
          }
          return new IngredienteDTO();
-     } 
+     }
+     
+     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+         try{
+             return manejador.buscarPorNombre(nombre);
+         } catch (Exception e){
+             throw new BuscarPorNombreException("Error al buscar ingrediente");
+         }
+     }
+     
+      public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+          return manejador.buscarPorMedida(medida);
+      }
+     
+     
 }

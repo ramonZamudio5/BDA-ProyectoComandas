@@ -35,6 +35,7 @@ public class ManejadorObjetoNegocio implements IManejadorObjetoNegocio {
          return ingredienteBO.buscarPorNombre(nombre);
      }
     
+    @Override
      public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
          return ingredienteBO.buscarPorMedida(medida);
      }
@@ -42,7 +43,8 @@ public class ManejadorObjetoNegocio implements IManejadorObjetoNegocio {
              
      public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
          return ingredienteBO.agregarIngrediente(ingredienteDTO);
-     }        
-             
+     }  
+     
+            
     
 }
