@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import ControlIngrediente.ControlIngrediente;
 import enums.UnidadMedida;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,25 +31,30 @@ import static daos.IngredienteDAO.ingredienteDAO;
 import dtos.IngredienteDTO;
 import excepciones.AgregarIngredienteException;
 import excepciones.NegocioException;
+import interfaces.IManejadorObjetoNegocio;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import manejadorObjetoNegocio.ManejadorObjetoNegocio;
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public class AgregarIngrediente extends javax.swing.JFrame {
+    private ControlIngrediente control;
     private Utileria utileria;
     private UnidadMedida unidadSeleccionada;
     private JTextField campoRuta;
-    private IngredienteBO ingredienteBO;
+   // private IngredienteBO ingredienteBO;
+    private IngredienteDTO ingredienteDTO;
     
  //   private JLabel labelImagen;
     /**
      * Creates new form BuscarIngrediente
      */
-    public AgregarIngrediente() {
+    public AgregarIngrediente(ControlIngrediente control) {
         initComponents();
+        this.control = control;
         jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         botonUnidadDinamico();
@@ -59,8 +65,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         labelImagen.setPreferredSize(new Dimension(50,50));
         jPanel4.add(labelImagen);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        IngredienteDAO ingredienteDAO = new IngredienteDAO();
-        ingredienteBO= new IngredienteBO(ingredienteDAO);
+       // IngredienteDAO ingredienteDAO = new IngredienteDAO();
+      // ingredienteBO= new IngredienteBO(ingredienteDAO);
 
     }
     public void guardar() throws IOException, AgregarIngredienteException{
@@ -79,7 +85,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         IngredienteDTO ingredienteDTO= new IngredienteDTO(nombre, stock, unidad, foto);
     
         try{
-        IngredienteDTO ingredienteRegistrado= ingredienteBO.agregarIngrediente(ingredienteDTO);
+        IngredienteDTO ingredienteRegistrado= control.agregarIngrediente(ingredienteDTO);
         JOptionPane.showMessageDialog(this, "Ingrediente guardado", "Exito", JOptionPane.INFORMATION_MESSAGE);
   
        
@@ -459,7 +465,10 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarIngrediente().setVisible(true);
+                IManejadorObjetoNegocio manejador= new ManejadorObjetoNegocio();
+                ControlIngrediente control= new ControlIngrediente(manejador);
+                new AgregarIngrediente(control).setVisible(true);
+                
             }
         });
     }

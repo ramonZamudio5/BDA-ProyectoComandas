@@ -4,6 +4,8 @@
  */
 package Interfaces;
 
+import ControlIngrediente.ControlIngrediente;
+import entidades.Ingrediente;
 import java.awt.CardLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -11,20 +13,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import  enums.UnidadMedida;
+import interfaces.IIngredienteBO;
+import interfaces.IManejadorObjetoNegocio;
+import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import manejadorObjetoNegocio.ManejadorObjetoNegocio;
 
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public class BuscarIngrediente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form BuscarIngrediente
-     */
+    
+    
+    ControlIngrediente control;
     private CardLayout cardLayout;
-        JComboBox<String> comboUnidad= new JComboBox<>();
-    public BuscarIngrediente() {
+    JComboBox<String> comboUnidad= new JComboBox<>();
+    private JTextField campoNombre;
+    private IIngredienteBO ingredienteBO;
+   
+        
+        
+    public BuscarIngrediente(ControlIngrediente control) {
+        this.control=control;
         initComponents();
+        //this.ingredienteBO= ingredienteBO;
         ButtonGroup buttonGroup= new ButtonGroup();
         buttonGroup.add(botonMedida);
         buttonGroup.add(botonNombre);
@@ -32,7 +46,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelBusqueda.setLayout(cardLayout);
         JPanel panelNombre= new JPanel();
         
-        JTextField campoNombre= new JTextField(15);
+        campoNombre= new JTextField(15);
         panelNombre.add(new JLabel("Nombre..."));
         panelNombre.add(campoNombre);
         
@@ -45,6 +59,38 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         
         
     }
+    
+    private void manejoEventos(){
+        campoNombre.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                //actualizarBusqueda();
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+    }
+    
+//    private void actualizarBusqueda(){
+//        String textoBuscado= campoNombre.getText().trim();
+//        
+//        panelIngredientes.removeAll();
+//        if(!textoBuscado.isEmpty()){
+//            try{
+//                List<Ingrediente> IngredientesEncontrados= ingredienteBO.buscarPorNombre(textoBuscado);
+//            }
+//            
+//        }
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,6 +108,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         botonMedida = new javax.swing.JRadioButton();
         botonNombre = new javax.swing.JRadioButton();
         panelBusqueda = new javax.swing.JPanel();
+        panelIngredientes = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,6 +176,19 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
+        panelIngredientes.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelIngredientesLayout = new javax.swing.GroupLayout(panelIngredientes);
+        panelIngredientes.setLayout(panelIngredientesLayout);
+        panelIngredientesLayout.setHorizontalGroup(
+            panelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 203, Short.MAX_VALUE)
+        );
+        panelIngredientesLayout.setVerticalGroup(
+            panelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 124, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -144,8 +204,13 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                         .addComponent(panelFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(92, 92, 92))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(panelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(panelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(panelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,7 +223,9 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 .addComponent(panelFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 167, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,6 +252,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
     private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
         cardLayout.show(panelBusqueda, "nombre");
+        
     }//GEN-LAST:event_botonNombreActionPerformed
 
     /**
@@ -216,8 +284,12 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+         //      IIngredienteBO ingredienteBO= ManejadorObjetoNegocio.crearIngredienteBO();
             public void run() {
-                new BuscarIngrediente().setVisible(true);
+                IManejadorObjetoNegocio manejador= new ManejadorObjetoNegocio();
+                ControlIngrediente control= new ControlIngrediente(manejador);
+                new BuscarIngrediente(control).setVisible(true);
+                        
             }
         });
     }
@@ -230,5 +302,6 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelBusqueda;
     private javax.swing.JPanel panelFiltro;
+    private javax.swing.JPanel panelIngredientes;
     // End of variables declaration//GEN-END:variables
 }
