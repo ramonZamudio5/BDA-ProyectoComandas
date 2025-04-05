@@ -175,6 +175,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 
                 private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException, BuscarPorMedidaException{
                     panelIngredientes.removeAll();
+                    System.out.println("unidad "+ unidadMedida);
                     if (unidadMedida != null && !unidadMedida.trim().isEmpty()) {
                         try{
                             List<IngredienteDTO> ingredientesEncontrados= control.buscarPorMedida(unidadMedida);
@@ -359,6 +360,13 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String unidadSeleccionada= (String) comboUnidad.getSelectedItem();
+                try {
+                    actualizarBusquedaUnidad(unidadSeleccionada);
+                } catch (NegocioException ex) {
+                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BuscarPorMedidaException ex) {
+                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+                }
                             
             }
        
