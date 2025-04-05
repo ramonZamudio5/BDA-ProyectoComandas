@@ -22,7 +22,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
     
     private static ClienteFrecuenteDAO clienteFrecuenteDAO;
 
-    private ClienteFrecuenteDAO() {
+    public ClienteFrecuenteDAO() {
     }
 
     public static ClienteFrecuenteDAO getInstance() {
