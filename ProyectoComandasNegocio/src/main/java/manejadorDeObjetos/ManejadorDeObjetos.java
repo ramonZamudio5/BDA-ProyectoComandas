@@ -10,6 +10,7 @@ package manejadorDeObjetos;
 import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ProductoDTO;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
@@ -31,7 +32,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return productoBO.obtenerPorNombre(nombre);
     }
     
-    public List<ProductoDTO> obtenerPorTipo(String tipo) throws NegocioException, BuscarProductoException{
+    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException, BuscarProductoException{
         ProductoDAO productoDAO = ProductoDAO.getInstance();
         ProductoBO productoBO = new ProductoBO(productoDAO);
         return productoBO.buscarPorTipo(tipo);

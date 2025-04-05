@@ -6,6 +6,7 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import dtos.ProductoDTO;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import interfaces.IManejadorDeObjetos;
 import java.awt.Component;
@@ -16,7 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 import manejadorDeObjetos.ManejadorDeObjetos;
@@ -26,6 +29,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  */
 public class EliminarProducto extends javax.swing.JFrame {
     ControlNavegacion control;
+    JComboBox<Tipo> tipoComboBox;
     /**
      * Creates new form EliminarProducto
      */
@@ -33,11 +37,15 @@ public class EliminarProducto extends javax.swing.JFrame {
         initComponents();
         this.control = control;
         getContentPane().setBackground(new java.awt.Color(248, 248, 241));
-        jTextField1.setEnabled(false);
+        jTextField2.setEnabled(false);
         ButtonGroup buttonGroup= new ButtonGroup();
         buttonGroup.add(jCheckBox1);
         buttonGroup.add(jCheckBox2);
         jButton1.setEnabled(false); 
+        tipoComboBox = new JComboBox<>(new DefaultComboBoxModel<>(Tipo.values()));
+        tipoComboBox.setBounds(510, 185,130,70);
+        add(tipoComboBox); 
+        tipoComboBox.setEnabled(false);
     }
 
     /**
@@ -154,22 +162,21 @@ public class EliminarProducto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(254, 254, 254)
+                        .addComponent(jCheckBox3)
+                        .addGap(83, 83, 83)
+                        .addComponent(jCheckBox4))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(118, 118, 118)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(236, 236, 236)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox3)
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jCheckBox4)))))))
+                        .addGap(200, 200, 200)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -209,29 +216,27 @@ public class EliminarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        if (jCheckBox3.isSelected()) {
-            jCheckBox4.setSelected(false);
-            jTextField1.setEnabled(true);  
-            jButton1.setEnabled(true);
-        }else {
-            if (!jCheckBox4.isSelected()) {
-                jTextField1.setEnabled(false);
-                jButton1.setEnabled(false);
-            }
-        }
+         if (jCheckBox3.isSelected()) {
+                    jCheckBox4.setSelected(false);
+                    jTextField2.setEnabled(true);  
+                    jButton1.setEnabled(true);  
+                    tipoComboBox.setEnabled(false);
+                } else {
+                    jTextField2.setEnabled(false); 
+                    jButton1.setEnabled(false);  
+                }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         if (jCheckBox4.isSelected()) {
-            jCheckBox3.setSelected(false); 
-            jTextField1.setEnabled(true);  
-            jButton1.setEnabled(true);
-        } else {
-            if (!jCheckBox3.isSelected()) {
-                jTextField1.setEnabled(false);
-                jButton1.setEnabled(false);
-            }
-        }
+                    jCheckBox3.setSelected(false);
+                    tipoComboBox.setEnabled(true); 
+                    jButton1.setEnabled(true);
+                    jTextField2.setEnabled(false);
+                } else {
+                    tipoComboBox.setEnabled(false); 
+                    jButton1.setEnabled(false);     
+                }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -245,7 +250,7 @@ public class EliminarProducto extends javax.swing.JFrame {
             if (jCheckBox3.isSelected()) {
                 listaProductos = control.obtenerPorNombre(busqueda);
             } else if (jCheckBox4.isSelected()) {
-                listaProductos = control.obtenerPorTipo(busqueda);
+                listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor selecciona un criterio de búsqueda.");
             return;

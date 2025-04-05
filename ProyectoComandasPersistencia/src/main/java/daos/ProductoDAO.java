@@ -46,33 +46,29 @@ public class ProductoDAO implements IProductoDAO{
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
-            em.getTransaction().begin(); 
+            em.getTransaction().begin();
             IngredienteDAO ingredienteDAO = new IngredienteDAO();
             ProductoIngredienteDAO productoIngredienteDAO = new ProductoIngredienteDAO();
-            List<ProductoIngrediente> productoIngredientesPersistidos = new ArrayList<>();
+            List<ProductoIngrediente> ingredientesPersistidos = new ArrayList<>();
+
             for (ProductoIngrediente pi : producto.getIngredientes()) {
                 if (pi.getIngrediente().getId() == null) {
-                    try {
-                        Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
-                        pi.setIngrediente(ingredientePersistido);
-                    } catch (AgregarIngredienteException e) {
-                        throw new AgregarProductoException("Error al agregar el ingrediente: " + e.getMessage());
-                    }
+                    Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
+                    pi.setIngrediente(ingredientePersistido);
                 }
-                try {
-                    ProductoIngrediente piPersistido = productoIngredienteDAO.agregarProductoIngrediente(pi);
-                    productoIngredientesPersistidos.add(piPersistido);
-                } catch (AgregarProductoIngredienteException e) {
-                    throw new AgregarProductoException("Error al agregar ProductoIngrediente: " + e.getMessage());
-                }
+                ProductoIngrediente piPersistido = productoIngredienteDAO.agregarProductoIngrediente(pi);
+                ingredientesPersistidos.add(piPersistido);
             }
-            producto.setIngredientes(productoIngredientesPersistidos);
+
+            producto.setIngredientes(ingredientesPersistidos);
             em.persist(producto);
             em.getTransaction().commit();
+
             if (producto.getId() == null) {
                 throw new AgregarProductoException("No se generó ID para el producto.");
             }
             return producto;
+
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw new AgregarProductoException("Error al agregar producto: " + e.getMessage());
@@ -80,60 +76,60 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-    
+
     @Override
-    public Producto obtenerProducto(Long id)throws BuscarProductoException{
+    public Producto obtenerProducto(Long id) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
+        try {
             return em.find(Producto.class, id);
-        }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar productos");
-        }finally{
+        } catch (Exception e) {
+            throw new BuscarProductoException("Error al buscar producto por ID: " + e.getMessage());
+        } finally {
             em.close();
-            // .
-            //.
         }
     }
-    
+
     @Override
-    public List<Producto> buscarPorNombre(String nombreProducto)throws BuscarProductoException{
+    public List<Producto> buscarPorNombre(String nombreProducto) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
-            Query query = em.createQuery("SELECT p FROM Producto p WHERE p.nombre LIKE :nombreProducto");
-            query.setParameter("nombreProducto", "%" + nombreProducto + "%");
-            List<Producto> productos = query.getResultList();
-            return productos;
-        }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar productos");
-        }finally{
+        try {
+            return em.createQuery("SELECT p FROM Producto p WHERE p.nombre LIKE :nombre AND p.estado = TRUE")
+                     .setParameter("nombre", "%" + nombreProducto + "%")
+                     .getResultList();
+        } catch (Exception e) {
+            throw new BuscarProductoException("Error al buscar productos por nombre: " + e.getMessage());
+        } finally {
             em.close();
         }
     }
-    
-    public Producto buscarPorNombreUnico(String nombreProducto)throws BuscarProductoException{
+
+    public Producto buscarPorNombreUnico(String nombreProducto) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
-            return (Producto) em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombreProducto").setParameter("nombreProducto", nombreProducto).getSingleResult();
-            
-        }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar productos");
-        }finally{
+        try {
+            return (Producto) em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombre")
+                     .setParameter("nombre", nombreProducto)
+                     .getSingleResult();
+        } catch (NoResultException e) {
+            throw new BuscarProductoException("No se encontró el producto con nombre: " + nombreProducto);
+        } catch (Exception e) {
+            throw new BuscarProductoException("Error al buscar producto único: " + e.getMessage());
+        } finally {
             em.close();
         }
     }
-    
+
     @Override
-    public List<Producto> obtenerTodos()throws BuscarProductoException{
+    public List<Producto> obtenerTodos() throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
+        try {
             return em.createQuery("SELECT p FROM Producto p").getResultList();
-        }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar productos");
-        }finally{
+        } catch (Exception e) {
+            throw new BuscarProductoException("Error al obtener todos los productos: " + e.getMessage());
+        } finally {
             em.close();
         }
-    } 
-    
+    }
+
     @Override
     public Producto actualizarProducto(Producto producto) throws ActualizarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -144,9 +140,11 @@ public class ProductoDAO implements IProductoDAO{
             if (existente == null) {
                 throw new ActualizarProductoException("El producto no existe en la base de datos.");
             }
-            em.merge(producto);
+
+            Producto actualizado = em.merge(producto);
             em.getTransaction().commit();
-            return producto;
+            return actualizado;
+
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
             throw new ActualizarProductoException("Error al actualizar el producto: " + e.getMessage());
@@ -157,31 +155,31 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-    
+
     @Override
-    public boolean eliminarProducto(long id) throws EliminarProductoException{
+    public boolean eliminarProducto(long id) throws EliminarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
+        try {
             em.getTransaction().begin();
             Producto productoEliminar = em.find(Producto.class, id);
             if (productoEliminar == null) {
-                em.getTransaction().rollback();
-            throw new EliminarProductoException("No se encontró el producto con ID: " + id);
+                throw new EliminarProductoException("No se encontró el producto con ID: " + id);
             }
             em.remove(productoEliminar);
             em.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new EliminarProductoException("Error al eliminar el producto");
-        }finally{
+            throw new EliminarProductoException("Error al eliminar el producto: " + e.getMessage());
+        } finally {
             em.close();
         }
     }
-    
-    
+
     @Override
-    public boolean agregarIngredientes(String nombreProducto, List<ProductoIngrediente> nuevosIngredientes) throws ProductoNoEncontradoException, BuscarProductoException {
+    public boolean agregarIngredientes(String nombreProducto, List<ProductoIngrediente> nuevosIngredientes)
+            throws ProductoNoEncontradoException, BuscarProductoException {
+
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
@@ -190,6 +188,7 @@ public class ProductoDAO implements IProductoDAO{
             if (producto == null) {
                 throw new ProductoNoEncontradoException("El producto no existe en la base de datos.");
             }
+
             producto.getIngredientes().addAll(nuevosIngredientes);
             em.merge(producto);
             em.getTransaction().commit();
@@ -205,47 +204,44 @@ public class ProductoDAO implements IProductoDAO{
     }
 
     @Override
-    public List<Producto> buscarPorTipo(Tipo tipo)throws BuscarProductoException  {
+    public List<Producto> buscarPorTipo(Tipo tipo) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
-        try{
-            Query query = em.createQuery("SELECT p FROM Producto p WHERE p.tipoProducto = :tipoProducto");
+        try {
+            Query query = em.createQuery("SELECT p FROM Producto p WHERE p.tipoProducto  = :tipoProducto AND p.estado = TRUE");
             query.setParameter("tipoProducto", tipo );
             List<Producto> productos = query.getResultList();
             return productos;
-        }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar productos");
-        }finally{
+        } catch (Exception e) {
+            throw new BuscarProductoException("Error al buscar productos por tipo: " + e.getMessage());
+        } finally {
             em.close();
         }
     }
-    
+
     @Override
     public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException {
-    EntityManager em = Conexion.crearConexion();
-    try {
-        em.getTransaction().begin();
+        EntityManager em = Conexion.crearConexion();
+        try {
+            em.getTransaction().begin();
+            Producto productoEliminar = buscarPorNombreUnico(nombreProducto);
 
-        Producto productoEliminar = buscarPorNombreUnico(nombreProducto);
+            if (productoEliminar == null) {
+                throw new EliminarProductoException("No se encontró el producto con nombre: " + nombreProducto);
+            }
 
-        if (productoEliminar == null) {
+            productoEliminar = em.merge(productoEliminar);
+            em.remove(productoEliminar);
+            em.getTransaction().commit();
+            return true;
+
+        } catch (BuscarProductoException e) {
             em.getTransaction().rollback();
-            throw new EliminarProductoException("No se encontró el producto con nombre: " + nombreProducto);
+            throw new EliminarProductoException("No se pudo encontrar el producto: " + e.getMessage());
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new EliminarProductoException("Error al eliminar el producto: " + e.getMessage());
+        } finally {
+            em.close();
         }
-        productoEliminar = em.merge(productoEliminar);
-
-        em.remove(productoEliminar);
-        em.getTransaction().commit();
-        return true;
-
-    } catch (BuscarProductoException e) {
-        em.getTransaction().rollback();
-        throw new EliminarProductoException("No se pudo encontrar el producto: " + e.getMessage());
-    } catch (Exception e) {
-        em.getTransaction().rollback();
-        throw new EliminarProductoException("Error al eliminar el producto.");
-    } finally {
-        em.close();
     }
-}
-    
 }

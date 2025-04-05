@@ -42,26 +42,26 @@ public class Producto implements Serializable {
     private Tipo tipoProducto;
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE,CascadeType.MERGE}, orphanRemoval = true)
     private List<ProductoIngrediente> ingredientes = new ArrayList<>();
-    
+    @Column(nullable = false)
     private boolean estado;
 
     public Producto() {
     }
 
-    public Producto(String nombre, Double precio, Tipo tipoProducto) {
+    public Producto(String nombre, Double precio, Tipo tipoProducto, boolean estado) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
-        this.ingredientes = new ArrayList<>();
+        this.estado = estado;
     }
 
-    public Producto(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
+    public Producto(String nombre, Double precio, boolean estado) {
         this.nombre = nombre;
         this.precio = precio;
-        this.tipoProducto = tipoProducto;
-        this.ingredientes = ingredientes;
+        this.estado = estado;
     }
-
+    
+    
     public Long getId() {
         return id;
     }
@@ -102,6 +102,16 @@ public class Producto implements Serializable {
         this.ingredientes = ingredientes;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipoProducto=" + tipoProducto + '}';

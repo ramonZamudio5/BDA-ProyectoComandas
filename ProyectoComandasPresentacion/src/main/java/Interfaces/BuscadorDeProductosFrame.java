@@ -9,6 +9,7 @@ import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ProductoDTO;
 import entidades.Producto;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import interfaces.IManejadorDeObjetos;
 import interfaces.IProductoBO;
@@ -23,7 +24,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import manejadorDeObjetos.ManejadorDeObjetos;
 
@@ -33,6 +36,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  */
 public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
     ControlNavegacion control;
+    JComboBox<Tipo> tipoComboBox;
     /**
      * Creates new form BuscadorDeProductosFrame
      */
@@ -45,6 +49,10 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         buttonGroup.add(jCheckBox1);
         buttonGroup.add(jCheckBox2);
         jButton1.setEnabled(false);
+        tipoComboBox = new JComboBox<>(new DefaultComboBoxModel<>(Tipo.values()));
+        tipoComboBox.setBounds(510, 185,130,70);
+        add(tipoComboBox); 
+        tipoComboBox.setEnabled(false);
     }
 
     /**
@@ -138,26 +146,27 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(294, 294, 294)
-                                .addComponent(jCheckBox1)
-                                .addGap(67, 67, 67)
-                                .addComponent(jCheckBox2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(360, 360, 360)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(276, 276, 276)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 203, Short.MAX_VALUE)))
+                        .addGap(22, 203, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(360, 360, 360)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(294, 294, 294)
+                                .addComponent(jCheckBox1)
+                                .addGap(96, 96, 96)
+                                .addComponent(jCheckBox2)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(248, 248, 248)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,6 +195,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         if (jCheckBox1.isSelected()) {
                     jTextField1.setEnabled(true);  
                     jButton1.setEnabled(true);  
+                    tipoComboBox.setEnabled(false);
                 } else {
                     jTextField1.setEnabled(false); 
                     jButton1.setEnabled(false);  
@@ -195,10 +205,11 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
         if (jCheckBox2.isSelected()) {
-                    jTextField1.setEnabled(true); 
-                    jButton1.setEnabled(true);    
+                    tipoComboBox.setEnabled(true); 
+                    jButton1.setEnabled(true);
+                    jTextField1.setEnabled(false);
                 } else {
-                    jTextField1.setEnabled(false);  
+                    tipoComboBox.setEnabled(false); 
                     jButton1.setEnabled(false);     
                 }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
@@ -236,7 +247,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                     }
                 } else if (jCheckBox2.isSelected()) {
                     try {
-                        List<ProductoDTO> listaProductos = control.obtenerPorTipo(busqueda);
+                        List<ProductoDTO> listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
                         for (ProductoDTO producto : listaProductos) {
                             JButton btn = new JButton(producto.getNombre());
                             btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 

@@ -6,6 +6,7 @@ package interfaces;
 
 import dtos.ProductoDTO;
 import entidades.Producto;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import java.util.List;
@@ -22,5 +23,5 @@ public interface IProductoBO {
     public List<ProductoDTO> obtenerTodos()throws NegocioException;
     public ProductoDTO actualizarProducto(ProductoDTO productoDTO)throws NegocioException;
     public boolean eliminarProducto(Long id)throws NegocioException, BuscarProductoException;
-    public List<ProductoDTO> buscarPorTipo(String tipo)throws BuscarProductoException;
+    public List<ProductoDTO> buscarPorTipo(Tipo tipo)throws BuscarProductoException;
 }

@@ -173,21 +173,11 @@ public class ProductoBO implements IProductoBO{
         }
     }
     
-    public List<ProductoDTO> buscarPorTipo(String tipo) throws BuscarProductoException {
+    public List<ProductoDTO> buscarPorTipo(Tipo tipo) throws BuscarProductoException {
         if (tipo == null) {
             throw new BuscarProductoException("El tipo no puede ser nulo");
         }
-        String tipoUpper = tipo.toUpperCase();
-        if (!tipoUpper.equals("POSTRE") && !tipoUpper.equals("BEBIDA") && !tipoUpper.equals("PLATILLO")) {
-            throw new BuscarProductoException("El tipo debe ser 'POSTRE', 'BEBIDA' o 'PLATILLO'");
-        }
-        if (tipoUpper.equals("POSTRE")) {
-            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.POSTRE));
-        } else if (tipoUpper.equals("BEBIDA")) {
-            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.BEBIDA));
-        } else { // Solo queda "PLATILLO" como opción válida
-            return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(Tipo.PLATILLO));
-        }
+        return ProductoMapper.toListDTO(productoDAO.buscarPorTipo(tipo));
     }
     
     public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException {

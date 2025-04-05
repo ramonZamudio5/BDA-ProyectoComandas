@@ -64,6 +64,8 @@ public class EditarProductoFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         BotonSiguiente1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        estadoComboBox = new javax.swing.JComboBox<>();
 
         precioTextField.setColumns(25);
 
@@ -129,6 +131,11 @@ public class EditarProductoFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setText("Estado");
+
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo ", "Inactivo" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,10 +145,19 @@ public class EditarProductoFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(precioTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(80, 80, 80))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(precioTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(448, Short.MAX_VALUE)
                 .addComponent(BotonSiguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,10 +167,13 @@ public class EditarProductoFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(92, Short.MAX_VALUE)
-                .addComponent(jLabel8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(precioTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(estadoComboBox)
+                    .addComponent(precioTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(45, 45, 45)
                 .addComponent(jLabel4)
@@ -194,13 +213,26 @@ public class EditarProductoFrame extends javax.swing.JFrame {
 //este no hace nada
     private void BotonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguienteActionPerformed
         // TODO add your handling code here:
-        ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem());
+        boolean estadoProducto;
+        if ("Activo".equals((String) estadoComboBox.getSelectedItem())) {
+            estadoProducto = true;
+        }else{
+            estadoProducto = false;
+        }
+        ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
         System.out.println("entro en 1"+productoActualizado);
     }//GEN-LAST:event_BotonSiguienteActionPerformed
 
     private void BotonSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguiente1ActionPerformed
         // TODO add your handling code here:
-        ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem());
+        boolean estadoProducto;
+        if ("Activo".equals((String) estadoComboBox.getSelectedItem())) {
+            estadoProducto = true;
+        }else{
+            estadoProducto = false;
+        }
+        ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
+        System.out.println("entro en 1"+productoActualizado);        
         //abre la sig pantalla
     }//GEN-LAST:event_BotonSiguiente1ActionPerformed
 
@@ -250,6 +282,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonSiguiente;
     private javax.swing.JButton BotonSiguiente1;
+    private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -258,6 +291,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField precioTextField;

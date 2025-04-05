@@ -17,22 +17,27 @@ public class ProductoDTO {
     private Double precio;
     private Tipo tipoProducto;
     private List<ProductoIngrediente> ingredientes;
+    private boolean estado;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes) {
+    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes, boolean estado) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
         this.ingredientes = ingredientes;
+        this.estado = estado;
     }
 
-    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto) {
+    public ProductoDTO(String nombre, Double precio, Tipo tipoProducto, boolean estado) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
+        this.estado = estado;
     }
+
+    
     
     public String getNombre() {
         return nombre;
@@ -66,6 +71,15 @@ public class ProductoDTO {
         this.ingredientes = ingredientes;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+    
     @Override
     public String toString() {
         return "AgregarProductoDTO{" + "nombre=" + nombre + ", precio=" + precio + ", tipoProducto=" + tipoProducto + ", ingredientes=" + ingredientes + '}';

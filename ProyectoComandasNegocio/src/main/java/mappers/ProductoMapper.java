@@ -16,17 +16,17 @@ import java.util.List;
  */
 public class ProductoMapper {
     public static Producto toEntity(ProductoDTO productoDTO){
-        return new Producto(productoDTO.getNombre(), productoDTO.getPrecio(), productoDTO.getTipoProducto(), productoDTO.getIngredientes());
+        return new Producto(productoDTO.getNombre(), productoDTO.getPrecio(), productoDTO.getTipoProducto() ,productoDTO.isEstado());
     }
     
     public static ProductoDTO toDTO(Producto producto){
-        return new ProductoDTO(producto.getNombre(), producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes());
+       return new ProductoDTO(producto.getNombre(), producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes(), producto.isEstado());
     }
     
     public static List<ProductoDTO> toListDTO(List<Producto> productos){
         List<ProductoDTO> productosDTO = new LinkedList<>();
         for(Producto producto : productos){
-            productosDTO.add(new ProductoDTO(producto.getNombre(),producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes()));
+            productosDTO.add(new ProductoDTO(producto.getNombre(),producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes(),producto.isEstado()));
         }
         return productosDTO;
     }

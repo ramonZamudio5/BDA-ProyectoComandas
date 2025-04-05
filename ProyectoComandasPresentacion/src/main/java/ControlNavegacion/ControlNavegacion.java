@@ -13,6 +13,7 @@ import Interfaces.PantallaMeseroComandas;
 import Interfaces.PantallaPrincipalRol;
 import Interfaces.SeleccionarOpccionProductos;
 import dtos.ProductoDTO;
+import enums.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
@@ -66,7 +67,7 @@ public class ControlNavegacion {
         }   
     }
     
-    public List<ProductoDTO> obtenerPorTipo(String tipo) throws BuscarProductoException{
+    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws BuscarProductoException{
         try{
             return manejador.obtenerPorTipo(tipo);
         }catch(Exception e){

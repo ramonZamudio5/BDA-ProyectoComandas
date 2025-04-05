@@ -7,6 +7,7 @@ package interfaces;
 import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ProductoDTO;
+import enums.Tipo;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface IManejadorDeObjetos {
     
     public abstract List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException;
     
-    public abstract List<ProductoDTO> obtenerPorTipo(String tipo) throws NegocioException, BuscarProductoException;
+    public abstract List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException, BuscarProductoException;
     
     public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException;
     

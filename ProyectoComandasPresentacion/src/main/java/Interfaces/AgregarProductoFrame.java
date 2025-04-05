@@ -181,7 +181,7 @@ public class AgregarProductoFrame extends javax.swing.JFrame {
 
     private void BotonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguienteActionPerformed
         // TODO add your handling code here:
-        producto = new ProductoDTO(nombreTextField.getText(), Double.parseDouble(precioTextField.getText()), (Tipo) tipoComboBox.getSelectedItem());
+        producto = new ProductoDTO(nombreTextField.getText(), Double.parseDouble(precioTextField.getText()), (Tipo) tipoComboBox.getSelectedItem(),true);
         System.out.println(producto);
     }//GEN-LAST:event_BotonSiguienteActionPerformed
 
