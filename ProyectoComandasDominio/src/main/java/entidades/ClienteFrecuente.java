@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  *
@@ -24,13 +25,12 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     
-    @Column(nullable = false)
+    @Transient
     private int puntosObtenidos;
     
-    @Column(nullable = false)
+     @Transient
     private double gastoTotalAcumulado;
-    
-    @Column(nullable = false)
+    @Transient
     private int ventasAcumuladas;
 
     public ClienteFrecuente() {
