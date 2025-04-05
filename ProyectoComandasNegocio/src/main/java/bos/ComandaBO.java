@@ -68,12 +68,20 @@ public class ComandaBO implements IComandaBO{
 
     @Override
     public List<ComandaDTO> ObtenerTodo() throws BusquedaComandaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       try{
+           return ComandaMapper.toListDTO(comandaDAO.ObtenerTodo());
+       }catch(Exception e){
+           throw new BusquedaComandaException("Error al buscar la comanda", e);
+       }
     }
 
     @Override
     public ComandaDTO buscarPorFolio(String folio) throws BusquedaComandaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+           return ComandaMapper.toDTO(comandaDAO.buscarPorFolio(folio));
+       }catch(Exception e){
+           throw new BusquedaComandaException("Error al buscar la comanda", e);
+       }
     }
     
     
