@@ -6,8 +6,12 @@ package interfaces;
 
 import bos.ProductoBO;
 import daos.ProductoDAO;
+import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
+import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
+import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import java.util.List;
@@ -27,4 +31,10 @@ public interface IManejadorDeObjetos {
     public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException;
     
     public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException;
+    
+     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException;
+     
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException;
+    
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException;
 }

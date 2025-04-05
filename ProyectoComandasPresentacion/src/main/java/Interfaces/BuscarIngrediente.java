@@ -4,7 +4,8 @@
  */
 package Interfaces;
 
-import ControlIngrediente.ControlIngrediente;
+
+import ControlNavegacion.ControlNavegacion;
 import Utilerias.Utileria;
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
@@ -19,7 +20,7 @@ import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
-import interfaces.IManejadorObjetoNegocio;
+import interfaces.IManejadorDeObjetos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -42,7 +43,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import manejadorObjetoNegocio.ManejadorObjetoNegocio;
+import manejadorDeObjetos.ManejadorDeObjetos;
+
 
 /**
  *
@@ -50,13 +52,13 @@ import manejadorObjetoNegocio.ManejadorObjetoNegocio;
  */
 public class BuscarIngrediente extends javax.swing.JFrame {
 
-    ControlIngrediente control;
+    ControlNavegacion control;
     private CardLayout cardLayout;
     JComboBox<String> comboUnidad = new JComboBox<>();
     private JTextField campoNombre;
     private IIngredienteBO ingredienteBO;
 
-    public BuscarIngrediente(ControlIngrediente control) {
+    public BuscarIngrediente(ControlNavegacion control) {
         this.control = control;
         initComponents();
         //this.ingredienteBO= ingredienteBO;
@@ -421,8 +423,8 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             //      IIngredienteBO ingredienteBO= ManejadorObjetoNegocio.crearIngredienteBO();
             public void run() {
-                IManejadorObjetoNegocio manejador = new ManejadorObjetoNegocio();
-                ControlIngrediente control = new ControlIngrediente(manejador);
+                IManejadorDeObjetos manejador= new ManejadorDeObjetos();
+                ControlNavegacion control = new ControlNavegacion(manejador);
                 new BuscarIngrediente(control).setVisible(true);
                 URL url = getClass().getClassLoader().getResource("Resources/fotoDefecto.png");
                 System.out.println("Ruta encontrada: " + (url != null ? url.getPath() : "Imagen no encontrada"));

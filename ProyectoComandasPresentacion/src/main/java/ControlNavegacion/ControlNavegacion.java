@@ -4,22 +4,31 @@
  */
 package ControlNavegacion;
 
+
+import Interfaces.AgregarIngrediente;
 import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
+import Interfaces.BuscarIngrediente;
 import Interfaces.EditarProductoFrame;
 import Interfaces.EliminarProducto;
 import Interfaces.PantallaAdministrador;
 import Interfaces.PantallaMeseroComandas;
 import Interfaces.PantallaPrincipalRol;
 import Interfaces.SeleccionarOpccionProductos;
+import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
 import excepciones.ActualizarProductoException;
+import excepciones.AgregarIngredienteException;
+import excepciones.BuscarPorMedidaException;
+import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,6 +64,13 @@ public class ControlNavegacion {
     }
     public void openFormPantallaAdministrador(){
         new PantallaAdministrador(this).setVisible(true);
+    }
+    public void openFormBuscarIngrediente(){
+        new BuscarIngrediente(this).setVisible(true);
+    }
+    
+    public void openFormAgregarIngrediente(){
+        new AgregarIngrediente(this).setVisible(true);
     }
     
     
@@ -117,4 +133,35 @@ public class ControlNavegacion {
             throw new EliminarProductoException("Error al actualizar el producto");
         }
     }
+    
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
+         try{
+             IngredienteDTO ingredienteRegistrado= manejador.agregarIngrediente(ingredienteDTO);
+             JOptionPane.showMessageDialog(null, "Ingrediente guardado correctamente");
+             return ingredienteRegistrado;
+         } catch(AgregarIngredienteException ex){
+             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "Error al guardar ingrediente: " +ex.getMessage(),
+                     "ERROR", JOptionPane.WARNING_MESSAGE);
+         } catch(NegocioException ex){
+             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "Error de negocio al guardar ingrediente: " + ex.getMessage(),
+                "ERROR", JOptionPane.WARNING_MESSAGE);
+
+         }
+         return new IngredienteDTO();
+     }
+     
+     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+         try{
+             return manejador.buscarPorNombre(nombre);
+         } catch (Exception e){
+             throw new BuscarPorNombreException("Error al buscar ingrediente");
+         }
+     }
+     
+      public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+          return manejador.buscarPorMedida(medida);
+      }
+     
 }

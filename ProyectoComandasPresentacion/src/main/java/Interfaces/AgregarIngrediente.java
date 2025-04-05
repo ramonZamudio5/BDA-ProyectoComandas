@@ -4,7 +4,8 @@
  */
 package Interfaces;
 
-import ControlIngrediente.ControlIngrediente;
+
+import ControlNavegacion.ControlNavegacion;
 import enums.UnidadMedida;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,17 +32,17 @@ import static daos.IngredienteDAO.ingredienteDAO;
 import dtos.IngredienteDTO;
 import excepciones.AgregarIngredienteException;
 import excepciones.NegocioException;
-import interfaces.IManejadorObjetoNegocio;
+import interfaces.IManejadorDeObjetos;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import manejadorObjetoNegocio.ManejadorObjetoNegocio;
+import manejadorDeObjetos.ManejadorDeObjetos;
 /**
  *
  * @author janethcristinagalvanquinonez
  */
 public class AgregarIngrediente extends javax.swing.JFrame {
-    private ControlIngrediente control;
+    private ControlNavegacion control;
     private Utileria utileria;
     private UnidadMedida unidadSeleccionada;
     private JTextField campoRuta;
@@ -52,7 +53,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     /**
      * Creates new form BuscarIngrediente
      */
-    public AgregarIngrediente(ControlIngrediente control) {
+    public AgregarIngrediente(ControlNavegacion control) {
         initComponents();
         this.control = control; 
         jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -465,8 +466,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IManejadorObjetoNegocio manejador= new ManejadorObjetoNegocio();
-                ControlIngrediente control= new ControlIngrediente(manejador);
+                IManejadorDeObjetos manejador= new ManejadorDeObjetos();
+                ControlNavegacion control= new ControlNavegacion(manejador);
                 new AgregarIngrediente(control).setVisible(true);
                 
             }
