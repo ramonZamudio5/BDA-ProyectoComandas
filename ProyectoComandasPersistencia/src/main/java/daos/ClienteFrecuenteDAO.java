@@ -165,6 +165,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
         } finally {
             em.close();
         }
+    
     }
         //   número de visitas del cliente 
     private int calcularVisitas(ClienteFrecuente cliente) {

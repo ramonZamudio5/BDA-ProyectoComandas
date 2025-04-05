@@ -44,25 +44,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 /**
  *
  * @author Cricri
  */
 
 public class BuscarCliente extends JFrame {
-    
-    
-    private JTextField textFieldNombre, textFieldTelefono, textFieldCorreo;
+   private JTextField textFieldNombre, textFieldTelefono, textFieldCorreo;
     private JTextArea textAreaResultados;
-    private JButton buttonBuscar;
     private IClienteFrecuenteBO clienteFrecuenteBO;
-
     private JRadioButton rbNombre, rbTelefono, rbCorreo;
     private ButtonGroup grupoBusqueda;
 
     public BuscarCliente() {
         setTitle("Buscar Cliente Frecuente");
-        setSize(400, 400);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -86,39 +84,84 @@ public class BuscarCliente extends JFrame {
 
         add(panelOpciones, BorderLayout.NORTH);
 
-        // Panel campos de búsqueda
+     
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.setLayout(new GridLayout(4, 2));
 
         panelBusqueda.add(new JLabel("Nombre:"));
         textFieldNombre = new JTextField();
+        textFieldNombre.setEnabled(false);  
         panelBusqueda.add(textFieldNombre);
 
         panelBusqueda.add(new JLabel("Teléfono:"));
         textFieldTelefono = new JTextField();
+        textFieldTelefono.setEnabled(false);  
         panelBusqueda.add(textFieldTelefono);
 
         panelBusqueda.add(new JLabel("Correo:"));
         textFieldCorreo = new JTextField();
+        textFieldCorreo.setEnabled(false);  
         panelBusqueda.add(textFieldCorreo);
-
-        buttonBuscar = new JButton("Buscar");
-        panelBusqueda.add(new JLabel()); 
-        panelBusqueda.add(buttonBuscar);
 
         add(panelBusqueda, BorderLayout.CENTER);
 
+   
         textAreaResultados = new JTextArea();
         textAreaResultados.setEditable(false);
         add(new JScrollPane(textAreaResultados), BorderLayout.SOUTH);
 
-     
+   
+        DocumentListener actualizarBusqueda = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    realizarBusqueda();
+                } catch (BuscarClienteFrecuenteException ex) {
+                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                try {
+                    realizarBusqueda();
+                } catch (BuscarClienteFrecuenteException ex) {
+                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                try {
+                    realizarBusqueda();
+                } catch (BuscarClienteFrecuenteException ex) {
+                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        textFieldNombre.getDocument().addDocumentListener(actualizarBusqueda);
+        textFieldTelefono.getDocument().addDocumentListener(actualizarBusqueda);
+        textFieldCorreo.getDocument().addDocumentListener(actualizarBusqueda);
+
+   
         ActionListener actualizarCampos = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                textFieldNombre.setEnabled(rbNombre.isSelected());
-                textFieldTelefono.setEnabled(rbTelefono.isSelected());
-                textFieldCorreo.setEnabled(rbCorreo.isSelected());
+                
+                textFieldNombre.setEnabled(false);
+                textFieldTelefono.setEnabled(false);
+                textFieldCorreo.setEnabled(false);
 
+       
+                if (rbNombre.isSelected()) {
+                    textFieldNombre.setEnabled(true);
+                } else if (rbTelefono.isSelected()) {
+                    textFieldTelefono.setEnabled(true);
+                } else if (rbCorreo.isSelected()) {
+                    textFieldCorreo.setEnabled(true);
+                }
+
+           
                 if (!rbNombre.isSelected()) textFieldNombre.setText("");
                 if (!rbTelefono.isSelected()) textFieldTelefono.setText("");
                 if (!rbCorreo.isSelected()) textFieldCorreo.setText("");
@@ -129,37 +172,29 @@ public class BuscarCliente extends JFrame {
         rbTelefono.addActionListener(actualizarCampos);
         rbCorreo.addActionListener(actualizarCampos);
 
-   
-        buttonBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    buscarCliente();
-                } catch (BuscarClienteFrecuenteException ex) {
-                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
         setVisible(true);
     }
 
-    private void buscarCliente() throws BuscarClienteFrecuenteException {
+    
+    private void realizarBusqueda() throws BuscarClienteFrecuenteException {
         List<ClienteFrecuenteDTO> clientes = null;
 
         try {
             if (rbNombre.isSelected()) {
                 String nombre = textFieldNombre.getText().trim();
-                clientes = clienteFrecuenteBO.buscarPorNombre(nombre);
+                if (!nombre.isEmpty()) {
+                    clientes = clienteFrecuenteBO.buscarPorNombre(nombre);
+                }
             } else if (rbTelefono.isSelected()) {
                 String telefono = textFieldTelefono.getText().trim();
-                clientes = clienteFrecuenteBO.buscarPorTelefono(telefono);
+                if (!telefono.isEmpty()) {
+                    clientes = clienteFrecuenteBO.buscarPorTelefono(telefono);
+                }
             } else if (rbCorreo.isSelected()) {
                 String correo = textFieldCorreo.getText().trim();
-                clientes = clienteFrecuenteBO.buscarPorCorreo(correo);
-            } else {
-                JOptionPane.showMessageDialog(this, "Selecciona un criterio de búsqueda.");
-                return;
+                if (!correo.isEmpty()) {
+                    clientes = clienteFrecuenteBO.buscarPorCorreo(correo);
+                }
             }
 
             if (clientes != null && !clientes.isEmpty()) {
@@ -172,6 +207,7 @@ public class BuscarCliente extends JFrame {
         }
     }
 
+    
     private void mostrarResultados(List<ClienteFrecuenteDTO> clientes) {
         StringBuilder sb = new StringBuilder();
         for (ClienteFrecuenteDTO cliente : clientes) {

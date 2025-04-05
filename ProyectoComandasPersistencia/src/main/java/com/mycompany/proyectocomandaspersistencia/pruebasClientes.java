@@ -25,7 +25,7 @@ public class pruebasClientes {
             // Crear y agregar un nuevo ClienteFrecuente
             ClienteFrecuente nuevoCliente = new ClienteFrecuente(
                 100, 5000.75, 10, // Puntos, gasto total, ventas acumuladas
-                null, "Juan Pérez", "5551234567", "juan.perez@example.com", LocalDate.now()
+                null, "Juan rulfo", "5551234567", "juan.rulfo@example.com", LocalDate.now()
             );
 
             ClienteFrecuente clienteAgregado = clienteFrecuenteDAO.agregarCliente(nuevoCliente);
