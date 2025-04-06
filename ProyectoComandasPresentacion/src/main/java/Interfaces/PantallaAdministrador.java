@@ -199,6 +199,8 @@ public class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
         // TODO add your handling code here:
+        control.openFormBuscarCliente();
+        dispose();
     }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed

@@ -8,6 +8,7 @@ import entidades.ClienteFrecuente;
 import excepciones.AgregarClienteFrecuenteException;
 import excepciones.BuscarClienteFrecuenteException;
 import interfaces.IClienteFrecuenteDAO;
+import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
@@ -33,7 +34,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
     }
 
     @Override
-    public ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException {
+    public ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException {    
+        if (cliente.getFechaRegistro() == null) {
+            cliente.setFechaRegistro(LocalDate.now());
+        }
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();

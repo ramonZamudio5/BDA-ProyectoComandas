@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 /**
  *
@@ -41,6 +42,8 @@ public class Cliente  implements Serializable {
     
     @Column(nullable = false)
     private LocalDate fechaRegistro;
+    
+   
 
     @OneToMany(mappedBy = "cliente",fetch= FetchType.LAZY)
     private List<Comanda> comandas = new ArrayList<>();

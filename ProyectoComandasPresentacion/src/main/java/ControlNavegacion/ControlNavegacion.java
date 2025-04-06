@@ -43,6 +43,9 @@ import javax.swing.JOptionPane;
 public class ControlNavegacion {
     IManejadorDeObjetos manejador;
 
+   
+    
+
     public ControlNavegacion(IManejadorDeObjetos manejador) {
         this.manejador = manejador;
     }
