@@ -117,9 +117,15 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     }
     
   
+    @Override
     public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
         return clienteFrecuenteBO.agregarCliente(cliente);
     }
-
+    
+    
+     public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException {
+        return clienteFrecuenteBO.obtenerTodos();
+     }
+    
     
 }

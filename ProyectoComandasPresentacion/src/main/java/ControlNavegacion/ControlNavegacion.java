@@ -81,7 +81,7 @@ public class ControlNavegacion {
         new AgregarIngrediente(this).setVisible(true);
     }
     
-     public void  openFormBuscarCliente(){
+     public void  openFormBuscarCliente() throws BuscarClienteFrecuenteException{
            new BuscarCliente(this).setVisible(true);
      }
     
@@ -192,6 +192,10 @@ public class ControlNavegacion {
           return manejador.buscarClientePorCorreo(correo);
       }
       
+     public List<ClienteFrecuenteDTO> obtenerTodosLosClientes() throws NegocioException, BuscarClienteFrecuenteException {
+           return manejador.obtenerTodos(); 
+      }
+
 
       public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
           try {

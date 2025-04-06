@@ -5,7 +5,10 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
+import excepciones.BuscarClienteFrecuenteException;
 import interfaces.IManejadorDeObjetos;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
@@ -198,8 +201,12 @@ public class PantallaAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
-        // TODO add your handling code here:
-        control.openFormBuscarCliente();
+        try {
+            // TODO add your handling code here:
+            control.openFormBuscarCliente();
+        } catch (BuscarClienteFrecuenteException ex) {
+            Logger.getLogger(PantallaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 

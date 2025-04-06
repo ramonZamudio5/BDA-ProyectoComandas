@@ -49,5 +49,7 @@ public interface IManejadorDeObjetos {
    
     
    public  ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException;
+   
+   public List<ClienteFrecuenteDTO> obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException;
 
 }
