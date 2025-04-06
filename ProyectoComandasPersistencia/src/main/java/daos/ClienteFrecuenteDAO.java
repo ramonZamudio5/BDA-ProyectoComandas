@@ -85,13 +85,13 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
             em.close();
         }
     }
-
     @Override
     public List<ClienteFrecuente> buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono = :telefono");
-            query.setParameter("telefono", telefono);
+            
+            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono LIKE :telefono");
+            query.setParameter("telefono", "%" + telefono + "%"); 
             List<ClienteFrecuente> clientes = query.getResultList();
             for (ClienteFrecuente cliente : clientes) {
                 calcularAtributosClienteFrecuente(cliente);
@@ -108,8 +108,9 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
     public List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correoElectronico = :correo");
-            query.setParameter("correo", correo);
+            
+            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correoElectronico LIKE :correo");
+            query.setParameter("correo", "%" + correo + "%"); 
             List<ClienteFrecuente> clientes = query.getResultList();
             for (ClienteFrecuente cliente : clientes) {
                 calcularAtributosClienteFrecuente(cliente);

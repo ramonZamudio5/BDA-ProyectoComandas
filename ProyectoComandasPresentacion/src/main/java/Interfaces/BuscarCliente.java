@@ -30,7 +30,7 @@ import javax.swing.event.DocumentListener;
  * @author Cricri
  */
 public class BuscarCliente extends JFrame {
-     private ControlNavegacion control;
+       private ControlNavegacion control;
     private JTextField txtNombre, txtTelefono, txtCorreo;
     private JTextArea areaResultados;
     private JRadioButton rbNombre, rbTelefono, rbCorreo;
@@ -49,7 +49,6 @@ public class BuscarCliente extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
         JPanel panelOpciones = new JPanel(new FlowLayout());
         rbNombre = new JRadioButton("Nombre");
         rbTelefono = new JRadioButton("Teléfono");
@@ -64,7 +63,6 @@ public class BuscarCliente extends JFrame {
         panelOpciones.add(rbCorreo);
         add(panelOpciones, BorderLayout.NORTH);
 
-       
         JPanel panelCampos = new JPanel(new GridLayout(3, 2));
         txtNombre = new JTextField();
         txtTelefono = new JTextField();
@@ -113,10 +111,8 @@ public class BuscarCliente extends JFrame {
         txtTelefono.getDocument().addDocumentListener(buscarListener);
         txtCorreo.getDocument().addDocumentListener(buscarListener);
     }
-        
-    
-    
-      private void cargarClientesIniciales() throws BuscarClienteFrecuenteException {
+
+    private void cargarClientesIniciales() throws BuscarClienteFrecuenteException {
         try {
             List<ClienteFrecuenteDTO> clientes = control.obtenerTodosLosClientes();  // Llamada al manejador
             if (clientes != null && !clientes.isEmpty()) {
@@ -133,6 +129,7 @@ public class BuscarCliente extends JFrame {
         try {
             List<ClienteFrecuenteDTO> resultados = null;
 
+            // Realiza la búsqueda según el campo activo
             if (rbNombre.isSelected() && !txtNombre.getText().trim().isEmpty()) {
                 resultados = control.buscarClientesPorNombre(txtNombre.getText().trim());
             } else if (rbTelefono.isSelected() && !txtTelefono.getText().trim().isEmpty()) {
@@ -141,6 +138,7 @@ public class BuscarCliente extends JFrame {
                 resultados = control.buscarClientesPorCorreo(txtCorreo.getText().trim());
             }
 
+            // Mostrar los resultados en el área de texto
             if (resultados != null && !resultados.isEmpty()) {
                 mostrarResultados(resultados);
             } else {
@@ -158,7 +156,6 @@ public class BuscarCliente extends JFrame {
         }
         areaResultados.setText(sb.toString());
     }
-    
     
 }
 
