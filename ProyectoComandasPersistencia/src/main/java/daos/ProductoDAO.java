@@ -185,33 +185,6 @@ public class ProductoDAO implements IProductoDAO{
     }
 
     @Override
-    public boolean agregarIngredientes(String nombreProducto, List<ProductoIngrediente> nuevosIngredientes)
-            throws ProductoNoEncontradoException, BuscarProductoException {
-
-        EntityManager em = Conexion.crearConexion();
-        try {
-            em.getTransaction().begin();
-            Producto producto = buscarPorNombreUnico(nombreProducto);
-
-            if (producto == null) {
-                throw new ProductoNoEncontradoException("El producto no existe en la base de datos.");
-            }
-
-            producto.getIngredientes().addAll(nuevosIngredientes);
-            em.merge(producto);
-            em.getTransaction().commit();
-            return true;
-        } catch (NoResultException e) {
-            throw new ProductoNoEncontradoException("No se encontró el producto con el nombre: " + nombreProducto);
-        } catch (PersistenceException e) {
-            em.getTransaction().rollback();
-            throw new RuntimeException("Error al agregar ingredientes: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
     public List<Producto> buscarPorTipo(Tipo tipo) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
