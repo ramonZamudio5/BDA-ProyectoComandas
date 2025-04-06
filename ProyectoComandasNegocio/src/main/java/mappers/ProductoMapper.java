@@ -18,6 +18,7 @@ public class ProductoMapper {
     public static Producto toEntity(ProductoDTO productoDTO){
         Producto producto = new Producto(productoDTO.getNombre(), productoDTO.getPrecio(), productoDTO.getTipoProducto() ,productoDTO.isEstado());
         producto.setIngredientes(productoDTO.getIngredientes());
+        producto.setId(productoDTO.getId());
         return producto;
     }
     
@@ -28,7 +29,7 @@ public class ProductoMapper {
     public static List<ProductoDTO> toListDTO(List<Producto> productos){
         List<ProductoDTO> productosDTO = new LinkedList<>();
         for(Producto producto : productos){
-            productosDTO.add(new ProductoDTO(producto.getNombre(),producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes(),producto.isEstado()));
+            productosDTO.add(new ProductoDTO(producto.getId(),producto.getNombre(),producto.getPrecio(), producto.getTipoProducto(), producto.getIngredientes(),producto.isEstado()));
         }
         return productosDTO;
     }

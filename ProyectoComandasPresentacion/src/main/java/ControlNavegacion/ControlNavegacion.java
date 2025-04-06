@@ -18,6 +18,7 @@ import Interfaces.PantallaPrincipalRol;
 import Interfaces.RegistarClienteFrecuente;
 import Interfaces.SeleccionarOpccionProductos;
 import Interfaces.BuscarIngredienteComanda;
+import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
@@ -47,7 +48,7 @@ import javax.swing.JOptionPane;
  */
 public class ControlNavegacion {
     IManejadorDeObjetos manejador;
-    ProductoDTO productoDao;
+    ProductoDTO productoDto;
    
     
 
@@ -231,11 +232,11 @@ public class ControlNavegacion {
     }
 
     public ProductoDTO getProductoDao() {
-        return productoDao;
+        return productoDto;
     }
 
     public void setProductoDao(ProductoDTO productoDao) {
-        this.productoDao = productoDao;
+        this.productoDto = productoDao;
     }
 
     public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto){
@@ -244,6 +245,11 @@ public class ControlNavegacion {
     
     public ProductoDTO agregarProducto(ProductoDTO producto){
         return manejador.AgregarProducto(producto);
+    }
+    
+    public void openFormopenFormBuscarIngredienteComandaActualizarProducto(ProductoDTO producto){
+        System.out.println(producto);
+        new BuscarIngredienteComandaActualizarProducto(this, producto).setVisible(true);
     }
 }
      

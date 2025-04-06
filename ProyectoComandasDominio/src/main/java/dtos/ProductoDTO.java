@@ -13,6 +13,7 @@ import java.util.List;
  * @author Ramón Zamudio
  */
 public class ProductoDTO {
+    private Long id;
     private String nombre;
     private Double precio;
     private Tipo tipoProducto;
@@ -20,6 +21,15 @@ public class ProductoDTO {
     private boolean estado;
 
     public ProductoDTO() {
+    }
+
+    public ProductoDTO(Long id, String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes, boolean estado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+        this.ingredientes = ingredientes;
+        this.estado = estado;
     }
 
     public ProductoDTO(String nombre, Double precio, Tipo tipoProducto, List<ProductoIngrediente> ingredientes, boolean estado) {
@@ -35,6 +45,14 @@ public class ProductoDTO {
         this.precio = precio;
         this.tipoProducto = tipoProducto;
         this.estado = estado;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     

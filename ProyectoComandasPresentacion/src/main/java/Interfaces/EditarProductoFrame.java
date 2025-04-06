@@ -221,6 +221,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
         }
         ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
         System.out.println("entro en 1"+productoActualizado);
+        control.openFormopenFormBuscarIngredienteComandaActualizarProducto(producto);
     }//GEN-LAST:event_BotonSiguienteActionPerformed
 
     private void BotonSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguiente1ActionPerformed
@@ -232,7 +233,8 @@ public class EditarProductoFrame extends javax.swing.JFrame {
             estadoProducto = false;
         }
         ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
-        System.out.println("entro en 1"+productoActualizado);        
+        System.out.println("entro en 1"+productoActualizado);  
+         control.openFormopenFormBuscarIngredienteComandaActualizarProducto(productoActualizado);
         //abre la sig pantalla
     }//GEN-LAST:event_BotonSiguiente1ActionPerformed
 
