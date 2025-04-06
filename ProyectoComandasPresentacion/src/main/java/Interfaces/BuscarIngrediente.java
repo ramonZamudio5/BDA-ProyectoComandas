@@ -23,6 +23,7 @@ import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -81,6 +82,9 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         JPanel panelUnidad = new JPanel();
        
         panelUnidad.add(comboUnidad);
+        panelNombre.setBackground(new Color(245,245,220));
+        panelUnidad.setBackground(new Color(245,245,220));
+        panelFiltro.setBackground(new Color(245,245,220));
 
         panelBusqueda.add(panelNombre, "nombre");
         panelBusqueda.add(panelUnidad, "unidad");
@@ -127,9 +131,11 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
             JPanel panelIngrediente = new JPanel(new GridBagLayout());
             
+            JButton botonStock= new JButton("EDITAR STOCK");
             
            
             panelIngrediente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            panelIngrediente.setPreferredSize(new Dimension(250,70));
             panelIngrediente.setBackground(Color.WHITE);
             
             GridBagConstraints gbc = new GridBagConstraints();
@@ -137,17 +143,22 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             gbc.fill = GridBagConstraints.HORIZONTAL; 
             
             JLabel nombreLabel = new JLabel(ingrediente.getNombre());
-            nombreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            nombreLabel.setFont(new Font("Arial", Font.BOLD, 20));
             nombreLabel.setHorizontalAlignment(SwingConstants.LEFT);
+            nombreLabel.setForeground(Color.GRAY);
             gbc.gridx = 0;
             gbc.gridy = 0;
             panelIngrediente.add(nombreLabel, gbc);
             
             JLabel unidadLabel = new JLabel(ingrediente.getUnidadMedida() + ": " + ingrediente.getStock());
-            unidadLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            unidadLabel.setFont(new Font("Arial", Font.PLAIN, 12));
             unidadLabel.setHorizontalAlignment(SwingConstants.LEFT);
+            unidadLabel.setPreferredSize(new Dimension(100,20));
              gbc.gridx = 0;
              gbc.gridy = 1;
+             gbc.anchor= GridBagConstraints.WEST;
+             gbc.fill= GridBagConstraints.HORIZONTAL;
+             gbc.weightx= 1.0;
              panelIngrediente.add(unidadLabel, gbc);
              
 //             JButton botonMas= new JButton("+");
@@ -171,6 +182,10 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
            // panelIngrediente.add(unidadLabel, BorderLayout.CENTER);
+           gbc.gridx= 1;
+           gbc.gridy= 1;
+           gbc.anchor= GridBagConstraints.WEST;
+           panelIngrediente.add(botonStock, gbc);
             panelIngredientes.add(panelIngrediente);
 
         }
@@ -328,11 +343,11 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelIngredientes.setLayout(panelIngredientesLayout);
         panelIngredientesLayout.setHorizontalGroup(
             panelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
+            .addGap(0, 221, Short.MAX_VALUE)
         );
         panelIngredientesLayout.setVerticalGroup(
             panelIngredientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 124, Short.MAX_VALUE)
+            .addGap(0, 142, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -371,7 +386,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 .addComponent(panelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
