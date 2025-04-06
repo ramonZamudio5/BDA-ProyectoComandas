@@ -15,6 +15,7 @@ import daos.IngredienteDAO;
 import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
+import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
 import enums.Tipo;
 import excepciones.AgregarIngredienteException;
@@ -41,6 +42,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     private final IIngredienteBO ingredienteBO;
     private final ProductoBO productoBO;
     private final ClienteFrecuenteBO clienteFrecuenteBO;
+    private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
     
 
     public ManejadorDeObjetos() {
@@ -99,6 +101,11 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
          return ingredienteBO.agregarIngrediente(ingredienteDTO);
      }  
+
+    public List<IngredienteSeleccionadoDTO> getIngredienteSeleccionado() {
+        return ingredienteSeleccionado;
+    }
+     
      
       // Métodos de Cliente Frecuente
     @Override

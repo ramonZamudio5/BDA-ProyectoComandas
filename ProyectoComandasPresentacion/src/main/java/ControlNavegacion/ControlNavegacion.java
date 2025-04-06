@@ -17,7 +17,7 @@ import Interfaces.PantallaMeseroComandas;
 import Interfaces.PantallaPrincipalRol;
 import Interfaces.RegistarClienteFrecuente;
 import Interfaces.SeleccionarOpccionProductos;
-import Interfaces.opcionesModuloCliente;
+import Interfaces.BuscarIngredienteComanda;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.ProductoDTO;
@@ -89,12 +89,11 @@ public class ControlNavegacion {
     public void openFormRegistrarCliente() {
       new RegistarClienteFrecuente(this).setVisible(true);
   }
+    public void openFormBuscarIngredienteComanda(){
+        new BuscarIngredienteComanda(this).setVisible(true);
+    }
 
-
-    public void openFormOpcionesModuloCliente() {
-        new opcionesModuloCliente(this).setVisible(true);
-      }
-
+     
      
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
         try{
@@ -219,6 +218,8 @@ public class ControlNavegacion {
               throw ex;
           }
       }
+      
+       
 
    
 }
