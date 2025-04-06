@@ -210,16 +210,17 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
                 JOptionPane.showMessageDialog(null, mensaje.toString(), "Selección Confirmada", JOptionPane.INFORMATION_MESSAGE);
                 List<ProductoIngrediente> productosIngredientes = control.obtenerListaProductoIngrediente(ingredienteSeleccionado, producto);
                 producto.setIngredientes(productosIngredientes);
-            try {
-                System.out.println(producto);
-                control.actualiarProduto(producto);
-                
-            } catch (NegocioException ex) {
-                Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ActualizarProductoException ex) {
-                Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
+                try {
+                    System.out.println(producto);
+                    control.actualiarProduto(producto);
+
+                } catch (NegocioException ex) {
+                    Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ActualizarProductoException ex) {
+                    Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                control.openFormSeleccionarOpccionProducto();
+                dispose();
                 
              });
 

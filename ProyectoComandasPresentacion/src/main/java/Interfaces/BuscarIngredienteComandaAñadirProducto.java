@@ -220,8 +220,8 @@ public class BuscarIngredienteComandaAñadirProducto extends javax.swing.JFrame 
                 List<ProductoIngrediente> productosIngredientes = control.obtenerListaProductoIngrediente(ingredienteSeleccionado, producto);
                 producto.setIngredientes(productosIngredientes);
                 control.agregarProducto(producto);
-                
-                
+                control.openFormSeleccionarOpccionProducto();
+                dispose();
              });
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
