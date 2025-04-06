@@ -201,12 +201,7 @@ public class PantallaAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
-        try {
-            // TODO add your handling code here:
-            control.openFormBuscarCliente();
-        } catch (BuscarClienteFrecuenteException ex) {
-            Logger.getLogger(PantallaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       control.openFormOpcionesModuloCliente();
         dispose();
     }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 
