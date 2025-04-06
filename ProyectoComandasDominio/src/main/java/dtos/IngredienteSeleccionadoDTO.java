@@ -9,15 +9,30 @@ package dtos;
  * @author janethcristinagalvanquinonez
  */
 public class IngredienteSeleccionadoDTO {
-    
+    private Long id;
     private IngredienteDTO ingrediente;
-    private int cantidad;
+    private Double cantidad;
 
-    public IngredienteSeleccionadoDTO(IngredienteDTO ingrediente, int cantidad) {
+    public IngredienteSeleccionadoDTO(IngredienteDTO ingrediente, Double cantidad) {
         this.ingrediente = ingrediente;
         this.cantidad = cantidad;
     }
 
+    public IngredienteSeleccionadoDTO(Long id, IngredienteDTO ingrediente, Double cantidad) {
+        this.id = id;
+        this.ingrediente = ingrediente;
+        this.cantidad = cantidad;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
     public IngredienteDTO getIngrediente() {
         return ingrediente;
     }
@@ -26,11 +41,11 @@ public class IngredienteSeleccionadoDTO {
         this.ingrediente = ingrediente;
     }
 
-    public int getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
 

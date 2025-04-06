@@ -42,36 +42,44 @@ public class ProductoDAO implements IProductoDAO{
         return productoDAO;
     }
     
+
     @Override
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
             IngredienteDAO ingredienteDAO = new IngredienteDAO();
-            ProductoIngredienteDAO productoIngredienteDAO = new ProductoIngredienteDAO();
-            List<ProductoIngrediente> ingredientesPersistidos = new ArrayList<>();
 
             for (ProductoIngrediente pi : producto.getIngredientes()) {
                 if (pi.getIngrediente().getId() == null) {
-                    Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
-                    pi.setIngrediente(ingredientePersistido);
+                    Ingrediente ingredienteExistente = ingredienteDAO.buscarPorNombreYUnidad(
+                            pi.getIngrediente().getNombre(),
+                            pi.getIngrediente().getUnidadMedida()
+                    );
+
+                    if (ingredienteExistente != null) {
+                        pi.setIngrediente(ingredienteExistente);
+                    } else {
+                        Ingrediente nuevoIngrediente = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
+                        pi.setIngrediente(nuevoIngrediente);
+                    }
                 }
-                ProductoIngrediente piPersistido = productoIngredienteDAO.agregarProductoIngrediente(pi);
-                ingredientesPersistidos.add(piPersistido);
+
+                pi.setProducto(producto);
             }
 
-            producto.setIngredientes(ingredientesPersistidos);
             em.persist(producto);
             em.getTransaction().commit();
 
             if (producto.getId() == null) {
                 throw new AgregarProductoException("No se generó ID para el producto.");
             }
+
             return producto;
 
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new AgregarProductoException("Error al agregar producto: " + e.getMessage());
+            throw new AgregarProductoException("Error al agregar producto: " + e.getMessage(), e);
         } finally {
             em.close();
         }

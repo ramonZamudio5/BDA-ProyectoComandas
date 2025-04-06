@@ -11,11 +11,21 @@ import enums.UnidadMedida;
  * @author janethcristinagalvanquinonez
  */
 public class IngredienteDTO {
+    private Long id;
     private String nombre;
     Double stock;
     private UnidadMedida unidadMedida;
     private byte[] foto;
 
+    public IngredienteDTO(Long id, String nombre, Double stock, UnidadMedida unidadMedida, byte[] foto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+        this.foto = foto;
+    }
+    
+    
     public IngredienteDTO() {
     }
 
@@ -67,6 +77,15 @@ public class IngredienteDTO {
         this.unidadMedida = unidadMedida;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
     @Override
     public String toString() {
         return "IngredienteDTO{" + "nombre=" + nombre + ", stock=" + stock + ", unidadMedida=" + unidadMedida + ", foto=" + foto + '}';

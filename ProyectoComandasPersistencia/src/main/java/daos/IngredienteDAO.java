@@ -4,6 +4,7 @@
  */
 package daos;
 
+import excepciones.BuscarIngredienteException;
 import conexion.Conexion;
 import entidades.Ingrediente;
 import enums.UnidadMedida;
@@ -62,6 +63,7 @@ public class IngredienteDAO implements IIngredienteDAO {
 
     }
     
+    @Override
     public List<Ingrediente> buscarPorNombre(String nombre) throws BuscarPorNombreException{
         EntityManager em= Conexion.crearConexion();
         try {
@@ -113,7 +115,45 @@ public class IngredienteDAO implements IIngredienteDAO {
         }
     }
     
+    public Ingrediente buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException {
+    EntityManager em = Conexion.crearConexion();
+    try {
+        List<Ingrediente> ingredientes = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre")
+                                           .setParameter("nombre", nombreIngrediente)
+                                           .getResultList();
+        if (ingredientes.isEmpty()) {
+            throw new BuscarIngredienteException("No se encontró el ingrediente con nombre: " + nombreIngrediente);
+        }
+        if (ingredientes.size() > 1) {
+            throw new BuscarIngredienteException("Se encontraron múltiples ingredientes con el mismo nombre: " + nombreIngrediente);
+        }
+        return ingredientes.get(0);
+    } catch (Exception e) {
+        throw new BuscarIngredienteException("Error al buscar ingrediente único: " + e.getMessage(), e);
+    } finally {
+        em.close();
+    }
+}
+    public Ingrediente buscarPorNombreYUnidad(String nombre, UnidadMedida unidad) {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            Query query = em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre AND i.unidadMedida = :unidad");
+            query.setParameter("nombre", nombre);
+            query.setParameter("unidad", unidad);
+
+            List<Ingrediente> resultados = query.getResultList();
+
+            if (!resultados.isEmpty()) {
+                return (Ingrediente) resultados.get(0);
+            } else {
+                return null;
+            }
+        } finally {
+            em.close();
+        }
+    }
+}
     
     
 
-}
+

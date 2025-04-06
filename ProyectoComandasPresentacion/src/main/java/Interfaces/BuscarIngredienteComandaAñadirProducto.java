@@ -9,7 +9,9 @@ import ControlNavegacion.ControlNavegacion;
 import Utilerias.Utileria;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
+import dtos.ProductoDTO;
 import entidades.Ingrediente;
+import entidades.ProductoIngrediente;
 import java.awt.CardLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -47,13 +49,14 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import manejadorDeObjetos.ManejadorDeObjetos;
+import mappers.IngredienteMapper;
 
 
 /**
  *
  * @author janethcristinagalvanquinonez
  */
-public class BuscarIngredienteComanda extends javax.swing.JFrame {
+public class BuscarIngredienteComandaAñadirProducto extends javax.swing.JFrame {
 
     ControlNavegacion control;
     private CardLayout cardLayout;
@@ -61,11 +64,12 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
     private JTextField campoNombre;
     private IIngredienteBO ingredienteBO;
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado= new ArrayList<>();
+    private ProductoDTO producto;
 
-    public BuscarIngredienteComanda(ControlNavegacion control) {
+    public BuscarIngredienteComandaAñadirProducto(ControlNavegacion control,ProductoDTO producto) {
         this.control = control;
         initComponents();
-     
+        this.producto = producto;
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(botonMedida);
         buttonGroup.add(botonNombre);
@@ -175,7 +179,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
 }
                     
                     if(!existe){
-                        ingredienteSeleccionado.add(new IngredienteSeleccionadoDTO(ingrediente, cantidad[0]));
+                        ingredienteSeleccionado.add(new IngredienteSeleccionadoDTO(ingrediente.getId(),ingrediente, cantidad[0]));
                     }
                     System.out.println("Lista de ingredientes seleccionados : "+ ingredienteSeleccionado);
                  
@@ -212,7 +216,12 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                      
                               
                  }
-                 JOptionPane.showMessageDialog(null, mensaje.toString(), "Selección Confirmada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Selección Confirmada", JOptionPane.INFORMATION_MESSAGE);
+                List<ProductoIngrediente> productosIngredientes = control.obtenerListaProductoIngrediente(ingredienteSeleccionado, producto);
+                producto.setIngredientes(productosIngredientes);
+                control.agregarProducto(producto);
+                
+                
              });
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
@@ -448,9 +457,9 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                 try {
                     actualizarBusquedaUnidad(unidadSeleccionada);
                 } catch (NegocioException ex) {
-                    Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BuscarPorMedidaException ex) {
-                    Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -480,14 +489,16 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -497,7 +508,8 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
             public void run() {
                 IManejadorDeObjetos manejador= new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);
-                new BuscarIngredienteComanda(control).setVisible(true);
+                ProductoDTO produto = new ProductoDTO();
+                new BuscarIngredienteComandaAñadirProducto(control,produto).setVisible(true);
                 URL url = getClass().getClassLoader().getResource("Resources/fotoDefecto.png");
                 System.out.println("Ruta encontrada: " + (url != null ? url.getPath() : "Imagen no encontrada"));
 

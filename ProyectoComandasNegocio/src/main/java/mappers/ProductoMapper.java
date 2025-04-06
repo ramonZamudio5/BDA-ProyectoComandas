@@ -16,7 +16,9 @@ import java.util.List;
  */
 public class ProductoMapper {
     public static Producto toEntity(ProductoDTO productoDTO){
-        return new Producto(productoDTO.getNombre(), productoDTO.getPrecio(), productoDTO.getTipoProducto() ,productoDTO.isEstado());
+        Producto producto = new Producto(productoDTO.getNombre(), productoDTO.getPrecio(), productoDTO.getTipoProducto() ,productoDTO.isEstado());
+        producto.setIngredientes(productoDTO.getIngredientes());
+        return producto;
     }
     
     public static ProductoDTO toDTO(Producto producto){

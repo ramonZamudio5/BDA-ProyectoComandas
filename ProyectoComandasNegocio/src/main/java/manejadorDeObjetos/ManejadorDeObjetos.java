@@ -17,6 +17,8 @@ import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
+import entidades.Producto;
+import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarClienteFrecuenteException;
@@ -28,9 +30,11 @@ import excepciones.NegocioException;
 import excepciones.RegistrarClienteException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mappers.IngredienteMapper;
 
 
 /**
@@ -133,6 +137,28 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException {
         return clienteFrecuenteBO.obtenerTodos();
      }
+
+    @Override
+    public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto) {
+        List<ProductoIngrediente> productosIngredientes = new ArrayList<>();
+        Producto productoNuevo = new Producto(productoDto.getNombre(), productoDto.getPrecio(), productoDto.getTipoProducto(), productoDto.isEstado());
+            for(IngredienteSeleccionadoDTO ingredienteSeleDTO : ingrediente){
+                productosIngredientes.add(new ProductoIngrediente(productoNuevo,IngredienteMapper.toEntity(ingredienteSeleDTO.getIngrediente()), ingredienteSeleDTO.getCantidad()));
+            }
+        return productosIngredientes;
+    }
+
+    @Override
+    public ProductoDTO AgregarProducto(ProductoDTO producto) {
+        try {
+            return productoBO.agregarProducto(producto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    
     
     
 }

@@ -50,7 +50,7 @@ public class ProductoBO implements IProductoBO{
             }
             return ProductoMapper.toDTO(productoAñadido);
         }catch(Exception e){
-            throw new NegocioException("Error al añadir producto");
+            throw new NegocioException("Error al añadir producto"+e.getMessage());
         }
     }   
     
@@ -192,6 +192,7 @@ public class ProductoBO implements IProductoBO{
         }
         return productoDAO.eliminarProductoPorNombre(nombreProducto);
     }
+
     
     
 }

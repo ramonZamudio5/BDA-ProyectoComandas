@@ -18,10 +18,13 @@ import Interfaces.PantallaPrincipalRol;
 import Interfaces.RegistarClienteFrecuente;
 import Interfaces.SeleccionarOpccionProductos;
 import Interfaces.BuscarIngredienteComanda;
+import Interfaces.BuscarIngredienteComandaAñadirProducto;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
+import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
+import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.ActualizarProductoException;
 import excepciones.AgregarIngredienteException;
@@ -44,7 +47,7 @@ import javax.swing.JOptionPane;
  */
 public class ControlNavegacion {
     IManejadorDeObjetos manejador;
-
+    ProductoDTO productoDao;
    
     
 
@@ -174,58 +177,74 @@ public class ControlNavegacion {
 
          }
          return new IngredienteDTO();
-     }
-     
-     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
-         try{
-             return manejador.buscarPorNombre(nombre);
-         } catch (Exception e){
-             throw new BuscarPorNombreException("Error al buscar ingrediente");
-         }
-     }
-     
-      public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
-          return manejador.buscarPorMedida(medida);
-      }
-      
-            public List<ClienteFrecuenteDTO> buscarClientesPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
-          return manejador.buscarClientePorNombre(nombre);
-      }
+    }
 
-      public List<ClienteFrecuenteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
-          return manejador.buscarClientePorTelefono(telefono);
-      }
+    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+        try{
+            return manejador.buscarPorNombre(nombre);
+        } catch (Exception e){
+            throw new BuscarPorNombreException("Error al buscar ingrediente");
+        }
+    }
 
-      public List<ClienteFrecuenteDTO> buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
-          return manejador.buscarClientePorCorreo(correo);
-      }
-      
-     public List<ClienteFrecuenteDTO> obtenerTodosLosClientes() throws NegocioException, BuscarClienteFrecuenteException {
-           return manejador.obtenerTodos(); 
-      }
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+      return manejador.buscarPorMedida(medida);
+    }
+
+        public List<ClienteFrecuenteDTO> buscarClientesPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
+      return manejador.buscarClientePorNombre(nombre);
+    }
+
+    public List<ClienteFrecuenteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+      return manejador.buscarClientePorTelefono(telefono);
+    }
+
+    public List<ClienteFrecuenteDTO> buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+      return manejador.buscarClientePorCorreo(correo);
+    }
+
+    public List<ClienteFrecuenteDTO> obtenerTodosLosClientes() throws NegocioException, BuscarClienteFrecuenteException {
+       return manejador.obtenerTodos(); 
+    }
 
 
-      public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
-          try {
-              ClienteFrecuenteDTO clienteRegistrado = manejador.registrarCliente(cliente);
-              JOptionPane.showMessageDialog(null, "Cliente registrado correctamente.");
-              return clienteRegistrado;
-          } catch (RegistrarClienteException ex) {
-              Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-              JOptionPane.showMessageDialog(null, "Error al registrar cliente: " + ex.getMessage(), 
+    public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
+        try {
+            ClienteFrecuenteDTO clienteRegistrado = manejador.registrarCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente registrado correctamente.");
+            return clienteRegistrado;
+        } catch (RegistrarClienteException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al registrar cliente: " + ex.getMessage(), 
                   "ERROR", JOptionPane.WARNING_MESSAGE);
-              throw ex;
-          } catch (NegocioException ex) {
-              Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-              JOptionPane.showMessageDialog(null, "Error de negocio al registrar cliente: " + ex.getMessage(),
-                  "ERROR", JOptionPane.WARNING_MESSAGE);
-              throw ex;
-          }
-      }
-      
-       
+            throw ex;
+        }catch (NegocioException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error de negocio al registrar cliente: " + ex.getMessage(),
+                "ERROR", JOptionPane.WARNING_MESSAGE);
+            throw ex;
+        }
+    }
 
-   
+    public void openFormBuscarIngredienteComandaAñadirProducto(ProductoDTO producto){
+        new BuscarIngredienteComandaAñadirProducto(this, producto).setVisible(true);
+    }
+
+    public ProductoDTO getProductoDao() {
+        return productoDao;
+    }
+
+    public void setProductoDao(ProductoDTO productoDao) {
+        this.productoDao = productoDao;
+    }
+
+    public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto){
+        return manejador.obtenerListaProductoIngrediente(ingrediente, productoDto);
+    }
+    
+    public ProductoDTO agregarProducto(ProductoDTO producto){
+        return manejador.AgregarProducto(producto);
+    }
 }
      
 

@@ -7,6 +7,7 @@ package bos;
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import excepciones.AgregarIngredienteException;
+import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.NegocioException;
@@ -27,6 +28,7 @@ public class IngredienteBO implements IIngredienteBO {
         this.ingredienteDAO= ingredienteDAO;
     }
     
+    @Override
     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
         if (nombre==null || nombre.trim().isEmpty()){
             throw new BuscarPorNombreException("Ingredientes con el nombre "+nombre+ " no encontrados");
@@ -41,10 +43,9 @@ public class IngredienteBO implements IIngredienteBO {
                     throw new NegocioException("El ingrediente no puede ser nulo");
                 }
             }
-            return IngredienteMapper.toListDTO(ingredientesPorNombre);
+            return IngredienteMapper.toListDTOConID(ingredientesPorNombre);
         } catch(Exception e){
             throw new NegocioException("Error al buscar ingrediente por nombre "+nombre);
-            
         }
     }
     
@@ -98,6 +99,18 @@ public class IngredienteBO implements IIngredienteBO {
             
         } catch(Exception e){
             throw new NegocioException("Error al agregar ingrediente" + e.getMessage());
+        }
+    }
+
+    @Override
+    public IngredienteDTO buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException {
+        if (nombreIngrediente == null || nombreIngrediente.trim().isEmpty()) {
+            throw new BuscarIngredienteException("El nombre del ingrediente no puede ser nulo o vacío.");
+        }
+        try{
+            return IngredienteMapper.toDTO(ingredienteDAO.buscarPorNombreUnico(nombreIngrediente));
+        }catch(Exception e){
+            throw new BuscarIngredienteException("Error al buscar el ingrediente");
         }
     }
     

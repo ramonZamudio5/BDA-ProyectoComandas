@@ -8,7 +8,9 @@ import bos.ProductoBO;
 import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
+import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
+import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarClienteFrecuenteException;
@@ -51,5 +53,8 @@ public interface IManejadorDeObjetos {
    public  ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException;
    
    public List<ClienteFrecuenteDTO> obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException;
+   
+   public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto);
 
+   public ProductoDTO AgregarProducto(ProductoDTO producto);
 }

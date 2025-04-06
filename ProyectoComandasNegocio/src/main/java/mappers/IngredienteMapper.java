@@ -7,6 +7,7 @@ package mappers;
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import enums.UnidadMedida;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,22 @@ public class IngredienteMapper {
         
     }
     
-    
+    public static List<IngredienteDTO> toListDTOConID(List<Ingrediente> ingredientes){
+        if(ingredientes.isEmpty()){
+            return null;
+        }
+        List<IngredienteDTO> listaIngredientes = new ArrayList<>();
+        for(Ingrediente ingrediente : ingredientes){
+            IngredienteDTO ingredientedto = new IngredienteDTO(ingrediente.getId(),
+                   ingrediente.getNombre(),
+                   ingrediente.getStock(),
+                   ingrediente.getUnidadMedida(),
+                   ingrediente.getFoto()
+           );
+           listaIngredientes.add(ingredientedto);
+        }
+        return listaIngredientes;
+    }
     
     
 }
