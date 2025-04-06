@@ -119,6 +119,11 @@ public class PantallaAdministrador extends javax.swing.JFrame {
         btnNuevaComanda.setText("Nueva Comanda");
 
         btnIngredientes.setText("Ingredientes");
+        btnIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngredientesActionPerformed(evt);
+            }
+        });
 
         btnReportes.setText("Generacion De Reportes");
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +214,7 @@ public class PantallaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportesActionPerformed
 
+   
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
         // TODO add your handling code here:
         control.openFormSeleccionarOpccionProducto();
@@ -220,6 +226,11 @@ public class PantallaAdministrador extends javax.swing.JFrame {
         control.openFormPantallaPrincipalRol();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngredientesActionPerformed
+          control.openFormBuscarIngrediente();
+        dispose();
+    }//GEN-LAST:event_btnIngredientesActionPerformed
 
     /**
      * @param args the command line arguments
