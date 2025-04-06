@@ -24,6 +24,7 @@ import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
+import excepciones.RegistrarClienteException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
@@ -114,4 +115,11 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     public List<ClienteFrecuenteDTO> buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
         return clienteFrecuenteBO.buscarPorCorreo(correo);
     }
+    
+  
+    public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
+        return clienteFrecuenteBO.agregarCliente(cliente);
+    }
+
+    
 }

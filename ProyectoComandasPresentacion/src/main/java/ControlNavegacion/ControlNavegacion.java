@@ -15,6 +15,7 @@ import Interfaces.EliminarProducto;
 import Interfaces.PantallaAdministrador;
 import Interfaces.PantallaMeseroComandas;
 import Interfaces.PantallaPrincipalRol;
+import Interfaces.RegistarClienteFrecuente;
 import Interfaces.SeleccionarOpccionProductos;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
@@ -28,6 +29,7 @@ import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
+import excepciones.RegistrarClienteException;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
 import java.util.logging.Level;
@@ -76,9 +78,16 @@ public class ControlNavegacion {
         new AgregarIngrediente(this).setVisible(true);
     }
     
+     public void  openFormBuscarCliente(){
+           new BuscarCliente(this).setVisible(true);
+     }
+    
+    public void openFormRegistrarCliente() {
+      new RegistarClienteFrecuente(this).setVisible(true);
+  }
+
      
-    
-    
+     
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
         try{
             return manejador.obtenerPorNombre(nombre);
@@ -178,6 +187,25 @@ public class ControlNavegacion {
 
       public List<ClienteFrecuenteDTO> buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
           return manejador.buscarClientePorCorreo(correo);
+      }
+      
+
+      public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
+          try {
+              ClienteFrecuenteDTO clienteRegistrado = manejador.registrarCliente(cliente);
+              JOptionPane.showMessageDialog(null, "Cliente registrado correctamente.");
+              return clienteRegistrado;
+          } catch (RegistrarClienteException ex) {
+              Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+              JOptionPane.showMessageDialog(null, "Error al registrar cliente: " + ex.getMessage(), 
+                  "ERROR", JOptionPane.WARNING_MESSAGE);
+              throw ex;
+          } catch (NegocioException ex) {
+              Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+              JOptionPane.showMessageDialog(null, "Error de negocio al registrar cliente: " + ex.getMessage(),
+                  "ERROR", JOptionPane.WARNING_MESSAGE);
+              throw ex;
+          }
       }
 
    
