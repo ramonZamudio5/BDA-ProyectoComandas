@@ -39,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
@@ -61,10 +62,12 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     public BuscarIngrediente(ControlNavegacion control) {
         this.control = control;
         initComponents();
-        //this.ingredienteBO= ingredienteBO;
+     
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(botonMedida);
         buttonGroup.add(botonNombre);
+        
+        
         cardLayout = new CardLayout();
         panelBusqueda.setLayout(cardLayout);
         JPanel panelNombre = new JPanel();
@@ -74,7 +77,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelNombre.add(campoNombre);
 
         JPanel panelUnidad = new JPanel();
-        //  JComboBox<String> comboUnidad= new JComboBox<>();
+       
         panelUnidad.add(comboUnidad);
 
         panelBusqueda.add(panelNombre, "nombre");
@@ -141,9 +144,28 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             JLabel unidadLabel = new JLabel(ingrediente.getUnidadMedida() + ": " + ingrediente.getStock());
             unidadLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             unidadLabel.setHorizontalAlignment(SwingConstants.LEFT);
-             gbc.gridx = 0;
-             gbc.gridy = 1;
+             gbc.gridx = 1;
+             gbc.gridy = 0;
              panelIngrediente.add(unidadLabel, gbc);
+             
+             JButton botonMas= new JButton("+");
+             JLabel cantidadLabel= new JLabel("Cantidad: 0");
+             
+             int[] cantidad= {0};
+             
+             botonMas.addActionListener(e -> {
+                 cantidad[0]++;
+                 cantidadLabel.setText("Cantidad: "+cantidad[0]);
+             });
+             
+             gbc.gridx= 2;
+             gbc.gridy=0;
+             panelIngrediente.add(botonMas, gbc);
+             
+             gbc.gridx= 3;
+             gbc.gridy= 0;
+             panelIngrediente.add(cantidadLabel, gbc);
+            
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
            // panelIngrediente.add(unidadLabel, BorderLayout.CENTER);
