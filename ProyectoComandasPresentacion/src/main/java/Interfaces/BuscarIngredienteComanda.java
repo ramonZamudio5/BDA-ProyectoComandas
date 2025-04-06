@@ -52,7 +52,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  *
  * @author janethcristinagalvanquinonez
  */
-public class BuscarIngrediente extends javax.swing.JFrame {
+public class BuscarIngredienteComanda extends javax.swing.JFrame {
 
     ControlNavegacion control;
     private CardLayout cardLayout;
@@ -61,7 +61,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     private IIngredienteBO ingredienteBO;
     //private List<IngredienteSeleccionado> ingredienteSeleccionado= new ArrayList<>();
 
-    public BuscarIngrediente(ControlNavegacion control) {
+    public BuscarIngredienteComanda(ControlNavegacion control) {
         this.control = control;
         initComponents();
      
@@ -146,28 +146,28 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             JLabel unidadLabel = new JLabel(ingrediente.getUnidadMedida() + ": " + ingrediente.getStock());
             unidadLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             unidadLabel.setHorizontalAlignment(SwingConstants.LEFT);
-             gbc.gridx = 0;
-             gbc.gridy = 1;
+             gbc.gridx = 1;
+             gbc.gridy = 0;
              panelIngrediente.add(unidadLabel, gbc);
              
-//             JButton botonMas= new JButton("+");
-//             JLabel cantidadLabel= new JLabel("Cantidad: 0");
-//             
-//             int[] cantidad= {0};
-//             
-//             botonMas.addActionListener(e -> {
-//                 cantidad[0]++;
-//                 cantidadLabel.setText("Cantidad: "+cantidad[0]);
-//             });
-//             
-//             gbc.gridx= 2;
-//             gbc.gridy=0;
-//             panelIngrediente.add(botonMas, gbc);
-//             
-//             gbc.gridx= 3;
-//             gbc.gridy= 0;
-//             panelIngrediente.add(cantidadLabel, gbc);
-//            
+             JButton botonMas= new JButton("+");
+             JLabel cantidadLabel= new JLabel("Cantidad: 0");
+             
+             int[] cantidad= {0};
+             
+             botonMas.addActionListener(e -> {
+                 cantidad[0]++;
+                 cantidadLabel.setText("Cantidad: "+cantidad[0]);
+             });
+             
+             gbc.gridx= 2;
+             gbc.gridy=0;
+             panelIngrediente.add(botonMas, gbc);
+             
+             gbc.gridx= 3;
+             gbc.gridy= 0;
+             panelIngrediente.add(cantidadLabel, gbc);
+            
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
            // panelIngrediente.add(unidadLabel, BorderLayout.CENTER);
@@ -401,9 +401,9 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 try {
                     actualizarBusquedaUnidad(unidadSeleccionada);
                 } catch (NegocioException ex) {
-                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BuscarPorMedidaException ex) {
-                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -433,14 +433,15 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarIngrediente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -449,7 +450,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             public void run() {
                 IManejadorDeObjetos manejador= new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);
-                new BuscarIngrediente(control).setVisible(true);
+                new BuscarIngredienteComanda(control).setVisible(true);
                 URL url = getClass().getClassLoader().getResource("Resources/fotoDefecto.png");
                 System.out.println("Ruta encontrada: " + (url != null ? url.getPath() : "Imagen no encontrada"));
 
