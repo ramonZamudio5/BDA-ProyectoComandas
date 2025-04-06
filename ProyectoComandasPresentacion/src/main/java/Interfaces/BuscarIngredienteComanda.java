@@ -8,6 +8,7 @@ package Interfaces;
 import ControlNavegacion.ControlNavegacion;
 import Utilerias.Utileria;
 import dtos.IngredienteDTO;
+import dtos.IngredienteSeleccionadoDTO;
 import entidades.Ingrediente;
 import java.awt.CardLayout;
 import javax.swing.ButtonGroup;
@@ -59,7 +60,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
     JComboBox<String> comboUnidad = new JComboBox<>();
     private JTextField campoNombre;
     private IIngredienteBO ingredienteBO;
-    //private List<IngredienteSeleccionado> ingredienteSeleccionado= new ArrayList<>();
+    private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado= new ArrayList<>();
 
     public BuscarIngredienteComanda(ControlNavegacion control) {
         this.control = control;
@@ -153,12 +154,33 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
              JButton botonMas= new JButton("+");
              JLabel cantidadLabel= new JLabel("Cantidad: 0");
              
+             
+             
              int[] cantidad= {0};
+             
+           //  JButton botonSiguiente= new JButton();
+       
+             
              
              botonMas.addActionListener(e -> {
                  cantidad[0]++;
                  cantidadLabel.setText("Cantidad: "+cantidad[0]);
+                    boolean existe= false;
+                    for(IngredienteSeleccionadoDTO seleccionado: ingredienteSeleccionado){
+                        if (seleccionado.getIngrediente().equals(ingrediente)){
+                            seleccionado.setCantidad(cantidad[0]);
+                            existe= true;
+                            break;
+                        }
+}
+                    
+                    if(!existe){
+                        ingredienteSeleccionado.add(new IngredienteSeleccionadoDTO(ingrediente, cantidad[0]));
+                    }
+                    System.out.println("Lista de ingredientes seleccionados : "+ ingredienteSeleccionado);
+                 
              });
+
              
              gbc.gridx= 2;
              gbc.gridy=0;
@@ -167,18 +189,43 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
              gbc.gridx= 3;
              gbc.gridy= 0;
              panelIngrediente.add(cantidadLabel, gbc);
-            
+               panelIngredientes.add(panelIngrediente);
+             
+             }
+
+             JButton botonSiguiente= new JButton();
+             botonSiguiente.addActionListener(e ->{
+                 if(ingredienteSeleccionado.isEmpty()){
+                     JOptionPane.showMessageDialog(null, "No se seleccionaron ingredientes", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                     return;
+                 }
+                 
+                 StringBuilder mensaje= new StringBuilder("Ingredientes:\n");
+                 for(IngredienteSeleccionadoDTO seleccionado: ingredienteSeleccionado){
+                     mensaje.append(seleccionado.getIngrediente().getNombre()).append(", ")
+                             .append(seleccionado.getIngrediente().getUnidadMedida())
+                             .append(" :")
+                             .append(seleccionado.getIngrediente().getStock())
+                             .append(", Cantidad: ")
+                             .append(seleccionado.getCantidad())
+                             .append("\n");
+                     
+                              
+                 }
+                 JOptionPane.showMessageDialog(null, mensaje.toString(), "Selección Confirmada", JOptionPane.INFORMATION_MESSAGE);
+             });
 
           //  panelIngrediente.add(nombreLabel, BorderLayout.NORTH);
            // panelIngrediente.add(unidadLabel, BorderLayout.CENTER);
-            panelIngredientes.add(panelIngrediente);
-
+              panelIngredientes.add(botonSiguiente);
+              panelIngredientes.revalidate();
+              panelIngredientes.repaint();
         }
-        panelIngredientes.revalidate();
-        panelIngredientes.repaint();
+      
+       
 
         //   ImageIcon imagen= Utileria.convertirImagenABytes(/Users/janethcristinagalvanquinonez/Downloads);
-    }
+    
 
 //        private ImageIcon convertirBytesAImagenes(byte[] imagenBytes){
 //            if(imagenBytes==null || imagenBytes.length==0){
