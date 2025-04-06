@@ -91,9 +91,7 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
     
     @Override
     public List<ClienteFrecuenteDTO> buscarPorTelefono(String telefono) throws NegocioException {
-        if (telefono == null || !telefono.matches("\\d{10}")) {
-            throw new NegocioException("El teléfono debe ser un número de 10 dígitos");
-        }
+
         try {
             List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarPorTelefono(telefono);
             if (clientes == null || clientes.isEmpty()) {
@@ -107,9 +105,7 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
     
     @Override
     public List<ClienteFrecuenteDTO> buscarPorCorreo(String correo) throws NegocioException {
-        if (correo == null || !correo.contains("@")) {
-            throw new NegocioException("El correo electrónico no es válido");
-        }
+       
         try {
             List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarPorCorreo(correo);
             if (clientes == null || clientes.isEmpty()) {
