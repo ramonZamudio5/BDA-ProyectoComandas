@@ -9,6 +9,7 @@ import daos.MesaDAO;
 import static daos.MesaDAO.mesaDAO;
 import daos.ProductoDAO;
 import entidades.Ingrediente;
+import entidades.Mesa;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
@@ -18,6 +19,7 @@ import excepciones.AgregarProductoException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.InsercionMasivaException;
+import excepciones.ObtenerMesasDispException;
 import static java.util.Collections.list;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class ProyectoComandasPersistencia {
 
-    public static void main(String[] args) throws InsercionMasivaException  {
+    public static void main(String[] args) throws InsercionMasivaException, ObtenerMesasDispException  {
         
         
         IngredienteDAO ingredienteDAO= IngredienteDAO.getInstance();
@@ -77,6 +79,17 @@ public class ProyectoComandasPersistencia {
         }catch(InsercionMasivaException e){
             System.out.println("error "+e.getMessage());
         }
+        
+        try{
+            List<Mesa> mesasDisp= mesaDAO.obtenerMesasDisponibles();
+             for(Mesa mesa: mesasDisp){
+                 System.out.println(mesa);
+             }
+        } catch(ObtenerMesasDispException e){
+            System.out.println("error "+e.getMessage());
+          
+        }
+        
     }
 }
 

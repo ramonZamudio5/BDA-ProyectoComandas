@@ -51,6 +51,7 @@ public class Mesa implements Serializable {
 
     public Mesa(Integer numero) {
         this.numero = numero;
+        this.estado= EstadoMesa.DISPONIBLE;
     }
 
     public EstadoMesa getEstado() {

@@ -6,9 +6,13 @@ package daos;
 
 import conexion.Conexion;
 import entidades.Mesa;
+import enums.EstadoMesa;
 import excepciones.InsercionMasivaException;
+import excepciones.ObtenerMesasDispException;
 import interfaces.IMesaDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,5 +62,23 @@ public class MesaDAO implements IMesaDAO{
         }
     }
     
+    
+    public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException{
+        
+        EntityManager em= Conexion.crearConexion();
+        
+        try{
+             em.getTransaction().begin();
+            Query query= em.createQuery("SELECT m FROM Mesa m WHERE m.estado= :estado");           
+            query.setParameter("estado", EstadoMesa.DISPONIBLE);           
+            return query.getResultList();
+            
+        } catch(Exception e){
+            throw new ObtenerMesasDispException("Error al obtener mesas disponibles "+e.getMessage());
+        } finally{
+            em.close();
+        }
+        
+    }
     
 }

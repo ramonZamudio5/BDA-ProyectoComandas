@@ -4,7 +4,10 @@
  */
 package interfaces;
 
+import entidades.Mesa;
 import excepciones.InsercionMasivaException;
+import excepciones.ObtenerMesasDispException;
+import java.util.List;
 
 /**
  *
@@ -12,4 +15,5 @@ import excepciones.InsercionMasivaException;
  */
 public interface IMesaDAO {
     public boolean insercionMasiva() throws InsercionMasivaException;
+     public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException;
 }
