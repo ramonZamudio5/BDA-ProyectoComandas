@@ -145,6 +145,9 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 JButton botonMas= new JButton("+");
                 botonMas.setPreferredSize(new Dimension(40,35));
                 
+                System.out.println("id: "+ingrediente.getId());
+                System.out.println("stock: "+ ingrediente.getStock());
+                System.out.println("nombre: "+ingrediente.getNombre());
                 
                 
                 botonMas.addActionListener(new ActionListener() {
@@ -173,7 +176,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                     }
                 });
                 
-                
+                System.out.println("stock actualizado: "+ingrediente.getStock());
                 gbc.gridx=0;
                 gbc.gridy=0;
                 panelAjuste.add(botonMenos, gbc);
@@ -273,8 +276,13 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelIngredientes.removeAll();
         if (!textoBuscado.isEmpty()) {
             try {
+                //ingrediente que le cambio stock
                 List<IngredienteDTO> IngredientesEncontrados = control.buscarPorNombre(textoBuscado);
-                System.out.println("Ingredientes encontrados: " + IngredientesEncontrados.size());
+                System.out.println("Ingredientes encontradosss: " + IngredientesEncontrados.size());
+                for(IngredienteDTO ingrediente: IngredientesEncontrados){
+                    System.out.println("nombreee "+ingrediente.getNombre());
+                    System.out.println("id "+ingrediente.getId());
+                }
 
                 if (IngredientesEncontrados.isEmpty()) {
                     panelIngredientes.add(new JLabel("No se encontraron resultados"));
@@ -299,7 +307,10 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             try {
                 List<IngredienteDTO> ingredientesEncontrados = control.buscarPorMedida(unidadMedida);
                 System.out.println("Ingredientes encotrados: " + ingredientesEncontrados.size());
-
+                for(IngredienteDTO ingrediente: ingredientesEncontrados){
+                    System.out.println("nombre "+ingrediente.getNombre());
+                    System.out.println("id" +ingrediente.getId());
+                }
                 if (ingredientesEncontrados.isEmpty()) {
                     panelIngredientes.add(new JLabel("No se encontraron resultados"));
                 } else {

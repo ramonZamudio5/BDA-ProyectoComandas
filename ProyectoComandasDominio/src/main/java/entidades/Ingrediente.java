@@ -27,7 +27,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "ingredientes", uniqueConstraints= {@UniqueConstraint(columnNames= {"nombre", "unidadMedida"})})
 public class Ingrediente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false)

@@ -152,6 +152,9 @@ public class IngredienteDAO implements IIngredienteDAO {
             em.close();
         }
     }
+    
+    
+    //public Ingrediente actualizarStock(int idIngrediente)
 }
     
     
