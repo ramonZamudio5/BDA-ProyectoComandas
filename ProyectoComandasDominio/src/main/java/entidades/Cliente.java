@@ -18,12 +18,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 /**
  *
  * @author Cricri
  */
 @Entity
+@Table(name = "Clientes")
 @Inheritance(strategy = InheritanceType.JOINED) 
 public class Cliente  implements Serializable {
 
