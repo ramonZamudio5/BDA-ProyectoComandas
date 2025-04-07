@@ -7,8 +7,6 @@ package Interfaces;
 import ControlNavegacion.ControlNavegacion;
 import dtos.ProductoDTO;
 import enums.Tipo;
-import excepciones.ActualizarProductoException;
-import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.awt.Color;
@@ -39,6 +37,9 @@ public class EditarProductoFrame extends javax.swing.JFrame {
         tipoComboBox.setBounds(80, 265,130,70);
         jPanel1.add(tipoComboBox);     
         getContentPane().setBackground(new java.awt.Color(248, 248, 241));
+        nombreText.setText(producto.getNombre());
+        nombreText.setEnabled(false);
+        
     }
 
     /**
@@ -66,6 +67,8 @@ public class EditarProductoFrame extends javax.swing.JFrame {
         BotonSiguiente1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         estadoComboBox = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        nombreText = new javax.swing.JTextField();
 
         precioTextField.setColumns(25);
 
@@ -99,7 +102,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addGap(0, 777, Short.MAX_VALUE))
+                .addGap(0, 779, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,6 +139,11 @@ public class EditarProductoFrame extends javax.swing.JFrame {
 
         estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo ", "Inactivo" }));
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel10.setText("Nombre");
+
+        nombreText.setColumns(15);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,11 +170,23 @@ public class EditarProductoFrame extends javax.swing.JFrame {
                 .addContainerGap(448, Short.MAX_VALUE)
                 .addComponent(BotonSiguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nombreText, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
@@ -175,9 +195,9 @@ public class EditarProductoFrame extends javax.swing.JFrame {
                     .addComponent(estadoComboBox)
                     .addComponent(precioTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(45, 45, 45)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel4)
-                .addGap(52, 52, 52)
+                .addGap(66, 66, 66)
                 .addComponent(BotonSiguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -205,7 +225,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,7 +261,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws BuscarProductoException {
+    public static void main(String args[])  {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -274,7 +294,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
                 try {
                     ProductoDTO producto1 = control.obtenerProducto(3L);
                     new EditarProductoFrame(control,producto1).setVisible(true);
-                } catch (BuscarProductoException ex) {
+                } catch (NegocioException ex) {
                     Logger.getLogger(EditarProductoFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -286,6 +306,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
     private javax.swing.JButton BotonSiguiente1;
     private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -296,6 +317,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField nombreText;
     private javax.swing.JTextField precioTextField;
     private javax.swing.JTextField precioTextField1;
     // End of variables declaration//GEN-END:variables

@@ -104,35 +104,35 @@ public class ControlNavegacion {
     }
      
      
-    public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException, BuscarProductoException{
+    public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException{
         try{
             return manejador.obtenerPorNombre(nombre);
         }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar el producto", e);
+            throw new NegocioException("Error al buscar el producto", e);
         }   
     }
     
-    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws BuscarProductoException{
+    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException{
         try{
             return manejador.obtenerPorTipo(tipo);
         }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar el producto", e);
+            throw new NegocioException("Error al buscar el producto", e);
         }   
     }
     
-    public ProductoDTO obtenerProducto(Long id) throws BuscarProductoException{
+    public ProductoDTO obtenerProducto(Long id) throws NegocioException{
         try{
             return manejador.obtenerProducto(id);
         }catch(Exception e){
-            throw new BuscarProductoException("Error al buscar el producto", e);
+            throw new NegocioException("Error al buscar el producto", e);
         }
     }
     
-    public ProductoDTO actualiarProduto(ProductoDTO producto) throws NegocioException, ActualizarProductoException{
+    public ProductoDTO actualiarProduto(ProductoDTO producto) throws NegocioException{
         try{
             return manejador.actualizarProducto(producto);
         }catch(Exception e){
-            throw new ActualizarProductoException("Error al actualizar el producto");
+            throw new NegocioException("Error al actualizar el producto");
         }
     }
 
@@ -155,11 +155,11 @@ public class ControlNavegacion {
         }
     }
     
-    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException, EliminarProductoException{
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException{
         try{
             return manejador.eliminarProducto(nombreProducto);
         }catch(Exception e){
-            throw new EliminarProductoException("Error al actualizar el producto");
+            throw new NegocioException("Error al actualizar el producto");
         }
     }
     
@@ -181,11 +181,11 @@ public class ControlNavegacion {
          return new IngredienteDTO();
     }
 
-    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException{
         try{
             return manejador.buscarPorNombre(nombre);
         } catch (Exception e){
-            throw new BuscarPorNombreException("Error al buscar ingrediente");
+            throw new NegocioException("Error al buscar ingrediente");
         }
     }
 

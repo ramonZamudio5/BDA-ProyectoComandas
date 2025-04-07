@@ -7,7 +7,7 @@ package Interfaces;
 import ControlNavegacion.ControlNavegacion;
 import dtos.ProductoDTO;
 import enums.Tipo;
-import excepciones.BuscarProductoException;
+import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -304,7 +304,7 @@ public class EliminarProducto extends javax.swing.JFrame {
             jPanel1.revalidate();
             jPanel1.repaint();
 
-            } catch (BuscarProductoException ex) {
+            } catch (NegocioException ex) {
                 Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ocurrió un error al buscar el producto.");
             } catch (Exception ex) {

@@ -142,34 +142,20 @@ public class ProductoDAO implements IProductoDAO{
     public Producto actualizarProducto(Producto producto) throws ActualizarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
-            System.out.println("entre a la dao");
             em.getTransaction().begin();
-            System.out.println(producto.getId()+"hola");
             System.out.println(producto.getNombre());
             Producto existente = buscarPorNombreUnico(producto.getNombre());
             System.out.println(existente.getNombre());
             System.out.println(existente.getId());
             if (existente == null) {
-                System.out.println("falle");
                 throw new ActualizarProductoException("El producto no existe en la base de datos.");
             }
             existente.setNombre(producto.getNombre());
             existente.setPrecio(producto.getPrecio());
             existente.setTipoProducto(producto.getTipoProducto());
             existente.setEstado(producto.isEstado());
-            System.out.println("voy a hacer merge");
             em.merge(existente);
-            System.out.println("hice merge");
-            System.out.println("hare commit");
-            if (em.getTransaction().isActive()) {
-                System.out.println("Transacción activa");
-            } else {
-                System.out.println("Transacción no activa");
-            }
             em.getTransaction().commit();
-            System.out.println("hice commit");
-            System.out.println(producto);
-            System.out.println(existente);
             return existente;
 
         } catch (PersistenceException e) {
