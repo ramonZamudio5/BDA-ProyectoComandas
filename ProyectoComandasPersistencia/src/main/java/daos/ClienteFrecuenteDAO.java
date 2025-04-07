@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 
 public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
@@ -49,8 +50,8 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
 
       
         try {
-            cliente.setCorreoElectronico(Encriptador.encriptar(cliente.getCorreoElectronico())); 
-            cliente.setTelefono(Encriptador.encriptar(cliente.getTelefono())); 
+            cliente.setCorreoElectronico(Encriptador.encriptar(cliente.getCorreoElectronico()));  
+            cliente.setTelefono(Encriptador.encriptar(cliente.getTelefono()));  
         } catch (Exception e) {
             throw new AgregarClienteFrecuenteException("Error al encriptar datos: " + e.getMessage());
         }
@@ -67,38 +68,41 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
         } finally {
             em.close();
         }
-    }
+    } 
+    
+    
         @Override
     public ClienteFrecuente buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
-           
+          
             String telefonoCifrado = Encriptador.encriptar(telefono);
 
+          
+            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono LIKE :telefono");
+            query.setParameter("telefono", "%" + telefonoCifrado + "%");
+
+            
+            ClienteFrecuente cliente = (ClienteFrecuente) query.setMaxResults(1).getSingleResult();
+
+            cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
+            cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+
            
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono = :telefono");
-            query.setParameter("telefono", telefonoCifrado);
-            List<?> resultados = query.getResultList();
+            calcularAtributosClienteFrecuente(cliente);
 
-            for (Object obj : resultados) {
-                ClienteFrecuente cliente = (ClienteFrecuente) obj;
-              
-                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
-                cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
-
-               
-                calcularAtributosClienteFrecuente(cliente);
-
-                return cliente;
-            }
-
-            return null; 
+         
+            return cliente;
+        } catch (NoResultException e) {
+         
+            return null;
         } catch (Exception e) {
             throw new BuscarClienteFrecuenteException("Error al buscar cliente por teléfono: " + e.getMessage());
         } finally {
             em.close();
         }
     }
+       
 
 
 
