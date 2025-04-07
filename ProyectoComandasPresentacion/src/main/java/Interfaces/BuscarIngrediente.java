@@ -132,10 +132,71 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             JPanel panelIngrediente = new JPanel(new GridBagLayout());
             
             JButton botonStock= new JButton("EDITAR STOCK");
+            botonStock.addActionListener(e->{
+                JPanel panelAjuste= new JPanel(new GridBagLayout());
+                GridBagConstraints gbc= new GridBagConstraints();
+                gbc.insets= new Insets(1, 3, 1, 3);
+                gbc.fill= GridBagConstraints.HORIZONTAL;
+                
+                JButton botonMenos= new JButton("-");
+                botonMenos.setPreferredSize(new Dimension(40,35));
+                JLabel stockLabel= new JLabel(String.valueOf(ingrediente.getStock()));
+                
+                JButton botonMas= new JButton("+");
+                botonMas.setPreferredSize(new Dimension(40,35));
+                
+                
+                
+                botonMas.addActionListener(new ActionListener() {
+                   
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                      if(ingrediente.getStock()>0){
+                        double stockActualizado= ingrediente.getStock()+1;
+                        ingrediente.setStock(stockActualizado);
+                        stockLabel.setText(String.valueOf(stockActualizado));
+                        
+                    }
+                    }
+                });
+                
+                botonMenos.addActionListener(new ActionListener() {
+                   
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                      if(ingrediente.getStock()>0){
+                        double stockActualizado= ingrediente.getStock()-1;
+                        ingrediente.setStock(stockActualizado);
+                        stockLabel.setText(String.valueOf(stockActualizado));
+                        
+                    }
+                    }
+                });
+                
+                
+                gbc.gridx=0;
+                gbc.gridy=0;
+                panelAjuste.add(botonMenos, gbc);
+                
+                
+                gbc.gridx=1;
+                panelAjuste.add(stockLabel, gbc);
+                
+                gbc.gridx= 2;
+                panelAjuste.add(botonMas, gbc);
+                
+                gbc.gridx= 1;
+                gbc.gridy= 0;
+                panelIngrediente.add(panelAjuste, gbc);
+                
+                panelIngrediente.revalidate();
+                panelIngrediente.repaint();
+                
+            });
             
            
             panelIngrediente.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            panelIngrediente.setPreferredSize(new Dimension(250,70));
+            panelIngrediente.setPreferredSize(new Dimension(250,75));
             panelIngrediente.setBackground(Color.WHITE);
             
             GridBagConstraints gbc = new GridBagConstraints();
