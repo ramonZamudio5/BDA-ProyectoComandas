@@ -200,11 +200,11 @@ public class ControlNavegacion {
       return manejador.buscarClientePorNombre(nombre);
     }
 
-    public List<ClienteFrecuenteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientesPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
       return manejador.buscarClientePorTelefono(telefono);
     }
 
-    public List<ClienteFrecuenteDTO> buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientesPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
       return manejador.buscarClientePorCorreo(correo);
     }
 

@@ -88,34 +88,32 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new NegocioException("Error al buscar clientes por nombre");
         }
     }
-    
-    @Override
-    public List<ClienteFrecuenteDTO> buscarPorTelefono(String telefono) throws NegocioException {
+   @Override
+public ClienteFrecuenteDTO buscarPorTelefono(String telefono) throws NegocioException {
+    try {
+        ClienteFrecuente cliente = clienteFrecuenteDAO.buscarPorTelefono(telefono);
+        if (cliente == null) {
+            throw new NegocioException("No se encontró ningún cliente con ese teléfono");
+        }
+        return ClienteFrecuenteMapper.toDTO(cliente);
+    } catch (Exception e) {
+        throw new NegocioException("Error al buscar cliente por teléfono: " + e.getMessage());
+    }
+}
 
-        try {
-            List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarPorTelefono(telefono);
-            if (clientes == null || clientes.isEmpty()) {
-                throw new NegocioException("No se encontraron clientes con ese teléfono");
-            }
-            return ClienteFrecuenteMapper.toListDTO(clientes);
-        } catch (Exception e) {
-            throw new NegocioException("Error al buscar cliente por teléfono");
+@Override
+public ClienteFrecuenteDTO buscarPorCorreo(String correo) throws NegocioException {
+    try {
+        ClienteFrecuente cliente = clienteFrecuenteDAO.buscarPorCorreo(correo);
+        if (cliente == null) {
+            throw new NegocioException("No se encontró ningún cliente con ese correo electrónico");
         }
+        return ClienteFrecuenteMapper.toDTO(cliente);
+    } catch (Exception e) {
+        throw new NegocioException("Error al buscar cliente por correo: " + e.getMessage());
     }
-    
-    @Override
-    public List<ClienteFrecuenteDTO> buscarPorCorreo(String correo) throws NegocioException {
-       
-        try {
-            List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarPorCorreo(correo);
-            if (clientes == null || clientes.isEmpty()) {
-                throw new NegocioException("No se encontraron clientes con ese correo electrónico");
-            }
-            return ClienteFrecuenteMapper.toListDTO(clientes);
-        } catch (Exception e) {
-            throw new NegocioException("Error al buscar cliente por correo");
-        }
-    }
+}
+
     
     @Override
     public List<ClienteFrecuenteDTO> obtenerTodos() throws NegocioException {

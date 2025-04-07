@@ -22,9 +22,9 @@ public interface IClienteFrecuenteBO {
     
     List<ClienteFrecuenteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException;
     
-    List<ClienteFrecuenteDTO> buscarPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException;
+    ClienteFrecuenteDTO buscarPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException;
     
-    List<ClienteFrecuenteDTO> buscarPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException;
+    ClienteFrecuenteDTO buscarPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException;
     
     List<ClienteFrecuenteDTO> obtenerTodos() throws NegocioException;
     

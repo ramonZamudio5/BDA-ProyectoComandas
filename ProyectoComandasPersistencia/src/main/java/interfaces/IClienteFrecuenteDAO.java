@@ -20,8 +20,8 @@ public interface IClienteFrecuenteDAO {
     ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException;
     ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException;
     List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException;
-    List<ClienteFrecuente> buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException;
-    List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException;
+     ClienteFrecuente buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException;
+    ClienteFrecuente buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException;
     List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException;
 }
 

@@ -20,9 +20,14 @@ import java.util.logging.Logger;
 /**
  *
  * @author Cricri
- */public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
-    
-    
+ */import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.time.LocalDate;
+import java.util.List;
+
+
+public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
+
     private static ClienteFrecuenteDAO clienteFrecuenteDAO;
 
     public ClienteFrecuenteDAO() {
@@ -35,11 +40,21 @@ import java.util.logging.Logger;
         return clienteFrecuenteDAO;
     }
 
+  
     @Override
     public ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException {    
         if (cliente.getFechaRegistro() == null) {
             cliente.setFechaRegistro(LocalDate.now());
         }
+
+      
+        try {
+            cliente.setCorreoElectronico(Encriptador.encriptar(cliente.getCorreoElectronico())); 
+            cliente.setTelefono(Encriptador.encriptar(cliente.getTelefono())); 
+        } catch (Exception e) {
+            throw new AgregarClienteFrecuenteException("Error al encriptar datos: " + e.getMessage());
+        }
+
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
@@ -53,78 +68,124 @@ import java.util.logging.Logger;
             em.close();
         }
     }
-
-    @Override
-    public ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException {
+        @Override
+    public ClienteFrecuente buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
-            ClienteFrecuente cliente = em.find(ClienteFrecuente.class, id);
-            if (cliente != null) {
+           
+            String telefonoCifrado = Encriptador.encriptar(telefono);
+
+           
+            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono = :telefono");
+            query.setParameter("telefono", telefonoCifrado);
+            List<?> resultados = query.getResultList();
+
+            for (Object obj : resultados) {
+                ClienteFrecuente cliente = (ClienteFrecuente) obj;
+              
+                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
+                cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+
+               
                 calcularAtributosClienteFrecuente(cliente);
+
+                return cliente;
             }
-            return cliente;
+
+            return null; 
         } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente");
+            throw new BuscarClienteFrecuenteException("Error al buscar cliente por teléfono: " + e.getMessage());
         } finally {
             em.close();
         }
     }
 
-    @Override
-    public List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE LOWER(c.nombreCompleto) LIKE LOWER(:nombre)");
-            query.setParameter("nombre", "%" + nombre + "%");
-            List<ClienteFrecuente> clientes = query.getResultList();
-            for (ClienteFrecuente cliente : clientes) {
-                calcularAtributosClienteFrecuente(cliente);
-            }
-            return clientes;
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente por nombre: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }
-    @Override
-    public List<ClienteFrecuente> buscarPorTelefono(String telefono) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.telefono LIKE :telefono");
-            query.setParameter("telefono", "%" + telefono + "%"); 
-            List<ClienteFrecuente> clientes = query.getResultList();
-            for (ClienteFrecuente cliente : clientes) {
-                calcularAtributosClienteFrecuente(cliente);
-            }
-            return clientes;
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente por teléfono");
-        } finally {
-            em.close();
-        }
-    }
 
-    @Override
-    public List<ClienteFrecuente> buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            
-            Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correoElectronico LIKE :correo");
-            query.setParameter("correo", "%" + correo + "%"); 
-            List<ClienteFrecuente> clientes = query.getResultList();
-            for (ClienteFrecuente cliente : clientes) {
-                calcularAtributosClienteFrecuente(cliente);
-            }
-            return clientes;
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente por correo: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }
 
+
+        @Override
+       public ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException {
+            EntityManager em = Conexion.crearConexion();
+            try {
+           
+                ClienteFrecuente cliente = em.find(ClienteFrecuente.class, id);
+
+                if (cliente != null) {
+                 
+                    cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico())); 
+                    cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));  
+
+                    
+                    calcularAtributosClienteFrecuente(cliente);
+                }
+
+                return cliente;
+            } catch (Exception e) {
+                throw new BuscarClienteFrecuenteException("Error al obtener cliente por ID: " + e.getMessage());
+            } finally {
+                em.close();
+            }
+        }
+
+
+      
+        @Override
+        public List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException {
+            EntityManager em = Conexion.crearConexion();
+            try {
+
+                Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE LOWER(c.nombreCompleto) LIKE LOWER(:nombre)");
+                query.setParameter("nombre", "%" + nombre + "%");
+                List<ClienteFrecuente> clientes = query.getResultList();
+                for (ClienteFrecuente cliente : clientes) {
+                    calcularAtributosClienteFrecuente(cliente);
+
+                
+                    cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));  
+                    cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));  
+                }
+                return clientes;
+            } catch (Exception e) {
+                throw new BuscarClienteFrecuenteException("Error al buscar cliente por nombre: " + e.getMessage());
+            } finally {
+                em.close();
+            }
+        }
+
+        @Override
+  public ClienteFrecuente buscarPorCorreo(String correo) throws BuscarClienteFrecuenteException {
+      EntityManager em = Conexion.crearConexion();
+      try {
+  
+          String correoCifrado = Encriptador.encriptar(correo);
+
+          Query query = em.createQuery("SELECT c FROM ClienteFrecuente c WHERE c.correoElectronico = :correo");
+          query.setParameter("correo", correoCifrado);
+          List<?> resultados = query.getResultList();
+
+          for (Object obj : resultados) {
+              ClienteFrecuente cliente = (ClienteFrecuente) obj;
+       
+              cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+              cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
+
+        
+              calcularAtributosClienteFrecuente(cliente);
+
+              return cliente;
+          }
+
+          return null; 
+      } catch (Exception e) {
+          throw new BuscarClienteFrecuenteException("Error al buscar cliente por correo: " + e.getMessage());
+      } finally {
+          em.close();
+      }
+  }
+
+
+
+ 
     @Override
     public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
@@ -132,6 +193,10 @@ import java.util.logging.Logger;
             List<ClienteFrecuente> clientes = em.createQuery("SELECT c FROM ClienteFrecuente c").getResultList();
             for (ClienteFrecuente cliente : clientes) {
                 calcularAtributosClienteFrecuente(cliente);
+
+        
+                cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico())); 
+                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono())); 
             }
             return clientes;
         } catch (Exception e) {
@@ -139,30 +204,23 @@ import java.util.logging.Logger;
         } finally {
             em.close();
         }
-        }
-    //calcular los atributos transient
+    }
+
+    // Calcular atributos de cliente (sin cambios)
     private void calcularAtributosClienteFrecuente(ClienteFrecuente cliente) {
-        //  puntos de fidelidad
         cliente.setPuntosObtenidos(calcularPuntos(cliente));
-
-        // gasto total acumulado
         cliente.setGastoTotalAcumulado(calcularGastoTotal(cliente));
-
-        //número de visitas
         cliente.setConteoVisitas(calcularVisitas(cliente));
     }
-        //puntos obtenidos por el cliente
+
     private int calcularPuntos(ClienteFrecuente cliente) {
-      
         double gastoTotal = calcularGastoTotal(cliente);
         return (int) (gastoTotal / 20);
     }
 
-    //gasto total acumulado por el cliente
     private double calcularGastoTotal(ClienteFrecuente cliente) {
         EntityManager em = Conexion.crearConexion();
         try {
-            //comandas asociadas al cliente para calcular el gasto total
             Query query = em.createQuery("SELECT SUM(c.total) FROM Comanda c WHERE c.cliente.id = :clienteId");
             query.setParameter("clienteId", cliente.getId());
             Double gastoTotal = (Double) query.getSingleResult();
@@ -172,13 +230,11 @@ import java.util.logging.Logger;
         } finally {
             em.close();
         }
-    
     }
-        //   número de visitas del cliente 
+
     private int calcularVisitas(ClienteFrecuente cliente) {
         EntityManager em = Conexion.crearConexion();
         try {
-            //comandas asociadas al cliente
             Query query = em.createQuery("SELECT COUNT(c) FROM Comanda c WHERE c.cliente.id = :clienteId");
             query.setParameter("clienteId", cliente.getId());
             Long cantidadVisitas = (Long) query.getSingleResult();
@@ -190,7 +246,7 @@ import java.util.logging.Logger;
         }
     }
 
-  
     
-    
+   
 }
+

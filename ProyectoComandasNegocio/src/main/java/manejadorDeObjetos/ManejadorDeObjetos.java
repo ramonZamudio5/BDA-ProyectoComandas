@@ -117,17 +117,16 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
         return clienteFrecuenteBO.buscarPorNombre(nombre);
     }
-
     @Override
-    public List<ClienteFrecuenteDTO> buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
         return clienteFrecuenteBO.buscarPorTelefono(telefono);
     }
 
     @Override
-    public List<ClienteFrecuenteDTO> buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
         return clienteFrecuenteBO.buscarPorCorreo(correo);
     }
-    
+
   
     @Override
     public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {

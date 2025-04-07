@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -125,29 +126,37 @@ public class BuscarCliente extends JFrame {
         }
     }
 
-    private void buscar() {
-        try {
-            List<ClienteFrecuenteDTO> resultados = null;
+private void buscar() {
+    try {
+        List<ClienteFrecuenteDTO> resultados = null;
 
-            // Realiza la búsqueda según el campo activo
-            if (rbNombre.isSelected() && !txtNombre.getText().trim().isEmpty()) {
-                resultados = control.buscarClientesPorNombre(txtNombre.getText().trim());
-            } else if (rbTelefono.isSelected() && !txtTelefono.getText().trim().isEmpty()) {
-                resultados = control.buscarClientesPorTelefono(txtTelefono.getText().trim());
-            } else if (rbCorreo.isSelected() && !txtCorreo.getText().trim().isEmpty()) {
-                resultados = control.buscarClientesPorCorreo(txtCorreo.getText().trim());
+        if (rbNombre.isSelected() && !txtNombre.getText().trim().isEmpty()) {
+            resultados = control.buscarClientesPorNombre(txtNombre.getText().trim());
+        } else if (rbTelefono.isSelected() && !txtTelefono.getText().trim().isEmpty()) {
+            ClienteFrecuenteDTO cliente = control.buscarClientesPorTelefono(txtTelefono.getText().trim());
+            if (cliente != null) {
+                resultados = new ArrayList<>();
+                resultados.add(cliente);
             }
-
-            // Mostrar los resultados en el área de texto
-            if (resultados != null && !resultados.isEmpty()) {
-                mostrarResultados(resultados);
-            } else {
-                areaResultados.setText("No se encontraron resultados.");
+        } else if (rbCorreo.isSelected() && !txtCorreo.getText().trim().isEmpty()) {
+            ClienteFrecuenteDTO cliente = control.buscarClientesPorCorreo(txtCorreo.getText().trim());
+            if (cliente != null) {
+                resultados = new ArrayList<>();
+                resultados.add(cliente);
             }
-        } catch (Exception e) {
-            areaResultados.setText("Error al realizar la búsqueda: " + e.getMessage());
         }
+
+        if (resultados != null && !resultados.isEmpty()) {
+            mostrarResultados(resultados);
+        } else {
+            areaResultados.setText("No se encontraron resultados.");
+        }
+
+    } catch (Exception e) {
+        areaResultados.setText("Error al realizar la búsqueda: " + e.getMessage());
     }
+}
+
 
     private void mostrarResultados(List<ClienteFrecuenteDTO> clientes) {
         StringBuilder sb = new StringBuilder();
