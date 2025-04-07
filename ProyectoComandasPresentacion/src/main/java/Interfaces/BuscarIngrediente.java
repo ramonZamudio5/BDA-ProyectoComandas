@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import enums.UnidadMedida;
+import excepciones.ActualizarStockException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
@@ -154,10 +155,19 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                    
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                      if(ingrediente.getStock()>0){
-                        double stockActualizado= ingrediente.getStock()+1;
-                        ingrediente.setStock(stockActualizado);
-                        stockLabel.setText(String.valueOf(stockActualizado));
+                      if(ingrediente.getStock()>=0){
+                          try {
+                              double stockActualizado= ingrediente.getStock()+1;
+                              ingrediente.setStock(stockActualizado);
+                              stockLabel.setText(String.valueOf(stockActualizado));
+                              
+                              IngredienteDTO ingredienteActualizado= control.actualizarStock(ingrediente.getId(), ingrediente.getStock());
+                          } catch (NegocioException ex) {
+                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Error al actualizar stock", ex);
+                          } catch (ActualizarStockException ex) {
+                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Falla al actualizar stock", ex);
+                          }
+                         
                         
                     }
                     }
@@ -171,7 +181,13 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                         double stockActualizado= ingrediente.getStock()-1;
                         ingrediente.setStock(stockActualizado);
                         stockLabel.setText(String.valueOf(stockActualizado));
-                        
+                        try{
+                        IngredienteDTO ingredienteActualizado= control.actualizarStock(ingrediente.getId(), ingrediente.getStock());
+                          } catch (NegocioException ex) {
+                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Error al actualizar stock", ex);
+                          } catch (ActualizarStockException ex) {
+                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Falla al actualizar stock", ex);
+                          }
                     }
                     }
                 });
