@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package daos;
+import Encriptador.Encriptador;
 import conexion.Conexion;
 import entidades.ClienteFrecuente;
 import excepciones.AgregarClienteFrecuenteException;
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -33,40 +36,50 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
         return clienteFrecuenteDAO;
     }
 
-    @Override
+            @Override
     public ClienteFrecuente agregarCliente(ClienteFrecuente cliente) throws AgregarClienteFrecuenteException {    
-        if (cliente.getFechaRegistro() == null) {
-            cliente.setFechaRegistro(LocalDate.now());
-        }
-        EntityManager em = Conexion.crearConexion();
-        try {
-            em.getTransaction().begin();
-            em.persist(cliente);
-            em.getTransaction().commit();
-            return cliente;
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new AgregarClienteFrecuenteException("Error al agregar cliente: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            ClienteFrecuente cliente = em.find(ClienteFrecuente.class, id);
-            if (cliente != null) {
-                calcularAtributosClienteFrecuente(cliente);
+            if (cliente.getFechaRegistro() == null) {
+                cliente.setFechaRegistro(LocalDate.now());
             }
-            return cliente;
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al buscar cliente");
-        } finally {
-            em.close();
+
+            try {
+                // encriptar datos
+                cliente.setTelefono(Encriptador.encriptar(cliente.getTelefono()));
+                if (cliente.getCorreoElectronico() != null) {
+                    cliente.setCorreoElectronico(Encriptador.encriptar(cliente.getCorreoElectronico()));
+                }
+
+                EntityManager em = Conexion.crearConexion();
+                em.getTransaction().begin();
+                em.persist(cliente);
+                em.getTransaction().commit();
+                return cliente;
+            } catch (Exception e) {
+                throw new AgregarClienteFrecuenteException("Error al agregar cliente: " + e.getMessage());
+            }
         }
-    }
+
+        @Override
+     public ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException {
+         EntityManager em = Conexion.crearConexion();
+         try {
+             ClienteFrecuente cliente = em.find(ClienteFrecuente.class, id);
+             if (cliente != null) {
+                 // desencriptar datos
+                 cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
+                 if (cliente.getCorreoElectronico() != null) {
+                     cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+                 }
+
+                 calcularAtributosClienteFrecuente(cliente);
+             }
+             return cliente;
+         } catch (Exception e) {
+             throw new BuscarClienteFrecuenteException("Error al buscar cliente");
+         } finally {
+             em.close();
+         }
+     }
 
     @Override
     public List<ClienteFrecuente> buscarPorNombre(String nombre) throws BuscarClienteFrecuenteException {
@@ -121,23 +134,32 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
         } finally {
             em.close();
         }
-    }
+           }
+    
+           @Override
+        public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
+            EntityManager em = Conexion.crearConexion();
+            try {
+                List<ClienteFrecuente> clientes = em.createQuery("SELECT c FROM ClienteFrecuente c").getResultList();
 
-    @Override
-    public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            List<ClienteFrecuente> clientes = em.createQuery("SELECT c FROM ClienteFrecuente c").getResultList();
-            for (ClienteFrecuente cliente : clientes) {
-                calcularAtributosClienteFrecuente(cliente);
+                // desencriptar 
+                for (ClienteFrecuente cliente : clientes) {
+                    calcularAtributosClienteFrecuente(cliente);
+
+                    // desencriptar 
+                    cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+                    cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
+                }
+
+                return clientes;
+            } catch (Exception e) {
+                throw new BuscarClienteFrecuenteException("Error al obtener todos los clientes");
+            } finally {
+                em.close();
             }
-            return clientes;
-        } catch (Exception e) {
-            throw new BuscarClienteFrecuenteException("Error al obtener todos los clientes");
-        } finally {
-            em.close();
         }
-        }
+
+
     //calcular los atributos transient
     private void calcularAtributosClienteFrecuente(ClienteFrecuente cliente) {
         //  puntos de fidelidad
