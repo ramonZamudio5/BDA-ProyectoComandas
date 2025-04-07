@@ -200,7 +200,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
 
         
                 cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico())); 
-                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono())); 
+                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
             }
             return clientes;
         } catch (Exception e) {
