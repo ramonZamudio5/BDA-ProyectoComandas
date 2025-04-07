@@ -61,7 +61,7 @@ public class IngredienteBO implements IIngredienteBO {
                 if(ingrediente.getId()==null){
                     throw new NegocioException("El ingrediente no puede ser nulo");
                 }
-            } return IngredienteMapper.toListDTO(ingredientesPorMedida);
+            } return IngredienteMapper.toListDTOConID(ingredientesPorMedida);
             
         } catch(Exception e){
             throw new NegocioException("Error al buscar ingredientes por "+medida);
