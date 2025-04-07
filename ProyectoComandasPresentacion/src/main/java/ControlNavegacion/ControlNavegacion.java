@@ -28,6 +28,7 @@ import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.ActualizarProductoException;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
@@ -191,6 +192,9 @@ public class ControlNavegacion {
     public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
       return manejador.buscarPorMedida(medida);
     }
+     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException{
+         return manejador.actualizarStock(idIngrediente, stock);
+     }
 
         public List<ClienteFrecuenteDTO> buscarClientesPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
       return manejador.buscarClientePorNombre(nombre);

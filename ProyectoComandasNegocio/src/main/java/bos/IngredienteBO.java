@@ -6,6 +6,7 @@ package bos;
 
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorNombreException;
@@ -114,6 +115,21 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
     
+    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException{
+        if(idIngrediente==null){
+            throw new ActualizarStockException("El ID del ingrediente no puede ser nulo");
+        }
+        if(stock<0){
+            throw new ActualizarStockException("El nuevo stock no puede ser menor a 0");
+        }
+        try{
+            Ingrediente ingredienteActualizado= ingredienteDAO.actualizarStock(idIngrediente, stock);
+            //checar el mapper
+            return IngredienteMapper.toDTO(ingredienteActualizado);
+        } catch(Exception e){
+            throw new ActualizarStockException("Error al actualizar stock"+e.getMessage());
+        }
+    }
     
     
     
