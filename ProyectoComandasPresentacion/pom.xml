@@ -14,11 +14,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>ProyectoComandasNegocio</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>ProyectoComandasPersistencia</artifactId>
-            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mycompany</groupId>
+                    <artifactId>ProyectoComandasPersistencia</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
