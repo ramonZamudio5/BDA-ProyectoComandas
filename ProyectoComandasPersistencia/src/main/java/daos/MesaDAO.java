@@ -32,7 +32,13 @@ public class MesaDAO implements IMesaDAO{
         EntityManager em= Conexion.crearConexion();
         
         try{
-            em.getTransaction().begin();
+             em.getTransaction().begin();
+            long mesas= (long) em.createQuery("SELECT COUNT(m) FROM Mesa m").getSingleResult();
+            if(mesas>0){
+                return false;
+            }
+            
+           
             
             for(int i=1; i<=20; i++){
                 Mesa mesa= new Mesa(i);
