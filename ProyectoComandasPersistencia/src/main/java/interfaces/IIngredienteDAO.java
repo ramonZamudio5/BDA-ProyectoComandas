@@ -6,6 +6,7 @@ package interfaces;
 
 import entidades.Ingrediente;
 import enums.UnidadMedida;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorMedidaException;
@@ -23,4 +24,5 @@ public interface IIngredienteDAO {
     public List<Ingrediente> buscarPorMedida(String medida) throws BuscarPorMedidaException;
     public UnidadMedida convertirTextoAUnidad(String texto) throws ConvertirTextoAUnidadException;
     public Ingrediente buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException;
+     public Ingrediente actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException;
 }
