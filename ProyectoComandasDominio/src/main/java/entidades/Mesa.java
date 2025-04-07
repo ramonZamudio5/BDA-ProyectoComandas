@@ -4,9 +4,12 @@
  */
 package entidades;
 
+import enums.EstadoMesa;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +29,11 @@ public class Mesa implements Serializable {
 
     @Column(name = "numero", nullable = false, unique = true)
     private Integer numero;
+    
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name= "estado", nullable= false)
+    private EstadoMesa estado; 
 
     public Mesa() {
     }
@@ -35,8 +43,22 @@ public class Mesa implements Serializable {
         this.numero = numero;
     }
 
+    public Mesa(Long id, Integer numero, EstadoMesa estado) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+    }
+
     public Mesa(Integer numero) {
         this.numero = numero;
+    }
+
+    public EstadoMesa getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoMesa estado) {
+        this.estado = estado;
     }
     
  
@@ -58,9 +80,10 @@ public class Mesa implements Serializable {
 
     @Override
     public String toString() {
-        return "Mesa{" + "id=" + id + ", numero=" + numero + '}';
+        return "Mesa{" + "id=" + id + ", numero=" + numero + ", estado=" + estado + '}';
     }
 
+    
     
 
 }
