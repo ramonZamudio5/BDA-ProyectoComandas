@@ -19,6 +19,13 @@ public class MesaDispDTO {
     public MesaDispDTO() {
     }
 
+    public MesaDispDTO(Long id, Integer numero, EstadoMesa estado) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+    }
+    
+
     public Long getId() {
         return id;
     }

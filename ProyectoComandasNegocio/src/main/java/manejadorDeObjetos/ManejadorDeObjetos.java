@@ -17,6 +17,7 @@ import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
+import entidades.Mesa;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
@@ -28,6 +29,7 @@ import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
+import excepciones.ObtenerMesasDispException;
 import excepciones.RegistrarClienteException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
@@ -48,6 +50,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     private final ProductoBO productoBO;
     private final ClienteFrecuenteBO clienteFrecuenteBO;
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
+   
     
 
     public ManejadorDeObjetos() {
@@ -168,10 +171,18 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
          }
         
      }
+     
+//      public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException{
+//          try{
+//              
+//          }
+//              
+//          }
+      }
          
      
 
     
     
     
-}
+
