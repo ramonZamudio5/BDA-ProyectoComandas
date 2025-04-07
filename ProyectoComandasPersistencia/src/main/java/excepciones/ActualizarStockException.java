@@ -8,6 +8,19 @@ package excepciones;
  *
  * @author janethcristinagalvanquinonez
  */
-public class ActualizarStockException {
+public class ActualizarStockException extends Exception{
+
+    public ActualizarStockException() {
+    }
+
+    public ActualizarStockException(String message) {
+        super(message);
+    }
+
+    public ActualizarStockException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    
+    
     
 }
