@@ -8,6 +8,7 @@ import excepciones.BuscarIngredienteException;
 import conexion.Conexion;
 import entidades.Ingrediente;
 import enums.UnidadMedida;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
@@ -154,7 +155,25 @@ public class IngredienteDAO implements IIngredienteDAO {
     }
     
     
-    //public Ingrediente actualizarStock(int idIngrediente)
+    public Ingrediente actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException{
+        EntityManager em= Conexion.crearConexion();
+        try{
+            em.getTransaction().begin();
+            Ingrediente ingrediente= em.find(Ingrediente.class, idIngrediente);
+            if(ingrediente==null){
+                throw new ActualizarStockException("Ingrediente con ID "+idIngrediente+ " no encontrado");
+                
+            }
+            ingrediente.setStock(stock);
+            em.merge(ingrediente);
+            em.getTransaction().commit();
+            return ingrediente;
+        } catch(Exception e){
+            throw new ActualizarStockException("Error al actualizar stock" + e.getMessage());
+        } finally{
+            em.close();
+        }
+    }
 }
     
     

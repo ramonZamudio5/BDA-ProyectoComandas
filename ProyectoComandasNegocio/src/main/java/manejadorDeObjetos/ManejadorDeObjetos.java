@@ -20,6 +20,7 @@ import dtos.ProductoDTO;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
@@ -157,6 +158,19 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         }
         return null;
     }
+    
+     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException{
+         try{
+        IngredienteDTO ingredienteActualizado= ingredienteBO.actualizarStock(idIngrediente, stock);
+        return ingredienteActualizado;
+         } catch(ActualizarStockException e){
+             Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, e);
+             throw new NegocioException("Error");
+         }
+        
+     }
+         
+     
 
     
     
