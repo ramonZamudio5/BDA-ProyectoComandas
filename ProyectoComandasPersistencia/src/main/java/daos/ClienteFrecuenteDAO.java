@@ -135,29 +135,31 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO{
             em.close();
         }
            }
-    
-           @Override
-        public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
-            EntityManager em = Conexion.crearConexion();
-            try {
-                List<ClienteFrecuente> clientes = em.createQuery("SELECT c FROM ClienteFrecuente c").getResultList();
 
-                // desencriptar 
-                for (ClienteFrecuente cliente : clientes) {
-                    calcularAtributosClienteFrecuente(cliente);
 
-                    // desencriptar 
-                    cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
-                    cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
-                }
+        @Override
+    public List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            List<ClienteFrecuente> clientes = em.createQuery("SELECT c FROM ClienteFrecuente c").getResultList();
 
-                return clientes;
-            } catch (Exception e) {
-                throw new BuscarClienteFrecuenteException("Error al obtener todos los clientes");
-            } finally {
-                em.close();
+            // desencriptar 
+            for (ClienteFrecuente cliente : clientes) {
+                calcularAtributosClienteFrecuente(cliente);
+
+                // desencriptar los datos
+                cliente.setCorreoElectronico(Encriptador.desencriptar(cliente.getCorreoElectronico()));
+                cliente.setTelefono(Encriptador.desencriptar(cliente.getTelefono()));
             }
+
+            return clientes;
+        } catch (Exception e) {
+            throw new BuscarClienteFrecuenteException("Error al obtener todos los clientes");
+        } finally {
+            em.close();
         }
+    }
+
 
 
     //calcular los atributos transient
