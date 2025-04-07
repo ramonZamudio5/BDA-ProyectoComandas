@@ -12,6 +12,7 @@ import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
+import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
 import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
@@ -57,4 +58,5 @@ public interface IManejadorDeObjetos {
    public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto);
 
    public ProductoDTO AgregarProducto(ProductoDTO producto);
+    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException;
 }
