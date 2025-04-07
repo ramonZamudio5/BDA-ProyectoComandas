@@ -20,6 +20,7 @@ import Interfaces.SeleccionarOpccionProductos;
 import Interfaces.BuscarIngredienteComanda;
 import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
+import Interfaces.OpcionReportesFrame;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
@@ -252,8 +253,11 @@ public class ControlNavegacion {
     }
     
     public void openFormopenFormBuscarIngredienteComandaActualizarProducto(ProductoDTO producto){
-        System.out.println(producto);
         new BuscarIngredienteComandaActualizarProducto(this, producto).setVisible(true);
+    }
+    
+    public void openFormOpcionReportesFrame(){
+        new OpcionReportesFrame(this).setVisible(true);
     }
 }
      
