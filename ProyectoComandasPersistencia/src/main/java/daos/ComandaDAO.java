@@ -41,11 +41,15 @@ public class ComandaDAO {
             if (comanda.getCliente() != null && comanda.getCliente().getId() == null) {
                 throw new AgregarComandaException("El cliente debe estar persistido antes de agregar la comanda.");
             }
-
+            
             List<DetalleComanda> detallesOriginales = comanda.getDetalles();
+            
+            
             comanda.setDetalles(new ArrayList<>()); // temporalmente vacía
             em.persist(comanda);
             em.flush(); 
+            
+            
             if (comanda.getId() == null) {
                 throw new AgregarComandaException("No se generó ID para la comanda.");
             }

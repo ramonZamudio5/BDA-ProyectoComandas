@@ -33,15 +33,20 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column(nullable = false, unique = true)
     private String nombre;
+    
     @Column(nullable = false)
     private Double precio;
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Tipo tipoProducto;
+    
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE,CascadeType.MERGE}, orphanRemoval = true)
     private List<ProductoIngrediente> ingredientes = new ArrayList<>();
+    
     @Column(nullable = false)
     private boolean estado;
 

@@ -43,7 +43,7 @@ public class Comanda implements Serializable {
     @Column(nullable = false)
     private EstadoComanda estado;
 
-    @ManyToOne
+    @ManyToOne(optional=true)
     private Cliente cliente; 
     
      

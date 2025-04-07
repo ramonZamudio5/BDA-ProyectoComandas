@@ -5,6 +5,8 @@
 package com.mycompany.proyectocomandaspersistencia;
 
 import daos.IngredienteDAO;
+import daos.MesaDAO;
+import static daos.MesaDAO.mesaDAO;
 import daos.ProductoDAO;
 import entidades.Ingrediente;
 import entidades.Producto;
@@ -15,6 +17,7 @@ import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
+import excepciones.InsercionMasivaException;
 import static java.util.Collections.list;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,10 +28,11 @@ import java.util.List;
  */
 public class ProyectoComandasPersistencia {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws InsercionMasivaException  {
         
         
         IngredienteDAO ingredienteDAO= IngredienteDAO.getInstance();
+        MesaDAO mesaDAO= MesaDAO.getInstance();
         
         
         Ingrediente ingrediente= new Ingrediente("Lechuga", 5.0, UnidadMedida.PIEZA);
@@ -62,7 +66,25 @@ public class ProyectoComandasPersistencia {
                     System.out.println("Error al buscar por medida " +e.getMessage());
           }
         
-        }
         
+        try{
+          boolean resultado= mesaDAO.insercionMasiva();
+          if(resultado){
+              System.out.println("bien");
+          } else{
+              System.out.println("mal");
+          }
+        }catch(InsercionMasivaException e){
+            System.out.println("error "+e.getMessage());
+        }
     }
+}
+
+        
+        
+    
+     
+       
+        
+    
 
