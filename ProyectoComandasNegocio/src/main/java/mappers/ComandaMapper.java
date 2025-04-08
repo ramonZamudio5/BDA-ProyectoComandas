@@ -6,6 +6,8 @@ package mappers;
 
 import dtos.ComandaDTO;
 import entidades.Comanda;
+import enums.EstadoComanda;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 

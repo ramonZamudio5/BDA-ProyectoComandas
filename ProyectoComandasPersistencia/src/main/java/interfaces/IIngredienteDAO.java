@@ -25,4 +25,5 @@ public interface IIngredienteDAO {
     public UnidadMedida convertirTextoAUnidad(String texto) throws ConvertirTextoAUnidadException;
     public Ingrediente buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException;
      public Ingrediente actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException;
+     public List<Ingrediente> buscarIngrediente(String nombre, String medida) throws BuscarIngredienteException;
 }

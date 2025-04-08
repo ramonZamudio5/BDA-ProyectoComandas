@@ -16,6 +16,7 @@ import enums.Tipo;
 import enums.UnidadMedida;
 import excepciones.AgregarIngredienteException;
 import excepciones.AgregarProductoException;
+import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.InsercionMasivaException;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class ProyectoComandasPersistencia {
 
-    public static void main(String[] args) throws InsercionMasivaException, ObtenerMesasDispException  {
+    public static void main(String[] args) throws InsercionMasivaException, ObtenerMesasDispException, BuscarIngredienteException  {
         
         
         IngredienteDAO ingredienteDAO= IngredienteDAO.getInstance();
@@ -90,8 +91,11 @@ public class ProyectoComandasPersistencia {
           
         }
         
+        List<Ingrediente> ingredientesEncontrados= ingredienteDAO.buscarIngrediente("Lechuga", null);
+        
     }
 }
+
 
         
         

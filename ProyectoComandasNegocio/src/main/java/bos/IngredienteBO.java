@@ -14,6 +14,9 @@ import interfaces.IIngredienteBO;
 import interfaces.IIngredienteDAO;
 import java.util.List;
 import mappers.IngredienteMapper;
+import excepciones.BuscarIngredienteException;
+import excepciones.ActualizarStockException;
+
 
 /**
  *
@@ -126,6 +129,21 @@ public class IngredienteBO implements IIngredienteBO {
             return IngredienteMapper.toDTO(ingredienteActualizado);
         } catch(Exception e){
             throw new NegocioException("Error al actualizar stock"+e.getMessage());
+        }
+    }
+    
+    public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
+        if((nombre==null || nombre.trim().isEmpty()) && (medida==null || medida.trim().isEmpty())){
+            throw new NegocioException("Se debe agregar minimo un criterio de busqueda");
+        } try{
+            
+            List<Ingrediente> ingredientesEncontrados= ingredienteDAO.buscarIngrediente(nombre, medida);
+            if(ingredientesEncontrados==null || ingredientesEncontrados.isEmpty()){
+                throw new NegocioException("Ingredientes no encotrados con los filtros aplicados");
+            } return IngredienteMapper.toListDTO(ingredientesEncontrados);
+            
+        } catch(Exception e){
+            throw new NegocioException("Error en la busqueda de ingredientes "+e.getMessage());
         }
     }
     
