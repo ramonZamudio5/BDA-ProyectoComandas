@@ -80,7 +80,7 @@ public class ControlNavegacion {
         new AgregarIngrediente(this).setVisible(true);
     }
     
-     public void  openFormBuscarCliente() {
+     public void  openFormBuscarCliente() throws NegocioException {
            new BuscarCliente(this).setVisible(true);
      }
     

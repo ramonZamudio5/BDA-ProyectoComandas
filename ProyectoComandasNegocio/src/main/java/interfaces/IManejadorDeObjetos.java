@@ -30,33 +30,33 @@ public interface IManejadorDeObjetos {
     
     public abstract List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException;
     
-    public abstract List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException, BuscarProductoException;
+    public abstract List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException;
     
-    public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException;
+    public ProductoDTO obtenerProducto(Long id) throws NegocioException;
     
     public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException;
     
-    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException;
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException;
     
-     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException;
+     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException;
      
-    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException;
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException;
     
-    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException;
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException;
  
-    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException;
+    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException;
 
-    public  ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException;
+    public  ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException;
 
-    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException;
+    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException;
    
     
-   public  ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException;
+   public  ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException;
    
-   public List<ClienteFrecuenteDTO> obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException;
+   public List<ClienteFrecuenteDTO> obtenerTodos()throws NegocioException;
    
    public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto);
 
    public ProductoDTO AgregarProducto(ProductoDTO producto);
-    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException;
+    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException;
 }
