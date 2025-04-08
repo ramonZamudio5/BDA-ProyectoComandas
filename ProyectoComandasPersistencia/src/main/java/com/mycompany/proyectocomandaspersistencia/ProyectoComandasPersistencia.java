@@ -47,6 +47,15 @@ public class ProyectoComandasPersistencia {
             
         }
         
+        Ingrediente ingrediente2= new Ingrediente("Lechuga", 5.0, UnidadMedida.GRAMO);
+        try{
+            Ingrediente ingredienteAgregado= ingredienteDAO.agregarIngrediente(ingrediente);
+            System.out.println("Se ha agregado el ingrediente");
+        } catch(AgregarIngredienteException e){
+            System.out.println("Error al agregar ingrediente" +e.getMessage());
+            
+        }
+        
         
         
         try{
@@ -92,6 +101,9 @@ public class ProyectoComandasPersistencia {
         }
         
         List<Ingrediente> ingredientesEncontrados= ingredienteDAO.buscarIngrediente("Lechuga", null);
+        for (Ingrediente ingredientes: ingredientesEncontrados){
+            System.out.println(ingredientes);
+        }
         
     }
 }
