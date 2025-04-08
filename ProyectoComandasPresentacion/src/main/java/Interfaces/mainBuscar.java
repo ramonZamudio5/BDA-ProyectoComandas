@@ -11,7 +11,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
  *
- * @author Cricri
+ * @author Cricri aaaaaaaaaaaaa
  */
 public class mainBuscar {
 
