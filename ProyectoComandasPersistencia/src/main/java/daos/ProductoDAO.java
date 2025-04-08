@@ -34,7 +34,10 @@ public class ProductoDAO implements IProductoDAO{
 
     public ProductoDAO() {
     }
-    
+    /**
+     * metodo que obtiene la instancia de clase 
+     * @return regresa la instancia de la clase
+     */
     public static ProductoDAO getInstance(){
         if(productoDAO == null){
             productoDAO = new ProductoDAO();
@@ -42,7 +45,12 @@ public class ProductoDAO implements IProductoDAO{
         return productoDAO;
     }
     
-
+    /**
+     * metodo que agrega un producto a la base de datos
+     * @param producto producto a persistirse
+     * @return regresa el producto persistido en la base de datos
+     * @throws AgregarProductoException tira la excepcion si hay un problema en el agregar
+     */
     @Override
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -84,7 +92,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que obtiene un producto en especifico por su id
+     * @param id identificador unico del producto
+     * @return regresa el producto solicitado
+     * @throws BuscarProductoException tira la excepcion si hubo un problema al buscar el producto
+     */
     @Override
     public Producto obtenerProducto(Long id) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -96,7 +109,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que busca todas los productos con similitudes en el nombre
+     * @param nombreProducto nombre del producto que buscamos
+     * @return  regresa una lista con todos los produtos que cumplan con el filtro
+     * @throws BuscarProductoException  tira la excepcion si hubo un problema al buscar el producto
+     */
     @Override
     public List<Producto> buscarPorNombre(String nombreProducto) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -110,7 +128,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que busca un producto por su nombre
+     * @param nombreProducto nombre del producto a buscar
+     * @return regresa un solo producto el cual coincida con el solicitado
+     * @throws BuscarProductoException tira la excepcion si hubo un problema al buscar el producto
+     */
     public Producto buscarPorNombreUnico(String nombreProducto) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -125,7 +148,11 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que obtiene todos los productos de la base de datos
+     * @return regresa todos los productos de la base de datos
+     * @throws BuscarProductoException  tira la excepcion si hubo un problema al buscar el producto
+     */
     @Override
     public List<Producto> obtenerTodos() throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -137,16 +164,18 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que actualiza un producto 
+     * @param producto producto con los datos a ser actualizados
+     * @return regresa el producto actualizado
+     * @throws ActualizarProductoException tira la excepcion si hubo un problema al actualizar el producto
+     */
     @Override
     public Producto actualizarProducto(Producto producto) throws ActualizarProductoException {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
-            System.out.println(producto.getNombre());
             Producto existente = buscarPorNombreUnico(producto.getNombre());
-            System.out.println(existente.getNombre());
-            System.out.println(existente.getId());
             if (existente == null) {
                 throw new ActualizarProductoException("El producto no existe en la base de datos.");
             }
@@ -168,7 +197,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que elimina un producto de la base de datos
+     * @param id identificador unico del producto que se desea eliminar 
+     * @return regresa el estado de la eliminacion true si se elimino y false si no 
+     * @throws EliminarProductoException tira la excepcion si hubo un problema al eliminar el producto
+     */
     @Override
     public boolean eliminarProducto(long id) throws EliminarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -188,7 +222,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que busca un producto por su tipo
+     * @param tipo tipo por el cual se desea filtra el producto
+     * @return  regresa una lista de todos los productos los cuales cumplen con el filtro
+     * @throws BuscarProductoException tira la excepcion si hubo un problema al buscar el producto
+     */
     @Override
     public List<Producto> buscarPorTipo(Tipo tipo) throws BuscarProductoException {
         EntityManager em = Conexion.crearConexion();
@@ -203,7 +242,12 @@ public class ProductoDAO implements IProductoDAO{
             em.close();
         }
     }
-
+    /**
+     * metodo que elimina un producto por su nombre 
+     * @param nombreProducto
+     * @return
+     * @throws EliminarProductoException 
+     */
     @Override
     public boolean eliminarProductoPorNombre(String nombreProducto) throws EliminarProductoException {
         EntityManager em = Conexion.crearConexion();
