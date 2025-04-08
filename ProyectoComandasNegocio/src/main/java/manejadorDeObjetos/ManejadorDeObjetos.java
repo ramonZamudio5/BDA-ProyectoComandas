@@ -96,16 +96,19 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return false;
     }
     
+    @Override
     public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
          return ingredienteBO.buscarPorNombre(nombre);
      }
     
     
+    @Override
      public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
          return ingredienteBO.buscarPorMedida(medida);
      }
              
              
+    @Override
      public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
          return ingredienteBO.agregarIngrediente(ingredienteDTO);
      }  
