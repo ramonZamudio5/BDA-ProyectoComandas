@@ -113,16 +113,17 @@ public class IngredienteDAO implements IIngredienteDAO {
         try{
             String consulta= ("SELECT i FROM Ingrediente i WHERE 1=1 ");
             if(nombre!= null && !nombre.trim().isEmpty()){
-                consulta+= ("AND i.nombre LIKE :nombre");
+                consulta+= (" AND i.nombre LIKE :nombre");
             } if(medida!=null){
-                consulta+= ("AND i.medida= :medida");
+                consulta+= (" AND i.unidadMedida= :unidadMedida");
                 
             } Query query= em.createQuery(consulta);
-            if(nombre!= null && !nombre.trim().isEmpty()){
+            if(nombre!= null){
                 query.setParameter("nombre", nombre + "%");           
-             }if(medida!=null){
+             }if(medida!=null && !medida.trim().isEmpty()){
                  UnidadMedida unidad= convertirTextoAUnidad(medida);
-                 query.setParameter("medida", unidad);
+                 System.out.println(unidad);
+                 query.setParameter("unidadMedida", unidad);
                 }  
                 List<Ingrediente> ingredientes= query.getResultList();
                 

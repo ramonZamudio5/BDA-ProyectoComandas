@@ -99,11 +99,35 @@ public class ProyectoComandasPersistencia {
             System.out.println("error "+e.getMessage());
           
         }
-        
-        List<Ingrediente> ingredientesEncontrados= ingredienteDAO.buscarIngrediente("Lechuga", null);
-        for (Ingrediente ingredientes: ingredientesEncontrados){
+        System.out.println("nombre y unidad");
+        List<Ingrediente> ingredientesEncontradosNomb= ingredienteDAO.buscarIngrediente("Lechuga", "PIEZA");
+      
+        for (Ingrediente ingredientes: ingredientesEncontradosNomb){
             System.out.println(ingredientes);
         }
+        
+        System.out.println("nombre");
+        List<Ingrediente> ingredientesEncontradosComb= ingredienteDAO.buscarIngrediente("Lechuga", null);
+      
+        for (Ingrediente ingredientes: ingredientesEncontradosComb){
+            System.out.println(ingredientes);
+        }
+        
+        System.out.println("pieza");
+        List<Ingrediente> ingredientesEncontradosPieza= ingredienteDAO.buscarIngrediente(null, "PIEZA");
+      
+        for (Ingrediente ingredientes: ingredientesEncontradosPieza){
+            System.out.println(ingredientes);
+        }
+        
+        
+        System.out.println("nada");
+        List<Ingrediente> ingredientesEncontradosNull= ingredienteDAO.buscarIngrediente(null, null);
+      
+        for (Ingrediente ingredientes: ingredientesEncontradosNull){
+            System.out.println(ingredientes);
+        }
+        
         
     }
 }
