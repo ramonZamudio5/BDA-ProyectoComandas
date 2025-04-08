@@ -61,6 +61,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
         this.control = control;
         initComponents();
         this.producto = producto;
+        System.out.println(producto.isEstado());
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(botonMedida);
         buttonGroup.add(botonNombre);
@@ -208,6 +209,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
                               
                  }
                 JOptionPane.showMessageDialog(null, mensaje.toString(), "Selección Confirmada", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(producto.isEstado());
                 List<ProductoIngrediente> productosIngredientes = control.obtenerListaProductoIngrediente(ingredienteSeleccionado, producto);
                 producto.setIngredientes(productosIngredientes);
                 try {

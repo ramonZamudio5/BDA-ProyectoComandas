@@ -45,15 +45,9 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         initComponents();
         this.control = control;
         getContentPane().setBackground(new java.awt.Color(248, 248, 241));
-        jTextField1.setEnabled(false);
-        ButtonGroup buttonGroup= new ButtonGroup();
-        buttonGroup.add(jCheckBox1);
-        buttonGroup.add(jCheckBox2);
-        jButton1.setEnabled(false);
         tipoComboBox = new JComboBox<>(new DefaultComboBoxModel<>(Tipo.values()));
         tipoComboBox.setBounds(510, 185,130,70);
         add(tipoComboBox); 
-        tipoComboBox.setEnabled(false);
     }
 
     /**
@@ -70,8 +64,6 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -97,20 +89,6 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         );
 
         jScrollPane1.setViewportView(jPanel1);
-
-        jCheckBox1.setText("Filtrar por nombre");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setText("Filtrar por tipo");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -161,18 +139,11 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 203, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButton2)
-                                .addGap(279, 279, 279)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(294, 294, 294)
-                                .addComponent(jCheckBox1)
-                                .addGap(96, 96, 96)
-                                .addComponent(jCheckBox2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(jButton2)
+                        .addGap(279, 279, 279)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 453, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(248, 248, 248)
@@ -187,11 +158,7 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(44, 44, 44)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,87 +170,40 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-        if (jCheckBox1.isSelected()) {
-                    jTextField1.setEnabled(true);  
-                    jButton1.setEnabled(true);  
-                    tipoComboBox.setEnabled(false);
-                } else {
-                    jTextField1.setEnabled(false); 
-                    jButton1.setEnabled(false);  
-                }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-        if (jCheckBox2.isSelected()) {
-                    tipoComboBox.setEnabled(true); 
-                    jButton1.setEnabled(true);
-                    jTextField1.setEnabled(false);
-                } else {
-                    tipoComboBox.setEnabled(false); 
-                    jButton1.setEnabled(false);     
-                }
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
                 String busqueda = jTextField1.getText();
                 jPanel1.removeAll();
                 jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
-                if (jCheckBox1.isSelected()) {
-                    try {
-                        List<ProductoDTO> listaProductos = control.obtenerPorNombre(busqueda);
-                        for (ProductoDTO producto : listaProductos) {
-                            JButton btn = new JButton(producto.getNombre());
-                            btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
-                            btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                            btn.setHorizontalAlignment(SwingConstants.CENTER);
-                            btn.setVerticalAlignment(SwingConstants.CENTER); 
-                            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                            btn.addActionListener(e -> {
-                                control.openFormEditarProdutoFrame(producto);
-                                dispose();
-                            });
-                            jPanel1.add(btn);
-                        }
-                        jPanel1.revalidate();
-                        jPanel1.repaint();
-                    } catch (Exception ex) {
-                        try {
-                            throw new NegocioException("Error al buscar el producto");
-                        } catch (NegocioException ex1) {
-                            Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
-                        }
+                try {
+                    List<ProductoDTO> listaProductos;
+                    if(jTextField1.getText().isEmpty()){
+                        listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
+                    }else{
+                        listaProductos = control.obtenerPorNombre(busqueda);
                     }
-                } else if (jCheckBox2.isSelected()) {
+                    for (ProductoDTO producto : listaProductos) {
+                        JButton btn = new JButton(producto.getNombre());
+                        btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
+                        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+                        btn.setHorizontalAlignment(SwingConstants.CENTER);
+                        btn.setVerticalAlignment(SwingConstants.CENTER); 
+                        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                        btn.addActionListener(e -> {
+                            control.openFormEditarProdutoFrame(producto);
+                            dispose();
+                        });
+                        jPanel1.add(btn);
+                    }
+                    jPanel1.revalidate();
+                    jPanel1.repaint();
+                } catch (Exception ex) {
                     try {
-                        List<ProductoDTO> listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
-                        for (ProductoDTO producto : listaProductos) {
-                            JButton btn = new JButton(producto.getNombre());
-                            btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
-                            btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                            btn.setHorizontalAlignment(SwingConstants.CENTER);
-                            btn.setVerticalAlignment(SwingConstants.CENTER); 
-                            btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                            btn.addActionListener(e -> {
-                                control.openFormEditarProdutoFrame(producto);
-                                dispose();
-                            });
-
-                            jPanel1.add(btn);
-                        }
-                        jPanel1.revalidate();
-                        jPanel1.repaint();
-                    }catch (Exception ex) {
-                            try {
-                            throw new NegocioException("Error al buscar el producto");
-                        } catch (NegocioException ex1) {
-                            Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
-                        }
+                        throw new NegocioException("Error al buscar el producto");
+                    } catch (NegocioException ex1) {
+                        Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
                     }
                 }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -335,8 +255,6 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
     private java.awt.Choice choice1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

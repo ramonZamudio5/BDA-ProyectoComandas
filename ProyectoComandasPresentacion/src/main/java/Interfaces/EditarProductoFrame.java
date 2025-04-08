@@ -137,7 +137,7 @@ public class EditarProductoFrame extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setText("Estado");
 
-        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo ", "Inactivo" }));
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel10.setText("Nombre");
@@ -233,27 +233,17 @@ public class EditarProductoFrame extends javax.swing.JFrame {
 //este no hace nada
     private void BotonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguienteActionPerformed
         // TODO add your handling code here:
-        boolean estadoProducto;
-        if ("Activo".equals((String) estadoComboBox.getSelectedItem())) {
-            estadoProducto = true;
-        }else{
-            estadoProducto = false;
-        }
-        ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
-        System.out.println("entro en 1"+productoActualizado);
-        control.openFormopenFormBuscarIngredienteComandaActualizarProducto(producto);
+
     }//GEN-LAST:event_BotonSiguienteActionPerformed
 
     private void BotonSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSiguiente1ActionPerformed
         // TODO add your handling code here:
         boolean estadoProducto;
-        if ("Activo".equals((String) estadoComboBox.getSelectedItem())) {
-            estadoProducto = true;
-        }else{
-            estadoProducto = false;
-        }
+        String seleccionado = (String) estadoComboBox.getSelectedItem();
+        System.out.println("seleccinado: " +seleccionado);
+        estadoProducto = seleccionado.equals("Activo");
+        System.out.println("estado producto: "+estadoProducto);
         ProductoDTO productoActualizado = new ProductoDTO(producto.getNombre(), Double.parseDouble(precioTextField1.getText()), (Tipo) tipoComboBox.getSelectedItem(),estadoProducto);
-        System.out.println("entro en 1"+productoActualizado);  
          control.openFormopenFormBuscarIngredienteComandaActualizarProducto(productoActualizado);
         //abre la sig pantalla
     }//GEN-LAST:event_BotonSiguiente1ActionPerformed
