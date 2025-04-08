@@ -162,13 +162,8 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     }
     
      public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException{
-         try{
-        IngredienteDTO ingredienteActualizado= ingredienteBO.actualizarStock(idIngrediente, stock);
-        return ingredienteActualizado;
-         } catch(ActualizarStockException e){
-             Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, e);
-             throw new NegocioException("Error");
-         }
+         IngredienteDTO ingredienteActualizado= ingredienteBO.actualizarStock(idIngrediente, stock);
+         return ingredienteActualizado;
         
      }
      

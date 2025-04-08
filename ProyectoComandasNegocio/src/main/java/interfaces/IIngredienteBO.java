@@ -19,9 +19,9 @@ import java.util.List;
  * @author janethcristinagalvanquinonez
  */
 public interface IIngredienteBO {
-    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException;
-    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException;
-    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException;
-    public IngredienteDTO buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException;
-     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException;
+    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException;
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException;
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException;
+    public IngredienteDTO buscarPorNombreUnico(String nombreIngrediente) throws NegocioException;
+     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException;
 }

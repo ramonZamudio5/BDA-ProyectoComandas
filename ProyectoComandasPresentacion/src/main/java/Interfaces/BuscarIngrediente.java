@@ -16,9 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import enums.UnidadMedida;
-import excepciones.ActualizarStockException;
-import excepciones.BuscarPorMedidaException;
-import excepciones.BuscarPorNombreException;
+//import excepciones.ActualizarStockException;
+//import excepciones.BuscarPorMedidaException;
+//import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
@@ -99,7 +99,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -108,7 +108,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             public void removeUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -117,7 +117,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -164,9 +164,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                               IngredienteDTO ingredienteActualizado= control.actualizarStock(ingrediente.getId(), ingrediente.getStock());
                           } catch (NegocioException ex) {
                               Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Error al actualizar stock", ex);
-                          } catch (ActualizarStockException ex) {
-                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Falla al actualizar stock", ex);
-                          }
+                          } 
                          
                         
                     }
@@ -185,9 +183,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                         IngredienteDTO ingredienteActualizado= control.actualizarStock(ingrediente.getId(), ingrediente.getStock());
                           } catch (NegocioException ex) {
                               Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Error al actualizar stock", ex);
-                          } catch (ActualizarStockException ex) {
-                              Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, "Falla al actualizar stock", ex);
-                          }
+                          } 
                     }
                     }
                 });
@@ -285,7 +281,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 //                return new ImageIcon("/");
 //            }
 //        }
-    private void actualizarBusqueda() throws NegocioException, BuscarPorNombreException {
+    private void actualizarBusqueda() throws NegocioException {
 
         String textoBuscado = campoNombre.getText().trim();
         System.out.println("Texto ingresado: '" + textoBuscado + "'");
@@ -307,7 +303,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                     mostrarResultados(IngredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorNombreException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -316,7 +312,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
 
     }
 
-    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException, BuscarPorMedidaException {
+    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException {
         panelIngredientes.removeAll();
         System.out.println("unidad " + unidadMedida);
         if (unidadMedida != null && !unidadMedida.trim().isEmpty()) {
@@ -333,7 +329,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                     mostrarResultados(ingredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorMedidaException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -505,9 +501,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                     actualizarBusquedaUnidad(unidadSeleccionada);
                 } catch (NegocioException ex) {
                     Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BuscarPorMedidaException ex) {
-                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
 
             }
 
@@ -549,6 +543,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             //      IIngredienteBO ingredienteBO= ManejadorObjetoNegocio.crearIngredienteBO();
+            @Override
             public void run() {
                 IManejadorDeObjetos manejador= new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);

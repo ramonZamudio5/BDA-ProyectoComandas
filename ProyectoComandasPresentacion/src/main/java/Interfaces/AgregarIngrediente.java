@@ -27,10 +27,10 @@ import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Utilerias.Utileria;
 import bos.IngredienteBO;
-import daos.IngredienteDAO;
-import static daos.IngredienteDAO.ingredienteDAO;
+//import daos.IngredienteDAO;
+//import static daos.IngredienteDAO.ingredienteDAO;
 import dtos.IngredienteDTO;
-import excepciones.AgregarIngredienteException;
+//import excepciones.AgregarIngredienteException;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
       // ingredienteBO= new IngredienteBO(ingredienteDAO);
 
     }
-    public void guardar() throws IOException, AgregarIngredienteException{
+    public void guardar() throws IOException, NegocioException{
         String nombre= inputNombre.getText();
         Double stock;
         try{
@@ -426,7 +426,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             guardar();
         } catch (IOException ex) {
             Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AgregarIngredienteException ex) {
+        } catch (NegocioException ex) {
             Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_registrarButtonActionPerformed

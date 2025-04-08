@@ -164,20 +164,15 @@ public class ControlNavegacion {
         }
     }
     
-    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException{
          try{
              IngredienteDTO ingredienteRegistrado= manejador.agregarIngrediente(ingredienteDTO);
              JOptionPane.showMessageDialog(null, "Ingrediente guardado correctamente");
              return ingredienteRegistrado;
-         } catch(AgregarIngredienteException ex){
+         } catch(NegocioException ex){
              Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
              JOptionPane.showMessageDialog(null, "Error al guardar ingrediente: " +ex.getMessage(),
                      "ERROR", JOptionPane.WARNING_MESSAGE);
-         } catch(NegocioException ex){
-             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-             JOptionPane.showMessageDialog(null, "Error de negocio al guardar ingrediente: " + ex.getMessage(),
-                "ERROR", JOptionPane.WARNING_MESSAGE);
-
          }
          return new IngredienteDTO();
     }
@@ -190,10 +185,10 @@ public class ControlNavegacion {
         }
     }
 
-    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException{
       return manejador.buscarPorMedida(medida);
     }
-     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException{
+     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException{
          return manejador.actualizarStock(idIngrediente, stock);
      }
 

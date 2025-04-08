@@ -30,9 +30,9 @@ public class IngredienteBO implements IIngredienteBO {
     }
     
     @Override
-    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException{
         if (nombre==null || nombre.trim().isEmpty()){
-            throw new BuscarPorNombreException("Ingredientes con el nombre "+nombre+ " no encontrados");
+            throw new NegocioException("Ingredientes con el nombre "+nombre+ " no encontrados");
         }
         try{
             List<Ingrediente> ingredientesPorNombre= ingredienteDAO.buscarPorNombre(nombre);
@@ -50,9 +50,9 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
     
-    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+    public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException{
         if(medida==null || medida.trim().isEmpty()){
-            throw new BuscarPorMedidaException("Ingredientes con unidad de medida "+medida+ " no encontrados");
+            throw new NegocioException("Ingredientes con unidad de medida "+medida+ " no encontrados");
         } try{
             List<Ingrediente> ingredientesPorMedida= ingredienteDAO.buscarPorMedida(medida);
             if(ingredientesPorMedida==null || ingredientesPorMedida.isEmpty()){
@@ -70,7 +70,7 @@ public class IngredienteBO implements IIngredienteBO {
             
     }
     
-    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
+    public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException{
         if (ingredienteDTO==null){
             throw new NegocioException("El ingrediente no puede ser nulo");
         }
@@ -96,38 +96,38 @@ public class IngredienteBO implements IIngredienteBO {
             return IngredienteMapper.toDTO(ingredienteGuardado);
             
         } catch(AgregarIngredienteException e){
-            throw new AgregarIngredienteException("Error al agregar ingrediente" +e.getMessage(), e );
+            throw new NegocioException("Error al agregar ingrediente" +e.getMessage(), e );
             
         } catch(Exception e){
             throw new NegocioException("Error al agregar ingrediente" + e.getMessage());
         }
     }
 
-    @Override
-    public IngredienteDTO buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException {
+    
+    public IngredienteDTO buscarPorNombreUnico(String nombreIngrediente) throws NegocioException {
         if (nombreIngrediente == null || nombreIngrediente.trim().isEmpty()) {
-            throw new BuscarIngredienteException("El nombre del ingrediente no puede ser nulo o vacío.");
+            throw new NegocioException("El nombre del ingrediente no puede ser nulo o vacío.");
         }
         try{
             return IngredienteMapper.toDTO(ingredienteDAO.buscarPorNombreUnico(nombreIngrediente));
         }catch(Exception e){
-            throw new BuscarIngredienteException("Error al buscar el ingrediente");
+            throw new NegocioException("Error al buscar el ingrediente");
         }
     }
     
-    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException{
+    public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException{
         if(idIngrediente==null){
-            throw new ActualizarStockException("El ID del ingrediente no puede ser nulo");
+            throw new NegocioException("El ID del ingrediente no puede ser nulo");
         }
         if(stock<0){
-            throw new ActualizarStockException("El nuevo stock no puede ser menor a 0");
+            throw new NegocioException("El nuevo stock no puede ser menor a 0");
         }
         try{
             Ingrediente ingredienteActualizado= ingredienteDAO.actualizarStock(idIngrediente, stock);
             //checar el mapper
             return IngredienteMapper.toDTO(ingredienteActualizado);
         } catch(Exception e){
-            throw new ActualizarStockException("Error al actualizar stock"+e.getMessage());
+            throw new NegocioException("Error al actualizar stock"+e.getMessage());
         }
     }
     
