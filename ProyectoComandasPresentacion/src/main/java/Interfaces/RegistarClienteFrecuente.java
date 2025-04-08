@@ -6,7 +6,7 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import bos.ClienteFrecuenteBO;
-import daos.ClienteFrecuenteDAO;
+
 import dtos.ClienteFrecuenteDTO;
 import excepciones.NegocioException;
 import java.awt.BorderLayout;

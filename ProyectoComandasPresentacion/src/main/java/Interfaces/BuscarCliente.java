@@ -6,7 +6,7 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import dtos.ClienteFrecuenteDTO;
-import excepciones.BuscarClienteFrecuenteException;
+
 import excepciones.NegocioException;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -37,7 +37,7 @@ public class BuscarCliente extends JFrame {
     private JRadioButton rbNombre, rbTelefono, rbCorreo;
     private ButtonGroup grupoBusqueda;
 
-    public BuscarCliente(ControlNavegacion control) throws BuscarClienteFrecuenteException {
+    public BuscarCliente(ControlNavegacion control) throws NegocioException{
         this.control = control;
         inicializarComponentes();
         configurarEventos();
@@ -113,7 +113,7 @@ public class BuscarCliente extends JFrame {
         txtCorreo.getDocument().addDocumentListener(buscarListener);
     }
 
-    private void cargarClientesIniciales() throws BuscarClienteFrecuenteException {
+    private void cargarClientesIniciales() throws NegocioException {
         try {
             List<ClienteFrecuenteDTO> clientes = control.obtenerTodosLosClientes();  // Llamada al manejador
             if (clientes != null && !clientes.isEmpty()) {

@@ -5,7 +5,8 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
-import excepciones.BuscarClienteFrecuenteException;
+import excepciones.NegocioException;
+
 import interfaces.IManejadorDeObjetos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,12 +104,8 @@ public class opcionesModuloCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        try {
-            // TODO add your handling code here:
-            control.openFormBuscarCliente();
-        } catch (BuscarClienteFrecuenteException ex) {
-            Logger.getLogger(opcionesModuloCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        control.openFormBuscarCliente();
         dispose();
     }//GEN-LAST:event_botonBuscarActionPerformed
 

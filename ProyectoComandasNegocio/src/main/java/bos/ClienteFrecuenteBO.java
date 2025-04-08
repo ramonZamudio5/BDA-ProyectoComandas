@@ -6,20 +6,17 @@ package bos;
 
 import dtos.ClienteFrecuenteDTO;
 import entidades.ClienteFrecuente;
-import excepciones.AgregarClienteFrecuenteException;
-import excepciones.BuscarClienteFrecuenteException;
 import excepciones.NegocioException;
 import interfaces.IClienteFrecuenteBO;
 import interfaces.IClienteFrecuenteDAO;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import mappers.ClienteFrecuenteMapper;
 
 /**
  *
  * @author Cricri
  */
+
 public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
   
     private IClienteFrecuenteDAO clienteFrecuenteDAO;

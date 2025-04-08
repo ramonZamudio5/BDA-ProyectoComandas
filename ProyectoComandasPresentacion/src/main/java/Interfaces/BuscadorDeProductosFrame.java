@@ -6,14 +6,15 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import bos.ProductoBO;
-import daos.ProductoDAO;
+
 import dtos.ProductoDTO;
 import entidades.Producto;
 import enums.Tipo;
-import excepciones.BuscarProductoException;
+
+import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import interfaces.IProductoBO;
-import interfaces.IProductoDAO;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
@@ -252,8 +253,8 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                         jPanel1.repaint();
                     } catch (Exception ex) {
                         try {
-                            throw new BuscarProductoException("Error al buscar el producto");
-                        } catch (BuscarProductoException ex1) {
+                            throw new NegocioException("Error al buscar el producto");
+                        } catch (NegocioException ex1) {
                             Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
                         }
                     }
@@ -279,8 +280,8 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
                         jPanel1.repaint();
                     }catch (Exception ex) {
                             try {
-                            throw new BuscarProductoException("Error al buscar el producto");
-                        } catch (BuscarProductoException ex1) {
+                            throw new NegocioException("Error al buscar el producto");
+                        } catch (NegocioException ex1) {
                             Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
                         }
                     }

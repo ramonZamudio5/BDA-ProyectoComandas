@@ -5,7 +5,7 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
-import excepciones.BuscarClienteFrecuenteException;
+import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import manejadorDeObjetos.ManejadorDeObjetos;
 
@@ -18,7 +18,7 @@ public class mainBuscar {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws BuscarClienteFrecuenteException {
+    public static void main(String[] args) throws NegocioException{
 
     IManejadorDeObjetos manejador = new ManejadorDeObjetos(); 
     ControlNavegacion control = new ControlNavegacion(manejador);
