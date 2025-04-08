@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mappers;
-
+import dtos.IngredienteDTO;
 import dtos.MesaDispDTO;
+import entidades.Ingrediente;
 import entidades.Mesa;
 import java.util.ArrayList;
 import java.util.List;

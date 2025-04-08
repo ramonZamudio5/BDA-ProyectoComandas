@@ -5,10 +5,12 @@
 package interfaces;
 
 import dtos.ProductoDTO;
+import entidades.Producto;
 import enums.Tipo;
 import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
 import java.util.List;
+import mappers.ProductoMapper;
 
 /**
  *

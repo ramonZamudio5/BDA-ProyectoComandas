@@ -3,6 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package interfaces;
+import bos.ProductoBO;
+import daos.ProductoDAO;
+import excepciones.ActualizarStockException;
+import excepciones.AgregarIngredienteException;
+import excepciones.BuscarClienteFrecuenteException;
+import excepciones.BuscarPorMedidaException;
+import excepciones.BuscarPorNombreException;
+import excepciones.BuscarProductoException;
+import excepciones.RegistrarClienteException;
 
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;

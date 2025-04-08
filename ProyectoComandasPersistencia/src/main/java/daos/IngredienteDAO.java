@@ -106,6 +106,40 @@ public class IngredienteDAO implements IIngredienteDAO {
         }
     }
     
+    public List<Ingrediente> buscarIngrediente(String nombre, String medida) throws BuscarIngredienteException{
+        
+        
+        EntityManager em= Conexion.crearConexion();
+        try{
+            String consulta= ("SELECT i FROM Ingrediente i WHERE 1=1");
+            if(nombre!= null && !nombre.trim().isEmpty()){
+                consulta+= ("AND i.nombre LIKE :nombre");
+            } if(medida!=null && !medida.trim().isEmpty()){
+                consulta+= ("AND i.medida= :medida");
+                
+            } Query query= em.createQuery(consulta);
+            if(nombre!= null && !nombre.trim().isEmpty()){
+                query.setParameter("nombre", nombre + "%");           
+             }if(medida!=null){
+                 UnidadMedida unidad= convertirTextoAUnidad(medida);
+                 query.setParameter("medida", medida);
+                }  
+                List<Ingrediente> ingredientes= query.getResultList();
+                
+                if(ingredientes.isEmpty()) {
+                    throw new BuscarIngredienteException("Ingredientes con esos filtros no encontrados");
+                }    
+                return ingredientes;
+        } catch(Exception e){
+            throw new BuscarIngredienteException("Error al buscar ingredientes");
+        } finally{
+            em.close();
+        }
+        }
+        
+ 
+    
+    
     public UnidadMedida convertirTextoAUnidad(String texto) throws ConvertirTextoAUnidadException{
         try{
             return UnidadMedida.valueOf(texto.toUpperCase());

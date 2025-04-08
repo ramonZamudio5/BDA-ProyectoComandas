@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mappers;
-
+import enums.UnidadMedida;
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import java.util.ArrayList;
