@@ -104,8 +104,12 @@ public class opcionesModuloCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        // TODO add your handling code here:
-        control.openFormBuscarCliente();
+        try {
+            // TODO add your handling code here:
+            control.openFormBuscarCliente();
+        } catch (NegocioException ex) {
+            Logger.getLogger(opcionesModuloCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_botonBuscarActionPerformed
 

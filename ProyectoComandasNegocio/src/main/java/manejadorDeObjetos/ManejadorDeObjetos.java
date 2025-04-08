@@ -70,14 +70,25 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return productoBO.obtenerPorNombre(nombre);
     }
     
-    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException, BuscarProductoException{
+    public List<ProductoDTO> obtenerPorTipo(Tipo tipo) throws NegocioException{
       
-        return productoBO.buscarPorTipo(tipo);
+        try {
+            return productoBO.buscarPorTipo(tipo);
+        } catch (BuscarProductoException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
-    public ProductoDTO obtenerProducto(Long id) throws NegocioException, BuscarProductoException, BuscarProductoException{
+    @Override
+    public ProductoDTO obtenerProducto(Long id) throws NegocioException{
         
-        return productoBO.obtenerProducto(id);
+        try {
+            return productoBO.obtenerProducto(id);
+        } catch (BuscarProductoException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public ProductoDTO actualizarProducto(ProductoDTO producto) throws NegocioException{
@@ -86,7 +97,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     }
     
     @Override
-    public boolean eliminarProducto(String nombreProducto) throws NegocioException, BuscarProductoException{
+    public boolean eliminarProducto(String nombreProducto) throws NegocioException{
        
         try {
             return productoBO.eliminarProductoPorNombre(nombreProducto);
@@ -97,19 +108,19 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     }
     
     @Override
-    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarPorNombreException{
+    public List<IngredienteDTO> buscarPorNombre(String nombre) throws NegocioException{
          return ingredienteBO.buscarPorNombre(nombre);
      }
     
     
     @Override
-     public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException, BuscarPorMedidaException{
+     public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException{
          return ingredienteBO.buscarPorMedida(medida);
      }
              
              
     @Override
-     public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException, AgregarIngredienteException{
+     public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException{
          return ingredienteBO.agregarIngrediente(ingredienteDTO);
      }  
 
@@ -120,27 +131,27 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      
       // Métodos de Cliente Frecuente
     @Override
-    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException {
+    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException{
         return clienteFrecuenteBO.buscarPorNombre(nombre);
     }
     @Override
-    public ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException {
         return clienteFrecuenteBO.buscarPorTelefono(telefono);
     }
 
     @Override
-    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException {
+    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException {
         return clienteFrecuenteBO.buscarPorCorreo(correo);
     }
 
   
     @Override
-    public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException, RegistrarClienteException {
+    public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException{
         return clienteFrecuenteBO.agregarCliente(cliente);
     }
     
     
-     public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException, BuscarClienteFrecuenteException {
+     public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException{
         return clienteFrecuenteBO.obtenerTodos();
      }
 
@@ -164,7 +175,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return null;
     }
     
-     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException, ActualizarStockException{
+     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException{
          IngredienteDTO ingredienteActualizado= ingredienteBO.actualizarStock(idIngrediente, stock);
          return ingredienteActualizado;
         
