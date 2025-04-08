@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import enums.UnidadMedida;
-import excepciones.BuscarPorMedidaException;
-import excepciones.BuscarPorNombreException;
+//import excepciones.BuscarPorMedidaException;
+//import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
@@ -95,7 +95,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -104,7 +104,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
             public void removeUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -113,7 +113,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -237,7 +237,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
 //                return new ImageIcon("/");
 //            }
 //        }
-    private void actualizarBusqueda() throws NegocioException, BuscarPorNombreException {
+    private void actualizarBusqueda() throws NegocioException {
 
         String textoBuscado = campoNombre.getText().trim();
         System.out.println("Texto ingresado: '" + textoBuscado + "'");
@@ -254,7 +254,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                     mostrarResultados(IngredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorNombreException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -263,7 +263,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
 
     }
 
-    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException, BuscarPorMedidaException {
+    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException {
         panelIngredientes.removeAll();
         System.out.println("unidad " + unidadMedida);
         if (unidadMedida != null && !unidadMedida.trim().isEmpty()) {
@@ -277,7 +277,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                     mostrarResultados(ingredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorMedidaException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -449,9 +449,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
                     actualizarBusquedaUnidad(unidadSeleccionada);
                 } catch (NegocioException ex) {
                     Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BuscarPorMedidaException ex) {
-                    Logger.getLogger(BuscarIngredienteComanda.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
 
             }
 

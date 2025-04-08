@@ -10,9 +10,9 @@ import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.UnidadMedida;
-import excepciones.ActualizarProductoException;
-import excepciones.BuscarPorMedidaException;
-import excepciones.BuscarPorNombreException;
+//import excepciones.ActualizarProductoException;
+//import excepciones.BuscarPorMedidaException;
+//import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
@@ -90,7 +90,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
             public void insertUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -99,7 +99,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
             public void removeUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -108,7 +108,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
             public void changedUpdate(DocumentEvent e) {
                 try {
                     actualizarBusqueda();
-                } catch (NegocioException | BuscarPorNombreException ex) {
+                } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -216,9 +216,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
 
                 } catch (NegocioException ex) {
                     Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ActualizarProductoException ex) {
-                    Logger.getLogger(BuscarIngredienteComandaActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
                 control.openFormSeleccionarOpccionProducto();
                 dispose();
                 
@@ -246,7 +244,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
 //                return new ImageIcon("/");
 //            }
 //        }
-    private void actualizarBusqueda() throws NegocioException, BuscarPorNombreException {
+    private void actualizarBusqueda() throws NegocioException {
 
         String textoBuscado = campoNombre.getText().trim();
         System.out.println("Texto ingresado: '" + textoBuscado + "'");
@@ -263,7 +261,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
                     mostrarResultados(IngredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorNombreException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -272,7 +270,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
 
     }
 
-    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException, BuscarPorMedidaException {
+    private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException {
         panelIngredientes.removeAll();
         System.out.println("unidad " + unidadMedida);
         if (unidadMedida != null && !unidadMedida.trim().isEmpty()) {
@@ -286,7 +284,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
                     mostrarResultados(ingredientesEncontrados);
                 }
 
-            } catch (NegocioException | BuscarPorMedidaException e) {
+            } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -458,9 +456,7 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
                     actualizarBusquedaUnidad(unidadSeleccionada);
                 } catch (NegocioException ex) {
                     Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BuscarPorMedidaException ex) {
-                    Logger.getLogger(BuscarIngredienteComandaAñadirProducto.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
 
             }
 
