@@ -7,7 +7,6 @@ package bos;
 import dtos.MesaDispDTO;
 import entidades.Mesa;
 import excepciones.ObtenerMesasDispException;
-import interfaces.IMesaBO;
 import interfaces.IMesaDAO;
 import java.util.List;
 import mappers.MesaMapper;

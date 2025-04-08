@@ -5,12 +5,6 @@
 package interfaces;
 
 import dtos.IngredienteDTO;
-import entidades.Ingrediente;
-import excepciones.ActualizarStockException;
-import excepciones.AgregarIngredienteException;
-import excepciones.BuscarIngredienteException;
-import excepciones.BuscarPorMedidaException;
-import excepciones.BuscarPorNombreException;
 import excepciones.NegocioException;
 import java.util.List;
 

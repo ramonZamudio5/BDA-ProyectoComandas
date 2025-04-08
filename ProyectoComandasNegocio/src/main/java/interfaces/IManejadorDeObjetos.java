@@ -4,22 +4,13 @@
  */
 package interfaces;
 
-import bos.ProductoBO;
-import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
-import excepciones.ActualizarStockException;
-import excepciones.AgregarIngredienteException;
-import excepciones.BuscarClienteFrecuenteException;
-import excepciones.BuscarPorMedidaException;
-import excepciones.BuscarPorNombreException;
-import excepciones.BuscarProductoException;
 import excepciones.NegocioException;
-import excepciones.RegistrarClienteException;
 import java.util.List;
 
 /**

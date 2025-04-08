@@ -6,9 +6,7 @@ package bos;
 
 import dtos.IngredienteDTO;
 import entidades.Ingrediente;
-import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
-import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.NegocioException;
