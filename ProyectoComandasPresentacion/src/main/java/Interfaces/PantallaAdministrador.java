@@ -114,8 +114,18 @@ public class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         btnGestionComandas.setText("Gestion Comandas");
+        btnGestionComandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionComandasActionPerformed(evt);
+            }
+        });
 
         btnNuevaComanda.setText("Nueva Comanda");
+        btnNuevaComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaComandaActionPerformed(evt);
+            }
+        });
 
         btnIngredientes.setText("Ingredientes");
         btnIngredientes.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +241,16 @@ public class PantallaAdministrador extends javax.swing.JFrame {
           control.openFormBuscarIngrediente();
         dispose();
     }//GEN-LAST:event_btnIngredientesActionPerformed
+
+    private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
+        // TODO add your handling code here:
+        control.openFormBuscarMesa();
+    }//GEN-LAST:event_btnNuevaComandaActionPerformed
+
+    private void btnGestionComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionComandasActionPerformed
+        // TODO add your handling code here:
+        control.openFormgestionComandas();
+    }//GEN-LAST:event_btnGestionComandasActionPerformed
 
     /**
      * @param args the command line arguments

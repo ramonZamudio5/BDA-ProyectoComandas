@@ -20,7 +20,9 @@ import Interfaces.SeleccionarOpccionProductos;
 import Interfaces.BuscarIngredienteComanda;
 import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
+import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
+import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
@@ -260,6 +262,14 @@ public class ControlNavegacion {
     
     public void openFormDetalleComandaUnica(String folio){
         new DetalleComandaUnica(this,folio).setVisible(true);
+    }
+    
+    public void openFormBuscarMesa(){
+        new BuscarMesaFrame(this).setVisible(true);
+    }
+    
+    public void openFormgestionComandas(){
+        new GestionComandas(this).setVisible(true);
     }
     
     

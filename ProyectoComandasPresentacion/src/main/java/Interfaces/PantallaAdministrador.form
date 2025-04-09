@@ -211,11 +211,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Gestion Comandas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionComandasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnNuevaComanda">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nueva Comanda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaComandaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnIngredientes">
       <Properties>
