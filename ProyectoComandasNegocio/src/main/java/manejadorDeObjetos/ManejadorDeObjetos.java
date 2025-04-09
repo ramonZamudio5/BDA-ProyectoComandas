@@ -181,6 +181,16 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         
      }
      
+     
+     public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
+       
+         return ingredienteBO.buscarIngredientes(nombre, medida);
+        
+         
+     }
+     
+     
+     
 //      public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException{
 //          try{
 //              

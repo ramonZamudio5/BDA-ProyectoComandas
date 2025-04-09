@@ -59,4 +59,5 @@ public interface IManejadorDeObjetos {
 
    public ProductoDTO AgregarProducto(ProductoDTO producto);
     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException;
+     public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException;
 }
