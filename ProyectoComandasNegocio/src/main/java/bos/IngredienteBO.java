@@ -16,6 +16,7 @@ import java.util.List;
 import mappers.IngredienteMapper;
 import excepciones.BuscarIngredienteException;
 import excepciones.ActualizarStockException;
+import excepciones.EliminarIngredienteException;
 
 
 /**
@@ -147,6 +148,18 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
     
+     public boolean eliminarIngrediente(Long idIngrediente) throws NegocioException{
+         
+         if(idIngrediente==null){
+             throw new NegocioException("El ingrediente a ekiminar no tiene ID");
+         }
+         
+         try{
+             return ingredienteDAO.eliminarIngrediente(idIngrediente);
+         } catch(Exception e){
+             throw new NegocioException("No se pudo eliminar el ingrediente");
+         }
+     }
     
     
     

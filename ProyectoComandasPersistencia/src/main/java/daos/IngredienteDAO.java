@@ -13,6 +13,7 @@ import excepciones.AgregarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.ConvertirTextoAUnidadException;
+import excepciones.EliminarIngredienteException;
 import interfaces.IIngredienteDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -205,6 +206,36 @@ public class IngredienteDAO implements IIngredienteDAO {
             return ingrediente;
         } catch(Exception e){
             throw new ActualizarStockException("Error al actualizar stock" + e.getMessage());
+        } finally{
+            em.close();
+        }
+    }
+    
+    public boolean eliminarIngrediente(Long idIngrediente) throws EliminarIngredienteException{
+       
+        EntityManager em= Conexion.crearConexion();
+        try{
+            em.getTransaction().begin();
+            Query query= em.createQuery("SELECT COUNT (i) FROM ProductoIngrediente i WHERE i.ingrediente.id= :idIngrediente");
+            query.setParameter("idIngrediente", idIngrediente);
+            Long cant= (Long) query.getSingleResult();
+            
+            if(cant>0){
+                throw new EliminarIngredienteException("No se pueden eliminar ingredientes asociados a productos");
+            }
+            
+            Ingrediente ingrediente = em.find(Ingrediente.class, idIngrediente);
+            
+            em.remove(ingrediente);
+            em.getTransaction().commit();
+            return true;
+            
+            
+            
+        } catch(EliminarIngredienteException e){
+            em.getTransaction().rollback();
+            throw new EliminarIngredienteException("Error al eliminar ingrediente"+ e.getMessage());
+            
         } finally{
             em.close();
         }

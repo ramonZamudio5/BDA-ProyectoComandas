@@ -12,6 +12,7 @@ import excepciones.BuscarIngredienteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.ConvertirTextoAUnidadException;
+import excepciones.EliminarIngredienteException;
 import java.util.List;
 
 /**
@@ -26,4 +27,5 @@ public interface IIngredienteDAO {
     public Ingrediente buscarPorNombreUnico(String nombreIngrediente) throws BuscarIngredienteException;
      public Ingrediente actualizarStock(Long idIngrediente, Double stock) throws ActualizarStockException;
      public List<Ingrediente> buscarIngrediente(String nombre, String medida) throws BuscarIngredienteException;
+     public boolean eliminarIngrediente(Long idIngrediente) throws EliminarIngredienteException;
 }
