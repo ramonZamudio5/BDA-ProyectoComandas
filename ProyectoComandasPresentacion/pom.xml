@@ -31,6 +31,12 @@
             <artifactId>ProyectoComandasPersistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.luuuis</groupId>
+            <artifactId>jcalendar-tz</artifactId>
+            <version>1.3.3-4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <properties>
