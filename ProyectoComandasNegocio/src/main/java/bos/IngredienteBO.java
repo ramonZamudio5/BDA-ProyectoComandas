@@ -140,7 +140,7 @@ public class IngredienteBO implements IIngredienteBO {
             List<Ingrediente> ingredientesEncontrados= ingredienteDAO.buscarIngrediente(nombre, medida);
             if(ingredientesEncontrados==null || ingredientesEncontrados.isEmpty()){
                 throw new NegocioException("Ingredientes no encotrados con los filtros aplicados");
-            } return IngredienteMapper.toListDTO(ingredientesEncontrados);
+            } return IngredienteMapper.toListDTOConID(ingredientesEncontrados);
             
         } catch(Exception e){
             throw new NegocioException("Error en la busqueda de ingredientes "+e.getMessage());
