@@ -245,11 +245,13 @@ public class PantallaAdministrador extends javax.swing.JFrame {
     private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
         // TODO add your handling code here:
         control.openFormBuscarMesa();
+        dispose();
     }//GEN-LAST:event_btnNuevaComandaActionPerformed
 
     private void btnGestionComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionComandasActionPerformed
         // TODO add your handling code here:
         control.openFormgestionComandas();
+        dispose();
     }//GEN-LAST:event_btnGestionComandasActionPerformed
 
     /**
