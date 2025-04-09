@@ -39,7 +39,7 @@ public class Cliente  implements Serializable {
     @Column(nullable = false, unique = true)
     private String telefono;
     
-    @Column(nullable = true)
+    @Column(nullable =true )
     private String correoElectronico;
     
     @Column(nullable = false)

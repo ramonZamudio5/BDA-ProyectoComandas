@@ -9,12 +9,16 @@ import dtos.ClienteFrecuenteDTO;
 
 import excepciones.NegocioException;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +26,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -31,76 +36,78 @@ import javax.swing.event.DocumentListener;
  * @author Cricri
  */
 public class BuscarCliente extends JFrame {
-       private ControlNavegacion control;
+     private ControlNavegacion control;
     private JTextField txtNombre, txtTelefono, txtCorreo;
     private JTextArea areaResultados;
-    private JRadioButton rbNombre, rbTelefono, rbCorreo;
-    private ButtonGroup grupoBusqueda;
+    private JComboBox<String> tipoBusquedaComboBox;
 
-    public BuscarCliente(ControlNavegacion control) throws NegocioException{
+    public BuscarCliente(ControlNavegacion control) {
         this.control = control;
         inicializarComponentes();
         configurarEventos();
-        cargarClientesIniciales(); 
+        cargarClientesIniciales();
     }
 
     private void inicializarComponentes() {
-        setTitle("Buscar Cliente Frecuente");
+        setTitle("Buscador de Clientes");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel panelOpciones = new JPanel(new FlowLayout());
-        rbNombre = new JRadioButton("Nombre");
-        rbTelefono = new JRadioButton("Teléfono");
-        rbCorreo = new JRadioButton("Correo");
-        grupoBusqueda = new ButtonGroup();
-        grupoBusqueda.add(rbNombre);
-        grupoBusqueda.add(rbTelefono);
-        grupoBusqueda.add(rbCorreo);
-        panelOpciones.add(new JLabel("Buscar por:"));
-        panelOpciones.add(rbNombre);
-        panelOpciones.add(rbTelefono);
-        panelOpciones.add(rbCorreo);
-        add(panelOpciones, BorderLayout.NORTH);
+        
+        getContentPane().setBackground(new Color(255, 253, 208)); 
 
-        JPanel panelCampos = new JPanel(new GridLayout(3, 2));
+      
+        JLabel titulo = new JLabel("Buscador de Clientes", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        titulo.setForeground(new Color(34, 139, 34)); 
+        add(titulo, BorderLayout.NORTH);
+
+     
+        JPanel panelCampos = new JPanel(new GridLayout(5, 2));
+        panelCampos.setBackground(new Color(255, 253, 208));
+
         txtNombre = new JTextField();
         txtTelefono = new JTextField();
         txtCorreo = new JTextField();
+        tipoBusquedaComboBox = new JComboBox<>(new String[]{"Nombre", "Teléfono", "Correo"});
 
-        txtNombre.setEnabled(false);
-        txtTelefono.setEnabled(false);
-        txtCorreo.setEnabled(false);
+     
+        Color colorCremita = new Color(255, 253, 208); 
+        txtNombre.setBackground(colorCremita);
+        txtTelefono.setBackground(colorCremita);
+        txtCorreo.setBackground(colorCremita);
+        tipoBusquedaComboBox.setBackground(colorCremita);
 
         panelCampos.add(new JLabel("Nombre:"));
         panelCampos.add(txtNombre);
-        panelCampos.add(new JLabel("Teléfono:"));
+        panelCampos.add(new JLabel("Teléfono (La búsqueda debe ser exacta):"));
         panelCampos.add(txtTelefono);
         panelCampos.add(new JLabel("Correo:"));
         panelCampos.add(txtCorreo);
+        panelCampos.add(new JLabel("Buscar por:"));
+        panelCampos.add(tipoBusquedaComboBox);
+
         add(panelCampos, BorderLayout.CENTER);
 
-        // Área de resultados
         areaResultados = new JTextArea();
         areaResultados.setEditable(false);
-        add(new JScrollPane(areaResultados), BorderLayout.SOUTH);
+        areaResultados.setLineWrap(false);  
+
+       
+        areaResultados.setBackground(new Color(240, 240, 240));
+
+        
+        JScrollPane scrollResultados = new JScrollPane(areaResultados,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        scrollResultados.setPreferredSize(new Dimension(550, 300));
+        add(scrollResultados, BorderLayout.SOUTH);
     }
 
     private void configurarEventos() {
-        ActionListener tipoBusquedaListener = e -> {
-            txtNombre.setEnabled(rbNombre.isSelected());
-            txtTelefono.setEnabled(rbTelefono.isSelected());
-            txtCorreo.setEnabled(rbCorreo.isSelected());
-
-            if (!rbNombre.isSelected()) txtNombre.setText("");
-            if (!rbTelefono.isSelected()) txtTelefono.setText("");
-            if (!rbCorreo.isSelected()) txtCorreo.setText("");
-        };
-
-        rbNombre.addActionListener(tipoBusquedaListener);
-        rbTelefono.addActionListener(tipoBusquedaListener);
-        rbCorreo.addActionListener(tipoBusquedaListener);
+      
+        tipoBusquedaComboBox.addActionListener(e -> actualizarCamposBusqueda());
 
         DocumentListener buscarListener = new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { buscar(); }
@@ -113,50 +120,45 @@ public class BuscarCliente extends JFrame {
         txtCorreo.getDocument().addDocumentListener(buscarListener);
     }
 
-    private void cargarClientesIniciales() throws NegocioException {
+    private void cargarClientesIniciales() {
         try {
-            List<ClienteFrecuenteDTO> clientes = control.obtenerTodosLosClientes();  // Llamada al manejador
+            List<ClienteFrecuenteDTO> clientes = control.obtenerTodosLosClientes();
             if (clientes != null && !clientes.isEmpty()) {
                 mostrarResultados(clientes);
             } else {
                 areaResultados.setText("No se encontraron clientes.");
             }
-        } catch (NegocioException e) {
+        } catch (Exception e) {
             areaResultados.setText("Error al cargar los clientes: " + e.getMessage());
         }
     }
 
-private void buscar() {
-    try {
-        List<ClienteFrecuenteDTO> resultados = null;
+    private void buscar() {
+        try {
+            String nombre = txtNombre.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String correo = txtCorreo.getText().trim();
 
-        if (rbNombre.isSelected() && !txtNombre.getText().trim().isEmpty()) {
-            resultados = control.buscarClientesPorNombre(txtNombre.getText().trim());
-        } else if (rbTelefono.isSelected() && !txtTelefono.getText().trim().isEmpty()) {
-            ClienteFrecuenteDTO cliente = control.buscarClientesPorTelefono(txtTelefono.getText().trim());
-            if (cliente != null) {
-                resultados = new ArrayList<>();
-                resultados.add(cliente);
+           
+            if (nombre.isEmpty() && telefono.isEmpty() && correo.isEmpty()) {
+                cargarClientesIniciales();
+                return;
             }
-        } else if (rbCorreo.isSelected() && !txtCorreo.getText().trim().isEmpty()) {
-            ClienteFrecuenteDTO cliente = control.buscarClientesPorCorreo(txtCorreo.getText().trim());
-            if (cliente != null) {
-                resultados = new ArrayList<>();
-                resultados.add(cliente);
+
+            
+            List<ClienteFrecuenteDTO> resultados = control.buscarClientes(nombre, telefono, correo);
+
+          
+            if (resultados != null && !resultados.isEmpty()) {
+                mostrarResultados(resultados);
+            } else {
+                areaResultados.setText("No se encontraron resultados.");
             }
-        }
 
-        if (resultados != null && !resultados.isEmpty()) {
-            mostrarResultados(resultados);
-        } else {
-            areaResultados.setText("No se encontraron resultados.");
+        } catch (Exception e) {
+            areaResultados.setText("Error al realizar la búsqueda: " + e.getMessage());
         }
-
-    } catch (Exception e) {
-        areaResultados.setText("Error al realizar la búsqueda: " + e.getMessage());
     }
-}
-
 
     private void mostrarResultados(List<ClienteFrecuenteDTO> clientes) {
         StringBuilder sb = new StringBuilder();
@@ -165,6 +167,23 @@ private void buscar() {
         }
         areaResultados.setText(sb.toString());
     }
-    
-}
 
+    private void actualizarCamposBusqueda() {
+       
+        String tipoBusqueda = (String) tipoBusquedaComboBox.getSelectedItem();
+
+        if ("Nombre".equals(tipoBusqueda)) {
+            txtNombre.setEnabled(true);
+            txtTelefono.setEnabled(false);
+            txtCorreo.setEnabled(false);
+        } else if ("Teléfono".equals(tipoBusqueda)) {
+            txtNombre.setEnabled(false);
+            txtTelefono.setEnabled(true);
+            txtCorreo.setEnabled(false);
+        } else if ("Correo".equals(tipoBusqueda)) {
+            txtNombre.setEnabled(false);
+            txtTelefono.setEnabled(false);
+            txtCorreo.setEnabled(true);
+        }
+    }
+}

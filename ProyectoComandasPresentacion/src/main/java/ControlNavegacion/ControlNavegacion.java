@@ -184,21 +184,20 @@ public class ControlNavegacion {
          return manejador.actualizarStock(idIngrediente, stock);
      }
 
-     public List<ClienteFrecuenteDTO> buscarClientesPorNombre(String nombre) throws NegocioException{
-         return manejador.buscarClientePorNombre(nombre);
-    }
-
-    public ClienteFrecuenteDTO buscarClientesPorTelefono(String telefono) throws NegocioException {
-      return manejador.buscarClientePorTelefono(telefono);
-    }
-
-    public ClienteFrecuenteDTO buscarClientesPorCorreo(String correo) throws NegocioException{
-      return manejador.buscarClientePorCorreo(correo);
-    }
+    
 
     public List<ClienteFrecuenteDTO> obtenerTodosLosClientes() throws NegocioException{
        return manejador.obtenerTodos(); 
     }
+    
+    public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo)  throws NegocioException{
+        return manejador.buscarClientes(nombre, telefono, correo);
+    }
+    
+     public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException{
+         return manejador.obtenerCliente(id);
+     }
+     
 
 
     public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException {

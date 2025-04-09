@@ -44,17 +44,16 @@ public interface IManejadorDeObjetos {
     public List<IngredienteDTO> buscarPorMedida(String medida) throws NegocioException;
     
     public IngredienteDTO agregarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException;
- 
-    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException;
-
-    public  ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException;
-
-    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException;
-   
+  
     
+    
+   public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo)  throws NegocioException;
    public  ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException;
-   
    public List<ClienteFrecuenteDTO> obtenerTodos()throws NegocioException;
+   public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException;
+   
+   
+   
    
    public List<ProductoIngrediente> obtenerListaProductoIngrediente(List<IngredienteSeleccionadoDTO> ingrediente, ProductoDTO productoDto);
 

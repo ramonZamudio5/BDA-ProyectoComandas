@@ -134,27 +134,21 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      
      
       // Métodos de Cliente Frecuente
-    @Override
-    public List<ClienteFrecuenteDTO> buscarClientePorNombre(String nombre) throws NegocioException{
-        return clienteFrecuenteBO.buscarPorNombre(nombre);
-    }
-    @Override
-    public ClienteFrecuenteDTO buscarClientePorTelefono(String telefono) throws NegocioException {
-        return clienteFrecuenteBO.buscarPorTelefono(telefono);
-    }
-
-    @Override
-    public ClienteFrecuenteDTO buscarClientePorCorreo(String correo) throws NegocioException {
-        return clienteFrecuenteBO.buscarPorCorreo(correo);
-    }
-
-  
+   
+    
     @Override
     public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException{
         return clienteFrecuenteBO.agregarCliente(cliente);
     }
     
-    
+      public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo)  throws NegocioException{
+            return clienteFrecuenteBO.buscarClientes(nombre, telefono, correo);
+      }
+      
+      public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException{
+          return clienteFrecuenteBO.obtenerCliente(id);
+      }
+      
      public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException{
         return clienteFrecuenteBO.obtenerTodos();
      }

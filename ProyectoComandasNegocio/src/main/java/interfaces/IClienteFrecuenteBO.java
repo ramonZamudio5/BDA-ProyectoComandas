@@ -5,8 +5,7 @@
 package interfaces;
 
 import dtos.ClienteFrecuenteDTO;
-import excepciones.AgregarClienteFrecuenteException;
-import excepciones.BuscarClienteFrecuenteException;
+
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -16,15 +15,11 @@ import java.util.List;
  */
 public interface IClienteFrecuenteBO {
      
-    ClienteFrecuenteDTO agregarCliente(ClienteFrecuenteDTO clienteDTO) throws NegocioException, AgregarClienteFrecuenteException;
+    ClienteFrecuenteDTO agregarCliente(ClienteFrecuenteDTO clienteDTO) throws NegocioException;
     
-    ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException, BuscarClienteFrecuenteException;
+    ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException;
     
-    List<ClienteFrecuenteDTO> buscarPorNombre(String nombre) throws NegocioException, BuscarClienteFrecuenteException;
-    
-    ClienteFrecuenteDTO buscarPorTelefono(String telefono) throws NegocioException, BuscarClienteFrecuenteException;
-    
-    ClienteFrecuenteDTO buscarPorCorreo(String correo) throws NegocioException, BuscarClienteFrecuenteException;
+    List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo) throws NegocioException;
     
     List<ClienteFrecuenteDTO> obtenerTodos() throws NegocioException;
     

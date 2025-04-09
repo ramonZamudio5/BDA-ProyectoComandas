@@ -18,111 +18,78 @@ import mappers.ClienteFrecuenteMapper;
  */
 
 public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
-  
-    private IClienteFrecuenteDAO clienteFrecuenteDAO;
-    
+ 
+
+    private final IClienteFrecuenteDAO clienteFrecuenteDAO;
+
     public ClienteFrecuenteBO(IClienteFrecuenteDAO clienteFrecuenteDAO) {
         this.clienteFrecuenteDAO = clienteFrecuenteDAO;
     }
-    
+
     @Override
     public ClienteFrecuenteDTO agregarCliente(ClienteFrecuenteDTO clienteDTO) throws NegocioException {
         if (clienteDTO == null) {
             throw new NegocioException("El cliente no puede ser nulo");
         }
         if (clienteDTO.getNombreCompleto() == null || clienteDTO.getNombreCompleto().trim().isEmpty()) {
-            throw new NegocioException("El nombre del cliente no puede ser nulo o vacío");
+            throw new NegocioException("El nombre completo es obligatorio");
         }
         if (clienteDTO.getTelefono() == null || !clienteDTO.getTelefono().matches("\\d{10}")) {
-            throw new NegocioException("El teléfono del cliente debe ser un número de 10 dígitos");
+            throw new NegocioException("El teléfono debe ser un número de 10 dígitos");
         }
-        if (clienteDTO.getCorreoElectronico() == null || !clienteDTO.getCorreoElectronico().contains("@")) {
-            throw new NegocioException("El correo electrónico del cliente no es válido");
+
+      
+        if (clienteDTO.getCorreoElectronico() != null && !clienteDTO.getCorreoElectronico().trim().isEmpty()) {
+            if (!clienteDTO.getCorreoElectronico().contains("@")) {
+                throw new NegocioException("El correo electrónico no es válido");
+            }
         }
-        
-       
-        
+
         ClienteFrecuente cliente = ClienteFrecuenteMapper.toEntity(clienteDTO);
         try {
-            ClienteFrecuente clienteAgregado = clienteFrecuenteDAO.agregarCliente(cliente);
-            if (clienteAgregado == null || clienteAgregado.getId() == null) {
-                throw new NegocioException("El cliente no se pudo agregar");
-            }
-            return ClienteFrecuenteMapper.toDTO(clienteAgregado);
+            ClienteFrecuente agregado = clienteFrecuenteDAO.agregarCliente(cliente);
+            return ClienteFrecuenteMapper.toDTO(agregado);
         } catch (Exception e) {
-            throw new NegocioException("Error al agregar cliente");
+            throw new NegocioException("Error al agregar cliente: " + e.getMessage());
         }
     }
-    
+
     @Override
     public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException {
         if (id == null || id <= 0) {
-            throw new NegocioException("El ID no puede ser nulo o menor a 1");
+            throw new NegocioException("El ID debe ser válido");
         }
+
         try {
             ClienteFrecuente cliente = clienteFrecuenteDAO.obtenerCliente(id);
             if (cliente == null) {
-                throw new NegocioException("No se encontró el cliente");
+                throw new NegocioException("Cliente no encontrado");
             }
             return ClienteFrecuenteMapper.toDTO(cliente);
         } catch (Exception e) {
-            throw new NegocioException("Error al obtener cliente");
+            throw new NegocioException("Error al obtener cliente: " + e.getMessage());
         }
     }
-    
-    @Override
-    public List<ClienteFrecuenteDTO> buscarPorNombre(String nombre) throws NegocioException {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new NegocioException("El nombre no puede ser nulo o vacío");
-        }
-        try {
-            List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarPorNombre(nombre);
-            if (clientes == null || clientes.isEmpty()) {
-                throw new NegocioException("No se encontraron clientes");
-            }
-            return ClienteFrecuenteMapper.toListDTO(clientes);
-        } catch (Exception e) {
-            throw new NegocioException("Error al buscar clientes por nombre");
-        }
-    }
-   @Override
-public ClienteFrecuenteDTO buscarPorTelefono(String telefono) throws NegocioException {
-    try {
-        ClienteFrecuente cliente = clienteFrecuenteDAO.buscarPorTelefono(telefono);
-        if (cliente == null) {
-            throw new NegocioException("No se encontró ningún cliente con ese teléfono");
-        }
-        return ClienteFrecuenteMapper.toDTO(cliente);
-    } catch (Exception e) {
-        throw new NegocioException("Error al buscar cliente por teléfono: " + e.getMessage());
-    }
-}
 
-@Override
-public ClienteFrecuenteDTO buscarPorCorreo(String correo) throws NegocioException {
-    try {
-        ClienteFrecuente cliente = clienteFrecuenteDAO.buscarPorCorreo(correo);
-        if (cliente == null) {
-            throw new NegocioException("No se encontró ningún cliente con ese correo electrónico");
-        }
-        return ClienteFrecuenteMapper.toDTO(cliente);
-    } catch (Exception e) {
-        throw new NegocioException("Error al buscar cliente por correo: " + e.getMessage());
-    }
-}
-
-    
     @Override
     public List<ClienteFrecuenteDTO> obtenerTodos() throws NegocioException {
         try {
             List<ClienteFrecuente> clientes = clienteFrecuenteDAO.obtenerTodos();
-            if (clientes == null || clientes.isEmpty()) {
-                throw new NegocioException("No hay clientes registrados");
-            }
             return ClienteFrecuenteMapper.toListDTO(clientes);
         } catch (Exception e) {
-            throw new NegocioException("Error al obtener clientes");
+            throw new NegocioException("Error al obtener todos los clientes: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo) throws NegocioException {
+        try {
+            List<ClienteFrecuente> clientes = clienteFrecuenteDAO.buscarCliente(nombre, telefono, correo);
+            return ClienteFrecuenteMapper.toListDTO(clientes);
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar clientes: " + e.getMessage());
         }
     }
 }
+
 
