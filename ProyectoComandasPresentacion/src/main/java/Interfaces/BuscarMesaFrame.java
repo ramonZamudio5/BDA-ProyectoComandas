@@ -97,7 +97,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         panelMesa = new javax.swing.JPanel();
         eleccionMesa = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        botonSiguiente = new javax.swing.JButton();
         labelTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,8 +140,13 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
 
         eleccionMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 102));
-        jButton1.setText("SIGUIENTE");
+        botonSiguiente.setBackground(new java.awt.Color(0, 153, 102));
+        botonSiguiente.setText("SIGUIENTE");
+        botonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSiguienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMesaLayout = new javax.swing.GroupLayout(panelMesa);
         panelMesa.setLayout(panelMesaLayout);
@@ -153,7 +158,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMesaLayout.createSequentialGroup()
                 .addContainerGap(162, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelMesaLayout.setVerticalGroup(
@@ -162,7 +167,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(eleccionMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(botonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         labelTitulo.setFont(new java.awt.Font("Devanagari MT", 1, 24)); // NOI18N
@@ -226,6 +231,10 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
         pack();
     }//GEN-END:initComponents
 
+    private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
+       // control.openFormBuscarCliente();
+    }//GEN-LAST:event_botonSiguienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,8 +273,8 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSiguiente;
     private javax.swing.JComboBox<String> eleccionMesa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelTitulo;

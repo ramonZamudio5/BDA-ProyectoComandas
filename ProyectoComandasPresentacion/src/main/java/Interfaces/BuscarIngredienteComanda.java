@@ -368,7 +368,7 @@ public class BuscarIngredienteComanda extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        panelIngredientes.setBackground(new java.awt.Color(245, 245, 220));
+        panelIngredientes.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelIngredientesLayout = new javax.swing.GroupLayout(panelIngredientes);
         panelIngredientes.setLayout(panelIngredientesLayout);

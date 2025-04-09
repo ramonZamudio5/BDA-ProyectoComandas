@@ -8,6 +8,7 @@ import ControlNavegacion.ControlNavegacion;
 import dtos.ClienteFrecuenteDTO;
 
 import excepciones.NegocioException;
+import interfaces.IManejadorDeObjetos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,18 +31,19 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
  *
  * @author Cricri
  */
-public class BuscarCliente extends JFrame {
+public class BuscarClienteComandau extends JFrame {
      private ControlNavegacion control;
     private JTextField txtNombre, txtTelefono, txtCorreo;
     private JTextArea areaResultados;
     private JComboBox<String> tipoBusquedaComboBox;
 
-    public BuscarCliente(ControlNavegacion control) {
+    public BuscarClienteComandau(ControlNavegacion control) {
         this.control = control;
         inicializarComponentes();
         configurarEventos();
@@ -187,5 +189,14 @@ public class BuscarCliente extends JFrame {
         }
     }
     
-    
+     public static void main(String args[]) {
+         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                IManejadorDeObjetos manejador= new ManejadorDeObjetos();
+                ControlNavegacion control= new ControlNavegacion(manejador);
+                new BuscarClienteComandau(control).setVisible(true);
+                
+            }
+        });
+     }
 }

@@ -9,6 +9,7 @@ import Interfaces.AgregarIngrediente;
 import Interfaces.AgregarProductoFrame;
 import Interfaces.BuscadorDeProductosFrame;
 import Interfaces.BuscarCliente;
+//import Interfaces.BuscarClienteComand;
 import Interfaces.BuscarIngrediente;
 import Interfaces.EditarProductoFrame;
 import Interfaces.EliminarProducto;
@@ -22,6 +23,7 @@ import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
 import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
+import Interfaces.BuscarClienteComandau;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
 import Interfaces.opcionesModuloCliente;
@@ -88,6 +90,10 @@ public class ControlNavegacion {
     
      public void  openFormBuscarCliente() throws NegocioException {
            new BuscarCliente(this).setVisible(true);
+     }
+     
+     public void openFormBuscarClienteComandau() throws NegocioException{
+         new BuscarClienteComandau(this).setVisible(true);
      }
     
     public void openFormRegistrarCliente() {
@@ -198,6 +204,8 @@ public class ControlNavegacion {
     public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo)  throws NegocioException{
         return manejador.buscarClientes(nombre, telefono, correo);
     }
+    
+    
     
      public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException{
          return manejador.obtenerCliente(id);
