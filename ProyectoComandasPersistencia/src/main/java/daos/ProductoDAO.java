@@ -56,25 +56,25 @@ public class ProductoDAO implements IProductoDAO{
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
-            IngredienteDAO ingredienteDAO = new IngredienteDAO();
-
-            for (ProductoIngrediente pi : producto.getIngredientes()) {
-                if (pi.getIngrediente().getId() == null) {
-                    Ingrediente ingredienteExistente = ingredienteDAO.buscarPorNombreYUnidad(
-                            pi.getIngrediente().getNombre(),
-                            pi.getIngrediente().getUnidadMedida()
-                    );
-
-                    if (ingredienteExistente != null) {
-                        pi.setIngrediente(ingredienteExistente);
-                    } else {
-                        Ingrediente nuevoIngrediente = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
-                        pi.setIngrediente(nuevoIngrediente);
-                    }
-                }
-
-                pi.setProducto(producto);
-            }
+//            IngredienteDAO ingredienteDAO = new IngredienteDAO();
+//
+//            for (ProductoIngrediente pi : producto.getIngredientes()) {
+//                if (pi.getIngrediente().getId() == null) {
+//                    Ingrediente ingredienteExistente = ingredienteDAO.buscarPorNombreYUnidad(
+//                            pi.getIngrediente().getNombre(),
+//                            pi.getIngrediente().getUnidadMedida()
+//                    );
+//
+//                    if (ingredienteExistente != null) {
+//                        pi.setIngrediente(ingredienteExistente);
+//                    } else {
+//                        Ingrediente nuevoIngrediente = ingredienteDAO.agregarIngrediente(pi.getIngrediente());
+//                        pi.setIngrediente(nuevoIngrediente);
+//                    }
+//                }
+//
+//                pi.setProducto(producto);
+//            }
 
             em.persist(producto);
             em.getTransaction().commit();

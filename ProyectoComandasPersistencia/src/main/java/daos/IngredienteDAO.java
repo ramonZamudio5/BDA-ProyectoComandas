@@ -28,7 +28,7 @@ public class IngredienteDAO implements IIngredienteDAO {
 
     public static IngredienteDAO ingredienteDAO;
 
-    public IngredienteDAO() {
+    private IngredienteDAO() {
 
     }
 

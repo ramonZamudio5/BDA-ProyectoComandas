@@ -55,7 +55,7 @@ import mappers.IngredienteMapper;
  */
 public class ManejadorDeObjetos implements IManejadorDeObjetos{
     
-    private final IIngredienteBO ingredienteBO;
+    private final IngredienteBO ingredienteBO;
     private final ProductoBO productoBO;
     private final ClienteFrecuenteBO clienteFrecuenteBO;
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
@@ -150,14 +150,17 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return clienteFrecuenteBO.agregarCliente(cliente);
     }
     
+    @Override
       public List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo)  throws NegocioException{
             return clienteFrecuenteBO.buscarClientes(nombre, telefono, correo);
       }
       
+    @Override
       public ClienteFrecuenteDTO obtenerCliente(Long id) throws NegocioException{
           return clienteFrecuenteBO.obtenerCliente(id);
       }
       
+    @Override
      public  List<ClienteFrecuenteDTO>  obtenerTodos()throws NegocioException{
         return clienteFrecuenteBO.obtenerTodos();
      }
@@ -182,6 +185,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return null;
     }
     
+    @Override
      public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException{
          IngredienteDTO ingredienteActualizado= ingredienteBO.actualizarStock(idIngrediente, stock);
          return ingredienteActualizado;
@@ -189,6 +193,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      }
      
      
+    @Override
      public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
        
          return ingredienteBO.buscarIngredientes(nombre, medida);

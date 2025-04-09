@@ -38,9 +38,9 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
             Ingrediente ingredienteExistente = em.find(Ingrediente.class, productoIngrediente.getIngrediente().getId());
 
             if (ingredienteExistente == null) {
-                IngredienteDAO ingredienteDAO = new IngredienteDAO();
-                Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(productoIngrediente.getIngrediente());
-                productoIngrediente.setIngrediente(ingredientePersistido);
+//                IngredienteDAO ingredienteDAO = new IngredienteDAO();
+//                Ingrediente ingredientePersistido = ingredienteDAO.agregarIngrediente(productoIngrediente.getIngrediente());
+//                productoIngrediente.setIngrediente(ingredientePersistido);
             } else {
                 productoIngrediente.setIngrediente(ingredienteExistente);
             }

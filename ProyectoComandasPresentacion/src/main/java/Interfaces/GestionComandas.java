@@ -235,6 +235,7 @@ public class GestionComandas extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 IManejadorDeObjetos manejador = new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);
