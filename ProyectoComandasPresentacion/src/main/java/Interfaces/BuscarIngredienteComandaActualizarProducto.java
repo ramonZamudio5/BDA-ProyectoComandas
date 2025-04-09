@@ -57,32 +57,34 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado= new ArrayList<>();
     private ProductoDTO producto;
 
-    public BuscarIngredienteComandaActualizarProducto(ControlNavegacion control,ProductoDTO producto) {
+    public BuscarIngredienteComandaActualizarProducto(ControlNavegacion control, ProductoDTO producto) {
         this.control = control;
         initComponents();
+        this.setSize(700, 500);
+        this.setLocationRelativeTo(null);
+        this.pack(); 
         this.producto = producto;
         System.out.println(producto.isEstado());
+
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(botonMedida);
         buttonGroup.add(botonNombre);
-        
-        
+
         cardLayout = new CardLayout();
         panelBusqueda.setLayout(cardLayout);
-        JPanel panelNombre = new JPanel();
 
+        JPanel panelNombre = new JPanel();
         campoNombre = new JTextField(15);
         panelNombre.add(new JLabel("Nombre..."));
         panelNombre.add(campoNombre);
 
         JPanel panelUnidad = new JPanel();
-       
         panelUnidad.add(comboUnidad);
 
         panelBusqueda.add(panelNombre, "nombre");
         panelBusqueda.add(panelUnidad, "unidad");
-        manejoEventos();
 
+        manejoEventos();
     }
 
     private void manejoEventos() {
