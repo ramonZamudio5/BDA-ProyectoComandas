@@ -16,6 +16,7 @@ import excepciones.RegistrarClienteException;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
+import dtos.MesaDispDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
@@ -60,4 +61,6 @@ public interface IManejadorDeObjetos {
    public ProductoDTO AgregarProducto(ProductoDTO producto);
     public IngredienteDTO actualizarStock(Long idIngrediente, Double stock) throws NegocioException;
      public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException;
+     
+     public List<MesaDispDTO>obtenerMesasDisponibles();
 }

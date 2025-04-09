@@ -25,6 +25,7 @@ import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
+import dtos.MesaDispDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
@@ -239,6 +240,10 @@ public class ControlNavegacion {
     
     public void openFormOpcionReportesFrame(){
         new OpcionReportesFrame(this).setVisible(true);
+    }
+    
+    public List<MesaDispDTO> obtenerMesas(){
+        return manejador.obtenerMesasDisponibles();
     }
 }
      

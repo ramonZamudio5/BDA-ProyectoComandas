@@ -9,13 +9,16 @@ package manejadorDeObjetos;
 //import Interfaces.SeleccionarOpccionProductos;
 import bos.ClienteFrecuenteBO;
 import bos.IngredienteBO;
+import bos.MesaBO;
 import bos.ProductoBO;
 import daos.ClienteFrecuenteDAO;
 import daos.IngredienteDAO;
+import daos.MesaDAO;
 import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
+import dtos.MesaDispDTO;
 import dtos.ProductoDTO;
 import entidades.Mesa;
 import entidades.Producto;
@@ -50,17 +53,18 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     private final ProductoBO productoBO;
     private final ClienteFrecuenteBO clienteFrecuenteBO;
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
-   
+    private MesaBO mesaBO;
     
 
     public ManejadorDeObjetos() {
         IngredienteDAO ingredienteDAO = IngredienteDAO.getInstance();
         ProductoDAO productoDAO = ProductoDAO.getInstance();
         ClienteFrecuenteDAO clienteFrecuenteDAO = ClienteFrecuenteDAO.getInstance();
+        MesaDAO mesadao = MesaDAO.getInstance();
         this.ingredienteBO = new IngredienteBO(ingredienteDAO);
         this.productoBO = new ProductoBO(productoDAO);
         this.clienteFrecuenteBO = new ClienteFrecuenteBO(clienteFrecuenteDAO);
-        
+        this.mesaBO = new MesaBO(mesadao);
     }
     
     
@@ -191,13 +195,20 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      
      
      
-//      public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException{
-//          try{
-//              
-//          }
-//              
-//          }
-      }
+    @Override
+      public List<MesaDispDTO> obtenerMesasDisponibles(){
+          try{
+              mesaBO.obtenerMesasDisponibles();
+          }catch(ObtenerMesasDispException e){
+              try {
+                  throw new NegocioException("Error al obtener las mesas");
+              } catch (NegocioException ex) {
+                  Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          }
+         return null;
+    }
+}
          
      
 

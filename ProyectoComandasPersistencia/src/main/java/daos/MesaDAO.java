@@ -32,6 +32,7 @@ public class MesaDAO implements IMesaDAO{
         return mesaDAO;
     }
     
+    @Override
     public boolean insercionMasiva() throws InsercionMasivaException {
         EntityManager em= Conexion.crearConexion();
         
@@ -46,6 +47,7 @@ public class MesaDAO implements IMesaDAO{
             
             for(int i=1; i<=20; i++){
                 Mesa mesa= new Mesa(i);
+                mesa.setEstado(EstadoMesa.DISPONIBLE);
                 em.persist(mesa);
             
         }

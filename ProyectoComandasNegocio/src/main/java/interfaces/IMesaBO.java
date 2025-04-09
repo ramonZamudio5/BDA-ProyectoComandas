@@ -4,7 +4,9 @@
  */
 package interfaces;
 
+import dtos.MesaDispDTO;
 import entidades.Mesa;
+import excepciones.NegocioException;
 import excepciones.ObtenerMesasDispException;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public interface IMesaBO {
     
-    public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException;
+    public List<MesaDispDTO> obtenerMesasDisponibles() throws NegocioException;
     
     
 }
