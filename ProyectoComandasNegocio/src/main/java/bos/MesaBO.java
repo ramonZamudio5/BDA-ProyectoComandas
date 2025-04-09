@@ -6,6 +6,7 @@ package bos;
 
 import dtos.MesaDispDTO;
 import entidades.Mesa;
+import excepciones.NegocioException;
 import excepciones.ObtenerMesasDispException;
 import interfaces.IMesaDAO;
 import java.util.List;
@@ -16,7 +17,7 @@ import interfaces.IMesaBO;
  *
  * @author janethcristinagalvanquinonez
  */
-public class MesaBO {
+public class MesaBO implements IMesaBO{
     
     private IMesaDAO mesaDAO;
 
@@ -26,7 +27,8 @@ public class MesaBO {
     }
     
     
-     public List<MesaDispDTO> obtenerMesasDisponibles() throws ObtenerMesasDispException{
+    @Override
+     public List<MesaDispDTO> obtenerMesasDisponibles() throws NegocioException{
          
          try{
              List<Mesa> mesasDisponibles= mesaDAO.obtenerMesasDisponibles();
@@ -40,7 +42,7 @@ public class MesaBO {
              }
              return MesaMapper.toListDTOConID(mesasDisponibles);
          } catch(Exception e){
-             throw new ObtenerMesasDispException("Error al obtener las mesas disponibles "+e.getMessage());
+             throw new NegocioException("Error al obtener las mesas disponibles "+e.getMessage());
          }
      }
     

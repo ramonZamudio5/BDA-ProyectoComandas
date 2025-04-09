@@ -17,15 +17,16 @@ import java.util.List;
  */
 public class ComandaMapper {
     public static Comanda toEntity(ComandaDTO comanda){
-        return new Comanda(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), comanda.getDetalles());
+        return new Comanda(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), 
+                comanda.getMesa(), comanda.getDetalles());
     }
     public static ComandaDTO toDTO(Comanda comanda){
-        return new ComandaDTO(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), comanda.getDetalles());
+        return new ComandaDTO(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), comanda.getDetalles(),comanda.getMesa());
     }
     public static List<ComandaDTO> toListDTO(List<Comanda> comandas){
         List<ComandaDTO> comandasDTO = new LinkedList<>();
         for(Comanda comanda : comandas){
-            comandasDTO.add(new ComandaDTO(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), comanda.getDetalles()));
+            comandasDTO.add(new ComandaDTO(comanda.getFolio(), comanda.getFechaHoraCreacion(), comanda.getTotalVenta(), comanda.getEstado(), comanda.getCliente(), comanda.getDetalles(),comanda.getMesa()));
         }
         return comandasDTO;
     }

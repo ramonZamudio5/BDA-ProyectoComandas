@@ -29,44 +29,44 @@ public class Comanda implements Serializable {
  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String folio;
-    
     @Column(nullable = false)
     private LocalDateTime fechaHoraCreacion;
-    
     @Column(nullable = false)
     private Double totalVenta;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoComanda estado;
-
     @ManyToOne(optional=true)
     private Cliente cliente; 
-    
-     
     @ManyToOne
     @JoinColumn(name = "id_mesa", nullable = false)
     private Mesa mesa;
-
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)//cambiar cascada
     private List<DetalleComanda> detalles;
 
     public Comanda() {
     }
 
-    public Comanda(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
+    public Comanda(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, Mesa mesa, List<DetalleComanda> detalles) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.totalVenta = totalVenta;
         this.estado = estado;
         this.cliente = cliente;
+        this.mesa = mesa;
         this.detalles = detalles;
     }
 
-   
+    public Comanda( String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Mesa mesa, List<DetalleComanda> detalles) {
+        this.folio = folio;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.totalVenta = totalVenta;
+        this.estado = estado;
+        this.mesa = mesa;
+        this.detalles = detalles;
+    }
 
     public Long getId() {
         return id;
@@ -92,11 +92,11 @@ public class Comanda implements Serializable {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
-    public double getTotalVenta() {
+    public Double getTotalVenta() {
         return totalVenta;
     }
 
-    public void setTotalVenta(double totalVenta) {
+    public void setTotalVenta(Double totalVenta) {
         this.totalVenta = totalVenta;
     }
 
@@ -116,6 +116,14 @@ public class Comanda implements Serializable {
         this.cliente = cliente;
     }
 
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
     public List<DetalleComanda> getDetalles() {
         return detalles;
     }
@@ -126,9 +134,10 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", detalles=" + detalles + '}';
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", mesa=" + mesa + ", detalles=" + detalles + '}';
     }
-    
+
+   
     
 
 }

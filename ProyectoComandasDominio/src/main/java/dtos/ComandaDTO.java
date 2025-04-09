@@ -6,6 +6,7 @@ package dtos;
 
 import entidades.Cliente;
 import entidades.DetalleComanda;
+import entidades.Mesa;
 import enums.EstadoComanda;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,23 +22,36 @@ public class ComandaDTO {
     private EstadoComanda estado;
     private Cliente cliente; 
     private List<DetalleComanda> detalles;
+    private Mesa mesa;
 
-    public ComandaDTO(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles) {
+    public ComandaDTO(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles, Mesa mesa) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.totalVenta = totalVenta;
         this.estado = estado;
         this.cliente = cliente;
         this.detalles = detalles;
+        this.mesa = mesa;
     }
 
-    public ComandaDTO(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente) {
+    public ComandaDTO(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.totalVenta = totalVenta;
         this.estado = estado;
         this.cliente = cliente;
+        this.mesa = mesa;
     }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    
 
     public String getFolio() {
         return folio;
@@ -89,8 +103,10 @@ public class ComandaDTO {
 
     @Override
     public String toString() {
-        return "ComandaDTO{" + "folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", detalles=" + detalles + '}';
+        return "ComandaDTO{" + "folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", detalles=" + detalles + ", mesa=" + mesa + '}';
     }
+
+    
 
     
 }

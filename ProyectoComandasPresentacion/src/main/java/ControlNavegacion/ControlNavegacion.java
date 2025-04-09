@@ -20,13 +20,16 @@ import Interfaces.SeleccionarOpccionProductos;
 import Interfaces.BuscarIngredienteComanda;
 import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
+import Interfaces.DetalleComandaUnica;
 import Interfaces.OpcionReportesFrame;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
+import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
 import dtos.ProductoDTO;
+import entidades.DetalleComanda;
 import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.NegocioException;
@@ -245,6 +248,19 @@ public class ControlNavegacion {
         return manejador.obtenerMesasDisponibles();
     }
     
+    public List<ComandaDTO> obtenerTodasComandas(){
+        List<ComandaDTO> comandas= manejador.obtenerTodasComandas();
+        System.out.println("control "+ comandas);
+        return comandas;
+    }
+    
+    public ComandaDTO buscarPorFolio(String folio){
+        return manejador.buscarComandaXFolio(folio);
+    }
+    
+    public void openFormDetalleComandaUnica(String folio){
+        new DetalleComandaUnica(this,folio).setVisible(true);
+    }
     
     
 }

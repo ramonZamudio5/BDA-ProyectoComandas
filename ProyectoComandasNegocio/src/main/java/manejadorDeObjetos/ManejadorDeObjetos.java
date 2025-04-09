@@ -8,14 +8,17 @@ package manejadorDeObjetos;
 //import Interfaces.BuscadorDeProductosFrame;
 //import Interfaces.SeleccionarOpccionProductos;
 import bos.ClienteFrecuenteBO;
+import bos.ComandaBO;
 import bos.IngredienteBO;
 import bos.MesaBO;
 import bos.ProductoBO;
 import daos.ClienteFrecuenteDAO;
+import daos.ComandaDAO;
 import daos.IngredienteDAO;
 import daos.MesaDAO;
 import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
+import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
@@ -30,12 +33,15 @@ import excepciones.BuscarClienteFrecuenteException;
 import excepciones.BuscarPorMedidaException;
 import excepciones.BuscarPorNombreException;
 import excepciones.BuscarProductoException;
+import excepciones.BusquedaComandaException;
 import excepciones.EliminarProductoException;
 import excepciones.NegocioException;
 import excepciones.ObtenerMesasDispException;
 import excepciones.RegistrarClienteException;
+import interfaces.IComandaBO;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
+import interfaces.IMesaBO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -53,7 +59,8 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     private final ProductoBO productoBO;
     private final ClienteFrecuenteBO clienteFrecuenteBO;
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
-    private MesaBO mesaBO;
+    private IMesaBO mesaBO;
+    private IComandaBO comandaBO;
     
 
     public ManejadorDeObjetos() {
@@ -61,10 +68,12 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         ProductoDAO productoDAO = ProductoDAO.getInstance();
         ClienteFrecuenteDAO clienteFrecuenteDAO = ClienteFrecuenteDAO.getInstance();
         MesaDAO mesadao = MesaDAO.getInstance();
+        ComandaDAO comandaDAO = ComandaDAO.getInstance();
         this.ingredienteBO = new IngredienteBO(ingredienteDAO);
         this.productoBO = new ProductoBO(productoDAO);
         this.clienteFrecuenteBO = new ClienteFrecuenteBO(clienteFrecuenteDAO);
         this.mesaBO = new MesaBO(mesadao);
+        this.comandaBO = new ComandaBO(comandaDAO);
     }
     
     
@@ -191,16 +200,36 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      
     @Override
       public List<MesaDispDTO> obtenerMesasDisponibles(){
-          try{
-              return mesaBO.obtenerMesasDisponibles();
-          }catch(ObtenerMesasDispException e){
-              try {
-                  throw new NegocioException("Error al obtener las mesas");
-              } catch (NegocioException ex) {
-                  Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
-              }
-          }
-         return null;
+        try {
+            return mesaBO.obtenerMesasDisponibles();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+      
+    @Override
+    public List<ComandaDTO> obtenerTodasComandas() {
+        try {
+             return comandaBO.ObtenerTodo();
+        } catch (BusquedaComandaException ex) {
+            Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ComandaDTO buscarComandaXFolio(String folio) {
+        try {
+            return comandaBO.buscarPorFolio(folio);
+        } catch (BusquedaComandaException ex) {
+            try {
+                throw new NegocioException("Error al buscar por el folio");
+            } catch (NegocioException ex1) {
+                Logger.getLogger(ManejadorDeObjetos.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return null;
     }
       
       

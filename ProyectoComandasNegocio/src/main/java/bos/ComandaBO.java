@@ -60,6 +60,7 @@ public class ComandaBO implements IComandaBO{
             if(comandaAgregada == null || comandaAgregada.getId() == null){
                 throw new NegocioException("El producto no se creo");
             }
+            System.out.println("BO"+comandaAgregada);
             return ComandaMapper.toDTO(comandaAgregada);
         }catch(Exception e){
             throw new AgregarComandaException("Error al agregar la comanda"+e);
