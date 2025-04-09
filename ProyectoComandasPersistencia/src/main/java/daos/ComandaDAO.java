@@ -45,7 +45,7 @@ public class ComandaDAO {
             List<DetalleComanda> detallesOriginales = comanda.getDetalles();
             
             
-            comanda.setDetalles(new ArrayList<>()); // temporalmente vacía
+            comanda.setDetalles(new ArrayList<>()); 
             em.persist(comanda);
             em.flush(); 
             
@@ -84,15 +84,19 @@ public class ComandaDAO {
             return em.createQuery("SELECT c FROM Comanda c ").getResultList();
         }catch(Exception e){
             throw new BusquedaComandaException("Error al buscar la comanda",e);
+        }finally {
+            em.close();
         }
     }
     
     public Comanda buscarPorFolio(String folio) throws BusquedaComandaException{
         EntityManager em = Conexion.crearConexion();
         try{
-            return (Comanda) em.createQuery("SELECT c FROM Comanda c WHERE folio = :folio").setParameter("folio", folio).getSingleResult();
+            return (Comanda) em.createQuery("SELECT c FROM Comanda c WHERE c.folio = :folio").setParameter("folio", folio).getSingleResult();
         }catch(Exception e){
             throw new BusquedaComandaException("Error al buscar la comanda",e);
+        }finally {
+            em.close();
         }
     }
     

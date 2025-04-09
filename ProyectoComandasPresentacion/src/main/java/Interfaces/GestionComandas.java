@@ -28,7 +28,7 @@ import javax.swing.event.DocumentListener;
 public class GestionComandas extends javax.swing.JFrame {
     ControlNavegacion control;
     DefaultTableModel modelo;
-
+    JTable tabla;
     /**
      * Creates new form GestionComandas
      */
@@ -59,7 +59,7 @@ public class GestionComandas extends javax.swing.JFrame {
             }
         };
 
-        JTable tabla = new JTable(modelo);
+        this.tabla = new JTable(modelo);
         tabla.setRowHeight(30);
         tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabla);

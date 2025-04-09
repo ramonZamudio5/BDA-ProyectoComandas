@@ -260,7 +260,6 @@ public class ControlNavegacion {
     
     public List<ComandaDTO> obtenerTodasComandas(){
         List<ComandaDTO> comandas= manejador.obtenerTodasComandas();
-        System.out.println("control "+ comandas);
         return comandas;
     }
     

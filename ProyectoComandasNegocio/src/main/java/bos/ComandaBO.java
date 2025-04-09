@@ -79,7 +79,8 @@ public class ComandaBO implements IComandaBO{
     @Override
     public ComandaDTO buscarPorFolio(String folio) throws BusquedaComandaException {
         try{
-           return ComandaMapper.toDTO(comandaDAO.buscarPorFolio(folio));
+            return ComandaMapper.toDTO(comandaDAO.buscarPorFolio(folio));
+           
        }catch(Exception e){
            throw new BusquedaComandaException("Error al buscar la comanda", e);
        }

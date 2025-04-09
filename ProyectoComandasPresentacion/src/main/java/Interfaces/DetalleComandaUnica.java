@@ -26,8 +26,12 @@ public class DetalleComandaUnica extends javax.swing.JFrame {
     public DetalleComandaUnica(ControlNavegacion control,String folio) {
         initComponents();
         this.control = control;
-        ComandaDTO comanda = this.control.buscarPorFolio(folio);
+        cargarComanda(folio);
         //crear tabla
+    }
+    public void cargarComanda(String folio){
+        ComandaDTO comanda = control.buscarPorFolio(folio);
+        System.out.println(comanda);
     }
 
     /**
