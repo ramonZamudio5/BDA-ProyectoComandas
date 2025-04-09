@@ -11,6 +11,7 @@ import dtos.ClienteFrecuenteDTO;
 import excepciones.NegocioException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 /**
@@ -45,28 +47,57 @@ public class RegistarClienteFrecuente extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-      
-        JPanel panelCampos = new JPanel(new GridLayout(4, 2));
-        panelCampos.add(new JLabel("Nombre Completo:"));
+        
+        getContentPane().setBackground(new Color(255, 253, 208)); 
+
+        JLabel titulo = new JLabel("Registrar Cliente", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        titulo.setForeground(new Color(34, 139, 34));
+        add(titulo, BorderLayout.NORTH);
+
+    
+        JPanel panelCampos = new JPanel(new GridLayout(4, 2, 10, 10));
+        panelCampos.setBackground(new Color(255, 253, 208)); 
+
+    
         txtNombre = new JTextField();
-        panelCampos.add(txtNombre);
-
-        panelCampos.add(new JLabel("Teléfono (10 dígitos):"));
         txtTelefono = new JTextField();
-        panelCampos.add(txtTelefono);
-
-        panelCampos.add(new JLabel("Correo Electrónico:"));
         txtCorreo = new JTextField();
+
+        Color colorCremita = new Color(255, 253, 208); 
+        txtNombre.setBackground(colorCremita);
+        txtTelefono.setBackground(colorCremita);
+        txtCorreo.setBackground(colorCremita);
+
+
+        panelCampos.add(new JLabel("Nombre Completo:"));
+        panelCampos.add(txtNombre);
+        panelCampos.add(new JLabel("Teléfono (10 dígitos):"));
+        panelCampos.add(txtTelefono);
+        panelCampos.add(new JLabel("Correo Electrónico:"));
         panelCampos.add(txtCorreo);
 
         add(panelCampos, BorderLayout.CENTER);
 
-        btnRegistrar = new JButton("Registrar Cliente");
-        add(btnRegistrar, BorderLayout.SOUTH);
+        JPanel panelBotonMensaje = new JPanel();
+        panelBotonMensaje.setLayout(new BorderLayout()); 
 
      
+        JPanel panelBoton = new JPanel();
+        panelBoton.setBackground(new Color(255, 253, 208)); 
+        btnRegistrar = new JButton("Registrar Cliente");
+        btnRegistrar.setBackground(new Color(34, 139, 34)); 
+        btnRegistrar.setForeground(Color.WHITE);
+        panelBoton.add(btnRegistrar); 
+        panelBotonMensaje.add(panelBoton, BorderLayout.NORTH);
+
+        // Mensaje de resultado
         lblMensaje = new JLabel("", JLabel.CENTER);
-        add(lblMensaje, BorderLayout.NORTH);
+        lblMensaje.setFont(new Font("Arial", Font.BOLD, 14));
+        lblMensaje.setForeground(Color.RED);
+        panelBotonMensaje.add(lblMensaje, BorderLayout.CENTER); 
+
+        add(panelBotonMensaje, BorderLayout.SOUTH);
     }
 
     private void configurarEventos() {
@@ -84,28 +115,24 @@ public class RegistarClienteFrecuente extends JFrame {
             String telefono = txtTelefono.getText().trim();
             String correo = txtCorreo.getText().trim();
 
-            if (nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
-                lblMensaje.setText("Todos los campos son obligatorios.");
+            if (nombre.isEmpty() || telefono.isEmpty()) {
+                lblMensaje.setText("TELEFONO Y NOMBRE SON CAMPOS OBLIGATORIOS.");
                 lblMensaje.setForeground(Color.RED);
                 return;
             }
 
-            
             ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO();
             clienteDTO.setNombreCompleto(nombre);
             clienteDTO.setTelefono(telefono);
             clienteDTO.setCorreoElectronico(correo);
 
-         
             ClienteFrecuenteDTO clienteRegistrado = control.registrarCliente(clienteDTO);
 
-            
             lblMensaje.setText("Cliente registrado con éxito: " + clienteRegistrado.getNombreCompleto());
-            lblMensaje.setForeground(Color.GREEN);
+            lblMensaje.setForeground(new Color(34, 139, 34));
         } catch (Exception ex) {
             lblMensaje.setText("Error: " + ex.getMessage());
             lblMensaje.setForeground(Color.RED);
         }
     }
-
 }
