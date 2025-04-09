@@ -221,6 +221,8 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 gbc.gridx= 2;
                 panelAjuste.add(botonMas, gbc);
                 
+                panelAjuste.setBackground(Color.WHITE);
+                
                 gbc.gridx= 1;
                 gbc.gridy= 0;
                 panelIngrediente.add(panelAjuste, gbc);
