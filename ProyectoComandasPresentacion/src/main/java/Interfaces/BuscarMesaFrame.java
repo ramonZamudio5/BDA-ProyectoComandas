@@ -12,7 +12,9 @@ import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.Comparator;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,9 +34,16 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
     public BuscarMesaFrame(ControlNavegacion control) {
         initComponents();
         this.control = control;
-        List<MesaDispDTO> mesasDTO = control.obtenerMesas();
-        System.out.println(mesasDTO);
-        for (MesaDispDTO mesa : mesasDTO) {
+        cargarMesas();
+    }
+    
+    public void cargarMesas(){
+        List<MesaDispDTO> mesas = control.obtenerMesas();
+        mesas.sort(Comparator.comparingInt(MesaDispDTO::getNumero));
+        System.out.println(mesas);
+        jPanel2.removeAll();
+        jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
+        for (MesaDispDTO mesa : mesas) {
             JButton btn = new JButton(Integer.toString(mesa.getNumero()));
             btn.setPreferredSize(new Dimension(jPanel2.getWidth(), 50)); 
             btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
@@ -50,7 +59,6 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
         jPanel2.revalidate();
         jPanel2.repaint();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

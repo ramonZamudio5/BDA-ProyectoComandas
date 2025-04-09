@@ -65,6 +65,7 @@ public class MesaDAO implements IMesaDAO{
     }
     
     
+    @Override
     public List<Mesa> obtenerMesasDisponibles() throws ObtenerMesasDispException{
         
         EntityManager em= Conexion.crearConexion();
@@ -72,7 +73,7 @@ public class MesaDAO implements IMesaDAO{
         try{
              em.getTransaction().begin();
             Query query= em.createQuery("SELECT m FROM Mesa m WHERE m.estado= :estado");           
-            query.setParameter("estado", EstadoMesa.DISPONIBLE);           
+            query.setParameter("estado", EstadoMesa.DISPONIBLE);     
             return query.getResultList();
             
         } catch(Exception e){

@@ -198,7 +198,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     @Override
       public List<MesaDispDTO> obtenerMesasDisponibles(){
           try{
-              mesaBO.obtenerMesasDisponibles();
+              return mesaBO.obtenerMesasDisponibles();
           }catch(ObtenerMesasDispException e){
               try {
                   throw new NegocioException("Error al obtener las mesas");
