@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 public class ClienteFrecuenteDTO {
    
-    
+    private Long id;
     private String nombreCompleto;
     private String telefono;
     private String correoElectronico;
@@ -47,11 +47,30 @@ public class ClienteFrecuenteDTO {
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
     }
-    
-    
 
+    public ClienteFrecuenteDTO(Long id, String nombreCompleto, String telefono, String correoElectronico, LocalDate fechaRegistro, int puntosObtenidos, double gastoTotalAcumulado, int conteoVisitas) {
+        this.id = id;
+        this.nombreCompleto = nombreCompleto;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.fechaRegistro = fechaRegistro;
+        this.puntosObtenidos = puntosObtenidos;
+        this.gastoTotalAcumulado = gastoTotalAcumulado;
+        this.conteoVisitas = conteoVisitas;
+    }
     
+    
+    
+    
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+  
     public String getNombreCompleto() {
         return nombreCompleto;
     }
