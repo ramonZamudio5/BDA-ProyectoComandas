@@ -54,7 +54,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  *
  * @author janethcristinagalvanquinonez
  */
-public class BuscarIngrediente extends javax.swing.JFrame {
+public class BuscarIngrediente_1 extends javax.swing.JFrame {
 
     ControlNavegacion control;
     private JPanel panelNombre;
@@ -62,10 +62,10 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     JComboBox<String> comboUnidad = new JComboBox<>();
     private JTextField campoNombre;
     private IIngredienteBO ingredienteBO;
-    private JComboBox<String> comboFiltroUnidad;
+   // private JComboBox<String> comboFiltroUnidad;
     //private List<IngredienteSeleccionado> ingredienteSeleccionado= new ArrayList<>();
 
-    public BuscarIngrediente(ControlNavegacion control) {
+    public BuscarIngrediente_1(ControlNavegacion control) {
         this.control = control;
         initComponents();
      
@@ -82,13 +82,13 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelNombre.add(new JLabel("Nombre..."));
         panelNombre.add(campoNombre);
         
-        comboFiltroUnidad= new JComboBox<>();
-        comboFiltroUnidad.setPreferredSize(new Dimension(120, 25));
-        comboFiltroUnidad.addItem("Seleccionar unidad");
-        for (UnidadMedida unidad : UnidadMedida.values()) {
-            comboFiltroUnidad.addItem(unidad.name());
-        }
-        panelNombre.add(comboFiltroUnidad);
+//        comboFiltroUnidad= new JComboBox<>();
+//        comboFiltroUnidad.setPreferredSize(new Dimension(120, 25));
+//        comboFiltroUnidad.addItem("Seleccionar unidad");
+//        for (UnidadMedida unidad : UnidadMedida.values()) {
+//            comboFiltroUnidad.addItem(unidad.name());
+//        }
+//        panelNombre.add(comboFiltroUnidad);
 
         JPanel panelUnidad = new JPanel();
        
@@ -131,16 +131,6 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 } catch (NegocioException ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
-                
-            }
-            
-            
-        }); 
-        comboFiltroUnidad.addActionListener(e ->{
-            try {
-                actualizarBusqueda();
-            } catch (NegocioException ex) {
-                Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -305,60 +295,34 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     private void actualizarBusqueda() throws NegocioException {
 
         String textoBuscado = campoNombre.getText().trim();
-        String unidadBuscada= (String) comboFiltroUnidad.getSelectedItem();
-        
+        //String unidadBuscada= (String)
         System.out.println("Texto ingresado: '" + textoBuscado + "'");
-        System.out.println("unidad "+unidadBuscada);
         panelIngredientes.removeAll();
-        List<IngredienteDTO> IngredientesEncontrados= new ArrayList<>();
         if (!textoBuscado.isEmpty()) {
             try {
-                
-                
-                if(!textoBuscado.isEmpty() && !unidadBuscada.equals("Seleccionar unidad")){
-                   IngredientesEncontrados= control.buscarIngredientes(textoBuscado, unidadBuscada);
-                    System.out.println("nomb y unidad");
-                }
-                
-                else if(!textoBuscado.isEmpty()){
-                    IngredientesEncontrados= control.buscarIngredientes(textoBuscado, null);
-                    System.out.println("por nomb");
-                }
-                
-                else if(!unidadBuscada.equals("Seleccionar unidad")){
-                      IngredientesEncontrados= control.buscarIngredientes(null, unidadBuscada);
-                }
-                
-                
-                
-                
-                
-                
-                
-            
                 //ingrediente que le cambio stock
-                //List<IngredienteDTO> IngredientesEncontrados = control.buscarIngredientes(textoBuscado, null);
+                List<IngredienteDTO> IngredientesEncontrados = control.buscarIngredientes(textoBuscado, null);
                 System.out.println("Ingredientes encontradosss: " + IngredientesEncontrados.size());
                 for(IngredienteDTO ingrediente: IngredientesEncontrados){
                     System.out.println("nombreee "+ingrediente.getNombre());
                     System.out.println("id "+ingrediente.getId());
                 }
-//
+
                 if (IngredientesEncontrados.isEmpty()) {
                     panelIngredientes.add(new JLabel("No se encontraron resultados"));
                 } else {
 
                     mostrarResultados(IngredientesEncontrados);
                 }
-//
+
             } catch (NegocioException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
 
         }
+
     }
-    
 
     private void actualizarBusquedaUnidad(String unidadMedida) throws NegocioException {
         panelIngredientes.removeAll();
@@ -560,7 +524,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         panelBusqueda.repaint();
         
        
-        comboFiltroUnidad.setVisible(true);
+       // comboFiltroUnidad.setVisible(true);
     }//GEN-LAST:event_botonNombreActionPerformed
 
     /**

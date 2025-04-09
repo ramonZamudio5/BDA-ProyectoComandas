@@ -272,6 +272,9 @@ public class ControlNavegacion {
         new GestionComandas(this).setVisible(true);
     }
     
+    public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
+         return manejador.buscarIngredientes(nombre, medida);
+     }
     
 }
      
