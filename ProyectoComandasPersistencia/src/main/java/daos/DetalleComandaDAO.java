@@ -6,6 +6,7 @@ package daos;
 
 import conexion.Conexion;
 import entidades.DetalleComanda;
+import excepciones.ObtenerDetallesComandaException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -24,9 +25,9 @@ public class DetalleComandaDAO {
             instancia = new DetalleComandaDAO();
         }
         return instancia;
-    }
-
-        public List<DetalleComanda> obtenerTodos() {
+        }
+    
+    public List<DetalleComanda> obtenerTodos() throws ObtenerDetallesComandaException {
         EntityManager em = Conexion.crearConexion();
         try {
             Query query = em.createQuery("SELECT d FROM DetalleComanda d");
@@ -36,7 +37,8 @@ public class DetalleComandaDAO {
         }
     }
 
-    public double obtenerImporteTotalPorComanda(Long idComanda) {
+
+    public double obtenerImporteTotalPorComanda(Long idComanda)  throws ObtenerDetallesComandaException {
         EntityManager em = Conexion.crearConexion();
         try {
             Query query = em.createQuery(
@@ -52,7 +54,7 @@ public class DetalleComandaDAO {
 
 
 
-       public List<DetalleComanda> obtenerDetallesPorComanda(Long idComanda) {
+       public List<DetalleComanda> obtenerDetallesPorComanda(Long idComanda)  throws ObtenerDetallesComandaException {
         EntityManager em = Conexion.crearConexion();
         try {
             Query query = em.createQuery("SELECT d FROM DetalleComanda d WHERE d.comanda.id = :idComanda");
