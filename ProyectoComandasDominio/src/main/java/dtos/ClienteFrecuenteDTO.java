@@ -129,7 +129,7 @@ public class ClienteFrecuenteDTO {
 
     @Override
     public String toString() {
-        return "ClienteFrecuente: " + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", conteoVisitas=" + conteoVisitas + '.';
+        return "Cliente: " + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + ", fechaRegistro=" + fechaRegistro + ", puntosObtenidos=" + puntosObtenidos + ", gastoTotalAcumulado=" + gastoTotalAcumulado + ", conteoVisitas=" + conteoVisitas + '.';
     }
 
    
