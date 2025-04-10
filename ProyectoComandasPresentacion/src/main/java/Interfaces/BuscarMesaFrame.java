@@ -28,7 +28,7 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  */
 public class BuscarMesaFrame extends javax.swing.JFrame {
     ControlNavegacion control;
-   // private JComboBox<String> eleccionMesa;
+    MesaDispDTO mesaSele;
     /**
      * Creates new form BuscarMesaFrame
      * @param control
@@ -54,8 +54,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
         
         eleccionMesa.addActionListener((ActionEvent e) -> {
             int index= eleccionMesa.getSelectedIndex();
-            int numMesa= mesas.get(index-1).getNumero();
-            System.out.println(numMesa);
+            mesaSele = mesas.get(index-1);
             
             
         });
@@ -232,7 +231,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
     }//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-       control.openFormBuscarClienteRegistradoComanda();
+       control.openFormBuscarClienteRegistradoComanda(mesaSele);
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     /**

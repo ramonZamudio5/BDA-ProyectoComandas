@@ -6,6 +6,8 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import dtos.ClienteFrecuenteDTO;
+import dtos.ClienteMesaDTO;
+import dtos.MesaDispDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,7 +37,8 @@ import javax.swing.event.DocumentListener;
  * @author Cricri
  */
 public class BuscarClienteRegistradoComanda extends JFrame {
-     private ControlNavegacion control;
+    private MesaDispDTO mesa;
+    private ControlNavegacion control;
     private JTextField txtNombre, txtTelefono, txtCorreo;
     private JTextArea areaResultados;
     private JComboBox<String> tipoBusquedaComboBox;
@@ -43,8 +46,10 @@ public class BuscarClienteRegistradoComanda extends JFrame {
 
     private ClienteFrecuenteDTO clienteSeleccionado = null; // Para almacenar el cliente seleccionado
 
-    public BuscarClienteRegistradoComanda(ControlNavegacion control) {
+    public BuscarClienteRegistradoComanda(ControlNavegacion control, MesaDispDTO mesa) {
+        System.out.println(mesa);
         this.control = control;
+        this.mesa = mesa;
         inicializarComponentes();
         configurarEventos();
         cargarClientesIniciales();
@@ -231,16 +236,16 @@ public class BuscarClienteRegistradoComanda extends JFrame {
 
     private void siguiente() {
         if (clienteSeleccionado != null) {
-           
-            control.openFormAñadirProductoComanda(clienteSeleccionado);
+            ClienteMesaDTO clienteMesa = new ClienteMesaDTO(mesa, clienteSeleccionado);
+            control.openFormAñadirProductoComanda(clienteMesa);
         } else {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un cliente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void continuarSinCliente() {
-       
-        control.openFormAñadirProductoComanda();
+        ClienteMesaDTO clienteMesa = new ClienteMesaDTO(mesa, clienteSeleccionado);
+        control.openFormAñadirProductoComanda(clienteMesa);
     }
 
   

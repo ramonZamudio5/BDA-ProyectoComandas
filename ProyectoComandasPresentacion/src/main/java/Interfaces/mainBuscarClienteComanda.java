@@ -5,6 +5,7 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
+import dtos.MesaDispDTO;
 import interfaces.IManejadorDeObjetos;
 import manejadorDeObjetos.ManejadorDeObjetos;
 
@@ -21,8 +22,8 @@ public class mainBuscarClienteComanda {
        
     IManejadorDeObjetos manejador = new ManejadorDeObjetos(); 
     ControlNavegacion control = new ControlNavegacion(manejador);
-
-    BuscarClienteRegistradoComanda buscarCliente = new BuscarClienteRegistradoComanda(control);
+        MesaDispDTO mesa = new MesaDispDTO();
+    BuscarClienteRegistradoComanda buscarCliente = new BuscarClienteRegistradoComanda(control,mesa);
     
    
     buscarCliente.setVisible(true);

@@ -5,6 +5,8 @@
 package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
+import dtos.ClienteMesaDTO;
+import dtos.ClienteMesaProductoDTO;
 import dtos.DetalleComandaDTO;
 import dtos.ProductoDTO;
 import entidades.Producto;
@@ -40,12 +42,15 @@ public class AñadirProductoComanda extends javax.swing.JFrame {
     ControlNavegacion control;
     JComboBox<Tipo> tipoComboBox;
     List<DetalleComandaDTO>listaDetallesComanda;
+    ClienteMesaDTO clienteMesa;
     /**
      * Creates new form AñadirProductoComanda
      */
-    public AñadirProductoComanda(ControlNavegacion control) {
+    public AñadirProductoComanda(ControlNavegacion control,ClienteMesaDTO clienteMesa) {
+        System.out.println(clienteMesa);
         initComponents();
         this.control = control;
+        this.clienteMesa = clienteMesa;
         tipoComboBox = new JComboBox<>(new DefaultComboBoxModel<>(Tipo.values()));
         tipoComboBox.setBounds(410, 145,130,70);
         add(tipoComboBox); 
@@ -313,9 +318,8 @@ public class AñadirProductoComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(listaDetallesComanda);
-        control.openFormResumenComanda();
+       ClienteMesaProductoDTO clienteMesaP = new ClienteMesaProductoDTO(clienteMesa.getMesa(), clienteMesa.getCliente(), listaDetallesComanda);
+       control.openFormResumenComanda(clienteMesaP);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -350,7 +354,8 @@ public class AñadirProductoComanda extends javax.swing.JFrame {
             public void run() {
                 IManejadorDeObjetos manejador = new ManejadorDeObjetos();
                 ControlNavegacion control = new ControlNavegacion(manejador);
-                new AñadirProductoComanda(control).setVisible(true);
+                ClienteMesaDTO cliente = new ClienteMesaDTO();
+                new AñadirProductoComanda(control,cliente).setVisible(true);
             }
         });
     }

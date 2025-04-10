@@ -57,34 +57,30 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado= new ArrayList<>();
     private ProductoDTO producto;
 
-    public BuscarIngredienteComandaActualizarProducto(ControlNavegacion control, ProductoDTO producto) {
+    public BuscarIngredienteComandaActualizarProducto(ControlNavegacion control,ProductoDTO producto) {
         this.control = control;
         initComponents();
-        this.setSize(700, 500);
-        this.setLocationRelativeTo(null);
-        this.pack(); 
         this.producto = producto;
         System.out.println(producto.isEstado());
-
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(botonMedida);
-        buttonGroup.add(botonNombre);
-
+        
+        
         cardLayout = new CardLayout();
         panelBusqueda.setLayout(cardLayout);
-
         JPanel panelNombre = new JPanel();
+
         campoNombre = new JTextField(15);
         panelNombre.add(new JLabel("Nombre..."));
         panelNombre.add(campoNombre);
 
         JPanel panelUnidad = new JPanel();
+       
         panelUnidad.add(comboUnidad);
 
         panelBusqueda.add(panelNombre, "nombre");
         panelBusqueda.add(panelUnidad, "unidad");
-
         manejoEventos();
+
     }
 
     private void manejoEventos() {
@@ -309,8 +305,6 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelFiltro = new javax.swing.JPanel();
-        botonMedida = new javax.swing.JRadioButton();
-        botonNombre = new javax.swing.JRadioButton();
         panelBusqueda = new javax.swing.JPanel();
         panelIngredientes = new javax.swing.JPanel();
 
@@ -335,37 +329,8 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
         jLabel1.setForeground(new java.awt.Color(0, 153, 0));
         jLabel1.setText("BUSCAR INGREDIENTE");
 
-        botonMedida.setText("UNIDAD DE MEDIDA");
-        botonMedida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMedidaActionPerformed(evt);
-            }
-        });
 
-        botonNombre.setText("NOMBRE");
-        botonNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNombreActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelFiltroLayout = new javax.swing.GroupLayout(panelFiltro);
-        panelFiltro.setLayout(panelFiltroLayout);
-        panelFiltroLayout.setHorizontalGroup(
-            panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFiltroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botonNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonMedida)
-                .addContainerGap())
-        );
-        panelFiltroLayout.setVerticalGroup(
-            panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(botonMedida)
-                .addComponent(botonNombre))
-        );
+       
 
         panelBusqueda.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -518,8 +483,6 @@ public class BuscarIngredienteComandaActualizarProducto extends javax.swing.JFra
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton botonMedida;
-    private javax.swing.JRadioButton botonNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

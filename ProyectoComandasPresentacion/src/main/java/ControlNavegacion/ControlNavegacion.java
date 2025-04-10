@@ -33,6 +33,8 @@ import Interfaces.ReporteComandaFrame;
 import Interfaces.ResumenComanda;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
+import dtos.ClienteMesaDTO;
+import dtos.ClienteMesaProductoDTO;
 import dtos.ComandaDTO;
 import dtos.DetalleComandaDTO;
 import dtos.IngredienteDTO;
@@ -296,32 +298,22 @@ public class ControlNavegacion {
     }
    
     
-    public void openFormResumenComanda(){
-        new ResumenComanda().setVisible(true);
+    public void openFormResumenComanda(ClienteMesaProductoDTO cmpDTO){
+        new ResumenComanda(cmpDTO).setVisible(true);
     }
     
-
-     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
+    public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
         return manejador.obtenerTodosDetallesComanda();
-    }
-     
-     
-    public void openFormAñadirProductoComanda(){
-        new AñadirProductoComanda(this).setVisible(true);
-
     }
     
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
         return manejador.obtenerDetalleComanda(id);
-
-    
- 
 }
-    public void openFormAñadirProductoComanda(ClienteFrecuenteDTO cliente) {
-           new AñadirProductoComanda(this).setVisible(true);
+    public void openFormAñadirProductoComanda(ClienteMesaDTO clienteMesa) {
+           new AñadirProductoComanda(this,clienteMesa).setVisible(true);
     }
     
-    public void openFormBuscarClienteRegistradoComanda(){
-        new BuscarClienteRegistradoComanda(this).setVisible(true);
+    public void openFormBuscarClienteRegistradoComanda(MesaDispDTO mesa){
+        new BuscarClienteRegistradoComanda(this,mesa).setVisible(true);
     }
 }
