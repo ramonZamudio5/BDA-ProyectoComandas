@@ -52,10 +52,10 @@ public class DetalleComandaUnica extends javax.swing.JFrame {
             datos[i][0] = detalleComanda.getProducto().getNombre();
             datos[i][1] = detalleComanda.getCantidad();
             datos[i][2] = detalleComanda.getPrecioUnitario();
-            datos[i][3] = detalleComanda.getImporte();
+            datos[i][3] = detalleComanda.getPrecioUnitario()*detalleComanda.getCantidad();
         }
 
-        String[] columnas = {"Producto", "Cantidad", "Unitario", "Total"};
+        String[] columnas = {"Producto", "Cantidad", "Unitario", "Importe"};
         modelo = new DefaultTableModel(datos, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {

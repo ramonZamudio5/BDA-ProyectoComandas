@@ -118,5 +118,11 @@ public class DetalleComanda implements Serializable {
     public void setNotas(String notas) {
         this.notas = notas;
     }
+
+    @Override
+    public String toString() {
+        return "DetalleComanda{" + "id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", importe=" + importe + ", notas=" + notas + '}';
+    }
+    
 }
 
