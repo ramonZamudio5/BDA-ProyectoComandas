@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -38,7 +39,7 @@ public class DetalleComanda implements Serializable {
     @Column(nullable = false)
     private double precioUnitario;
 
-    @Column(nullable = false)
+    @Transient
     private double importe;
 
     @Column(length = 255) 
