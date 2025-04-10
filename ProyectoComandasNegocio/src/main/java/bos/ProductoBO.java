@@ -22,11 +22,19 @@ import mappers.ProductoMapper;
 public class ProductoBO implements IProductoBO{
     
     private IProductoDAO productoDAO;
-    
+    /**
+     * constructor que setea el atributo de productoDAO a la instancia de productoDAO
+     * @param productoDAO productoDAO a ser instanciado
+     */
     public ProductoBO(IProductoDAO productoDAO) {
         this.productoDAO = productoDAO;
     }
-    
+    /**
+     * metodo que valida los datos recibidos de presentacion para luego persistir en la base de datos
+     * @param productoDTO producto a ser persistido
+     * @return regresa los datos del producto persistido
+     * @throws NegocioException 
+     */
     @Override
     public ProductoDTO agregarProducto(ProductoDTO productoDTO)throws NegocioException{
         if(productoDTO==null){
@@ -53,7 +61,13 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al añadir producto"+e.getMessage());
         }
     }   
-    
+    /**
+     * metodo que obtiene un porducto por su id
+     * @param id id del producto a busacar
+     * @return regresa el producto que se busca
+     * @throws NegocioException
+     * @throws BuscarProductoException 
+     */
     @Override
     public ProductoDTO obtenerProducto(Long id)throws NegocioException, BuscarProductoException{
         if(id == null || id <= 0){
@@ -69,7 +83,12 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al buscar el producto");
         }
     }
-    
+    /**
+     * metodo que obtiene todos los productos que tengan una similitud con el nombre
+     * @param nombre nombre del producto
+     * @return regresa una lista con los productos que coincidan
+     * @throws NegocioException 
+     */
     @Override
     public List<ProductoDTO> obtenerPorNombre(String nombre)throws NegocioException{
         if(nombre == null){
@@ -90,7 +109,11 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al buscar el producto");
         }
     }
-    
+    /**
+     * metodo que obtiene todos los productos de la base de datos
+     * @return regresa todos los productos
+     * @throws NegocioException 
+     */
     @Override
     public List<ProductoDTO> obtenerTodos()throws NegocioException{
         try{
@@ -108,6 +131,12 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al buscar el producto");
         }
     }
+    /**
+     *  metodo que valida los datos recibidos de presentacion para luego actualiar en la base de datos
+     * @param productoDTO producto con los datos a actualizar
+     * @return regresa el producto actualizado
+     * @throws NegocioException 
+     */
     @Override
     public ProductoDTO actualizarProducto(ProductoDTO productoDTO)throws NegocioException{
         if(productoDTO==null){
@@ -136,7 +165,13 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al actualizar producto"+e.getMessage());
         }
     }
-    
+    /**
+     * metodo que elimina un producto de la base de datos
+     * @param id id del producto 
+     * @return regresa true si se elimino
+     * @throws NegocioException
+     * @throws BuscarProductoException 
+     */
     @Override
     public boolean eliminarProducto(Long id)throws NegocioException, BuscarProductoException{
         if(id == null || id <= 0){
@@ -152,8 +187,12 @@ public class ProductoBO implements IProductoBO{
             throw new NegocioException("Error al buscar el producto");
         }
     }
-    
-    
+    /**
+     * metodo que busca por el tipo de producto
+     * @param tipo tipo del producto a buscar
+     * @return regresa una lista de productos que cumplan con el tipo
+     * @throws BuscarProductoException 
+     */
     @Override
     public List<ProductoDTO> buscarPorTipo(Tipo tipo) throws BuscarProductoException {
         if (tipo == null) {

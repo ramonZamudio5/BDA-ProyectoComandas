@@ -23,13 +23,21 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
 
     public ProductoIngredienteDAO() {
     }
-    
+    /**
+     * metodo que obtiene la instancia de clase 
+     * @return regresa la instancia de la clase
+     */
     public static ProductoIngredienteDAO getInstance(){
         if(productoIngredienteDAO == null){
             productoIngredienteDAO = new ProductoIngredienteDAO();
         }
         return productoIngredienteDAO;
     }
+    /** 
+     * @param productoIngrediente metodo que agrega un productoingrediente
+     * @return regresa productoIngrediente persistido
+     * @throws AgregarProductoIngredienteException 
+     */
     @Override
     public ProductoIngrediente agregarProductoIngrediente(ProductoIngrediente productoIngrediente) throws AgregarProductoIngredienteException {
         EntityManager em = Conexion.crearConexion();
@@ -54,7 +62,12 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
             em.close();
         }
     }
-    
+    /**
+     * metodo que elimina un productoIngrediente de la base de datos
+     * @param id id del productoIngrediente
+     * @return regresa el estado de la transaccion
+     * @throws EliminarProductoIngredienteException 
+     */
     @Override
     public boolean eliminarProductoIngrediente(Long id)throws EliminarProductoIngredienteException{
         EntityManager em = Conexion.crearConexion();
@@ -74,7 +87,12 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
             em.close();
         }
     }
-    
+    /**
+     * metodo que elimina varios productosIngredientes
+     * @param listaProductos lista de productos que se desean eliminar
+     * @return regresa el estado de la transaccion
+     * @throws EliminarProductoIngredienteException 
+     */
     @Override
     public boolean eliminarVariosProductosIngredientes(List<ProductoIngrediente> listaProductos) throws EliminarProductoIngredienteException{
         EntityManager em = Conexion.crearConexion();
@@ -96,7 +114,12 @@ public class ProductoIngredienteDAO implements IProductoIngrediente{
             em.close();
         }
     }
-    
+    /**
+     * metodo que revisa la existencia de un producto
+     * @param productoId id del producto
+     * @param ingredienteId id del productoIngrediente
+     * @return regresa el resultado de la lista, true si esta no vacia false si esta vacia
+     */
     @Override
     public boolean existeIngredienteEnProducto(Long productoId, Long ingredienteId) {
     EntityManager em = Conexion.crearConexion();
