@@ -285,22 +285,31 @@ public class ControlNavegacion {
     public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
         return manejador.buscarIngredientes(nombre, medida);
     }
-    
-    public void openFormAñadirProductoComanda(){
-        new AñadirProductoComanda(this).setVisible(true);
-    }
+   
     
     public void openFormResumenComanda(){
         new ResumenComanda().setVisible(true);
     }
     
+
      public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
         return manejador.obtenerTodosDetallesComanda();
+    }
+     
+     
+    public void openFormAñadirProductoComanda(){
+        new AñadirProductoComanda(this).setVisible(true);
+
     }
     
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
         return manejador.obtenerDetalleComanda(id);
-    }
-}
-     
 
+    
+ 
+}
+    public void openFormAñadirProductoComanda(ClienteFrecuenteDTO cliente) {
+           new AñadirProductoComanda(this).setVisible(true);
+    }
+     
+}
