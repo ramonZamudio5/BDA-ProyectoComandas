@@ -70,8 +70,8 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         initComponents();
      
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(botonMedida);
-        buttonGroup.add(botonNombre);
+       // buttonGroup.add(botonMedida);
+     //   buttonGroup.add(botonNombre);
         
         
         cardLayout = new CardLayout();
@@ -313,11 +313,20 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         System.out.println("unidad "+unidadBuscada);
         panelIngredientes.removeAll();
         List<IngredienteDTO> IngredientesEncontrados= new ArrayList<>();
-        if (!textoBuscado.isEmpty()) {
+      //  if (!textoBuscado.isEmpty()) {
             try {
                 
-                
-                if(!textoBuscado.isEmpty() && !unidadBuscada.equals("Seleccionar unidad")){
+                if((textoBuscado==null || textoBuscado.trim().isEmpty() || textoBuscado.equals(""))){
+                    if(!unidadBuscada.equals("Seleccionar unidad")){
+                    IngredientesEncontrados= control.buscarIngredientes(null, unidadBuscada);
+                    System.out.println("unidad");
+                } else{
+                        IngredientesEncontrados= control.buscarIngredientes(null, null);
+                        System.out.println("todos");
+                    }
+                }
+                    
+                else if(!textoBuscado.isEmpty() && !unidadBuscada.equals("Seleccionar unidad")){
                    IngredientesEncontrados= control.buscarIngredientes(textoBuscado, unidadBuscada);
                     System.out.println("nomb y unidad");
                 }
@@ -327,9 +336,9 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                     System.out.println("por nomb");
                 }
                 
-                else if(!unidadBuscada.equals("Seleccionar unidad")){
-                      IngredientesEncontrados= control.buscarIngredientes(null, unidadBuscada);
-                }
+//                else if(!unidadBuscada.equals("Seleccionar unidad")){
+//                      IngredientesEncontrados= control.buscarIngredientes(null, unidadBuscada);
+//                }
                 
                 
                 
@@ -358,7 +367,7 @@ public class BuscarIngrediente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al buscar ingredientes: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             }
 
-        }
+        
     }
     
 
@@ -399,8 +408,6 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelFiltro = new javax.swing.JPanel();
-        botonMedida = new javax.swing.JRadioButton();
-        botonNombre = new javax.swing.JRadioButton();
         panelBusqueda = new javax.swing.JPanel();
         panelIngredientes = new javax.swing.JPanel();
 
@@ -425,36 +432,15 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 153, 0));
         jLabel1.setText("BUSCAR INGREDIENTE");
 
-        botonMedida.setText("UNIDAD DE MEDIDA");
-        botonMedida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMedidaActionPerformed(evt);
-            }
-        });
-
-        botonNombre.setText("NOMBRE");
-        botonNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNombreActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelFiltroLayout = new javax.swing.GroupLayout(panelFiltro);
         panelFiltro.setLayout(panelFiltroLayout);
         panelFiltroLayout.setHorizontalGroup(
             panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFiltroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botonNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonMedida)
-                .addContainerGap())
+            .addGap(0, 244, Short.MAX_VALUE)
         );
         panelFiltroLayout.setVerticalGroup(
             panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(botonMedida)
-                .addComponent(botonNombre))
+            .addGap(0, 21, Short.MAX_VALUE)
         );
 
         panelBusqueda.setBackground(new java.awt.Color(255, 255, 255));
@@ -534,37 +520,6 @@ public class BuscarIngrediente extends javax.swing.JFrame {
         pack();
     }//GEN-END:initComponents
 
-    private void botonMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMedidaActionPerformed
-        cardLayout.show(panelBusqueda, "unidad");
-        comboUnidad.removeAllItems();
-        for (UnidadMedida unidad : UnidadMedida.values()) {
-            comboUnidad.addItem(unidad.name());
-        }
-        comboUnidad.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String unidadSeleccionada = (String) comboUnidad.getSelectedItem();
-                try {
-                    actualizarBusquedaUnidad(unidadSeleccionada);
-                } catch (NegocioException ex) {
-                    Logger.getLogger(BuscarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-
-            }
-
-        });
-    }//GEN-LAST:event_botonMedidaActionPerformed
-
-    private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
-        botonNombre.setSelected(true);
-        cardLayout.show(panelBusqueda, "nombre");
-        panelBusqueda.revalidate();
-        panelBusqueda.repaint();
-        
-       
-        comboFiltroUnidad.setVisible(true);
-    }//GEN-LAST:event_botonNombreActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -608,8 +563,6 @@ public class BuscarIngrediente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton botonMedida;
-    private javax.swing.JRadioButton botonNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
