@@ -4,6 +4,7 @@
  */
 package dtos;
 
+import entidades.Comanda;
 import entidades.Producto;
 
 /**
@@ -12,6 +13,8 @@ import entidades.Producto;
  */
 public class DetalleComandaDTO {
      private Long id;
+     
+     private Comanda comanda;
     
      private Producto producto;
      
@@ -26,8 +29,9 @@ public class DetalleComandaDTO {
     public DetalleComandaDTO() {
     }
 
-    public DetalleComandaDTO(Long id, Producto producto, int cantidad, double precioUnitario, double importe, String notas) {
+    public DetalleComandaDTO(Long id, Comanda comanda, Producto producto, int cantidad, double precioUnitario, double importe, String notas) {
         this.id = id;
+        this.comanda = comanda;
         this.producto = producto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -35,7 +39,8 @@ public class DetalleComandaDTO {
         this.notas = notas;
     }
 
-    public DetalleComandaDTO(Producto producto, int cantidad, double precioUnitario, double importe, String notas) {
+    public DetalleComandaDTO(Comanda comanda, Producto producto, int cantidad, double precioUnitario, double importe, String notas) {
+        this.comanda = comanda;
         this.producto = producto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -49,6 +54,14 @@ public class DetalleComandaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Comanda getComanda() {
+        return comanda;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
     }
 
     public Producto getProducto() {
@@ -93,10 +106,10 @@ public class DetalleComandaDTO {
 
     @Override
     public String toString() {
-        return "DetalleComandaDTO{" + "id=" + id + ", producto=" + producto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", importe=" + importe + ", notas=" + notas + '}';
+        return "DetalleComandaDTO{" + "id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", importe=" + importe + ", notas=" + notas + '}';
     }
-     
-     
-     
+    
+    
+    
      
 }
