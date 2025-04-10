@@ -58,7 +58,9 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         this.control = control; 
         jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        botonUnidadDinamico();
+       llenarCombo();
+        
+       // botonUnidadDinamico();
        // this.add(jPanel4, BorderLayout.CENTER);
         this.revalidate();
       //  labelImagen= new JLabel();
@@ -95,33 +97,35 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     }
     }
     
-    public void botonUnidadDinamico(){
-        ButtonGroup grupoBotones= new ButtonGroup();
-        
-        for (UnidadMedida unidad :UnidadMedida.values()){
-            JCheckBox boton= new JCheckBox(unidad.name());
-          //  boton.setPreferredSize(new Dimension(120,40));
-          boton.setBackground(Color.WHITE);
-          boton.setOpaque(true);
-          boton.setMargin(new Insets(2, 5, 2, 5));
-          boton.setPreferredSize(new Dimension(100, 30));
-            
-            boton.addActionListener(e ->{
-                unidadSeleccionada= unidad; 
-                System.out.println("Unidad seleccionada: "+unidadSeleccionada);
-            });
-            grupoBotones.add(boton);
-            jPanel4.add(boton);
-            jPanel4.revalidate();
-            jPanel4.repaint();
-            
-        }
-     //   this.add(jPanel4);
-        this.revalidate();;
-        this.repaint();
-       // System.out.println(getClass().getResource("/Resources/foto1.png"));
-
-    }
+    
+    
+//    public void botonUnidadDinamico(){
+//        ButtonGroup grupoBotones= new ButtonGroup();
+//        
+//        for (UnidadMedida unidad :UnidadMedida.values()){
+//            JCheckBox boton= new JCheckBox(unidad.name());
+//          //  boton.setPreferredSize(new Dimension(120,40));
+//          boton.setBackground(Color.WHITE);
+//          boton.setOpaque(true);
+//          boton.setMargin(new Insets(2, 5, 2, 5));
+//          boton.setPreferredSize(new Dimension(100, 30));
+//            
+//            boton.addActionListener(e ->{
+//                unidadSeleccionada= unidad; 
+//                System.out.println("Unidad seleccionada: "+unidadSeleccionada);
+//            });
+//            grupoBotones.add(boton);
+//            jPanel4.add(boton);
+//            jPanel4.revalidate();
+//            jPanel4.repaint();
+//            
+//        }
+//     //   this.add(jPanel4);
+//        this.revalidate();;
+//        this.repaint();
+//       // System.out.println(getClass().getResource("/Resources/foto1.png"));
+//
+//    }
     private void buscarImagen(){
         JFileChooser chooser= new JFileChooser();
         FileNameExtensionFilter filtro= new FileNameExtensionFilter("Imagen", "jpg", "png", "jpeg");
@@ -141,6 +145,18 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         }
         
     }
+    
+    private void llenarCombo(){
+        // unidadMedidaCombo.removeAllItems();
+        unidadMedidaCombo.addItem("Seleccionar Unidad");
+        
+        for(UnidadMedida unidad: UnidadMedida.values()){
+            unidadMedidaCombo.addItem(unidad.name());
+        }
+        
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,6 +179,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         unidad = new javax.swing.JLabel();
         agregarImagenButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        unidadMedidaCombo = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         labelImagen = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -251,15 +268,28 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             }
         });
 
+        unidadMedidaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        unidadMedidaCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidadMedidaComboActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(unidadMedidaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 112, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(unidadMedidaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         labelImagen.setText("jLabel2");
@@ -437,7 +467,19 @@ public class AgregarIngrediente extends javax.swing.JFrame {
 
     private void agregarImagenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarImagenButtonActionPerformed
        buscarImagen();
+       
     }//GEN-LAST:event_agregarImagenButtonActionPerformed
+
+    private void unidadMedidaComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadMedidaComboActionPerformed
+      String seleccion= (String) unidadMedidaCombo.getSelectedItem();
+      if(!"Seleccionar unidad".equals(seleccion)) {
+          unidadSeleccionada= UnidadMedida.valueOf(seleccion);
+          System.out.println(unidadSeleccionada);
+          
+      } else{
+          unidadSeleccionada= null;
+      }
+    }//GEN-LAST:event_unidadMedidaComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,5 +539,6 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     private javax.swing.JButton registrarButton;
     private javax.swing.JLabel stock;
     private javax.swing.JLabel unidad;
+    private javax.swing.JComboBox<String> unidadMedidaCombo;
     // End of variables declaration//GEN-END:variables
 }
