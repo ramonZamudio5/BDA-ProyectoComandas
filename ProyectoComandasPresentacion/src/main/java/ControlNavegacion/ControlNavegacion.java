@@ -311,5 +311,6 @@ public class ControlNavegacion {
     public void openFormAñadirProductoComanda(ClienteFrecuenteDTO cliente) {
            new AñadirProductoComanda(this).setVisible(true);
     }
+    //.
      
 }
