@@ -31,6 +31,7 @@ import Interfaces.ResumenComanda;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
 import dtos.ComandaDTO;
+import dtos.DetalleComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
@@ -291,6 +292,14 @@ public class ControlNavegacion {
     
     public void openFormResumenComanda(){
         new ResumenComanda().setVisible(true);
+    }
+    
+     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
+        return manejador.obtenerTodosDetallesComanda();
+    }
+    
+    public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
+        return manejador.obtenerDetalleComanda(id);
     }
 }
      

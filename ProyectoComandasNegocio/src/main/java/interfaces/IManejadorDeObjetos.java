@@ -15,6 +15,7 @@ import excepciones.RegistrarClienteException;
 
 import dtos.ClienteFrecuenteDTO;
 import dtos.ComandaDTO;
+import dtos.DetalleComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
@@ -54,6 +55,8 @@ public interface IManejadorDeObjetos {
     //Comanda
     public List<ComandaDTO> obtenerTodasComandas();
     public ComandaDTO buscarComandaXFolio(String folio);
-
+    //detallecomandas
+    public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException;
+    public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException;
 
 }

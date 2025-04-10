@@ -9,16 +9,19 @@ package manejadorDeObjetos;
 //import Interfaces.SeleccionarOpccionProductos;
 import bos.ClienteFrecuenteBO;
 import bos.ComandaBO;
+import bos.DetalleComandaBO;
 import bos.IngredienteBO;
 import bos.MesaBO;
 import bos.ProductoBO;
 import daos.ClienteFrecuenteDAO;
 import daos.ComandaDAO;
+import daos.DetalleComandaDAO;
 import daos.IngredienteDAO;
 import daos.MesaDAO;
 import daos.ProductoDAO;
 import dtos.ClienteFrecuenteDTO;
 import dtos.ComandaDTO;
+import dtos.DetalleComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
@@ -39,6 +42,7 @@ import excepciones.NegocioException;
 import excepciones.ObtenerMesasDispException;
 import excepciones.RegistrarClienteException;
 import interfaces.IComandaBO;
+import interfaces.IDetalleComandaBO;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
 import interfaces.IMesaBO;
@@ -61,6 +65,7 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     private List<IngredienteSeleccionadoDTO> ingredienteSeleccionado;
     private IMesaBO mesaBO;
     private IComandaBO comandaBO;
+    private IDetalleComandaBO detalleComandaBO;
     
 
     public ManejadorDeObjetos() {
@@ -69,11 +74,13 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         ClienteFrecuenteDAO clienteFrecuenteDAO = ClienteFrecuenteDAO.getInstance();
         MesaDAO mesadao = MesaDAO.getInstance();
         ComandaDAO comandaDAO = ComandaDAO.getInstance();
+        DetalleComandaDAO detalleComandaDAO = DetalleComandaDAO.getInstance();
         this.ingredienteBO = new IngredienteBO(ingredienteDAO);
         this.productoBO = new ProductoBO(productoDAO);
         this.clienteFrecuenteBO = new ClienteFrecuenteBO(clienteFrecuenteDAO);
         this.mesaBO = new MesaBO(mesadao);
         this.comandaBO = new ComandaBO(comandaDAO);
+        this.detalleComandaBO = new DetalleComandaBO(detalleComandaDAO);
     }
     
     
@@ -235,6 +242,14 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
             }
         }
         return null;
+    }
+    
+    public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
+        return detalleComandaBO.obtenerTodos();
+    }
+    
+    public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
+        return detalleComandaBO.obtenerDetallesPorComanda(id);
     }
       
       
