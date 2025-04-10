@@ -232,7 +232,7 @@ public class BuscarMesaFrame extends javax.swing.JFrame {
     }//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-       // control.openFormBuscarCliente();
+       control.openFormBuscarClienteRegistradoComanda();
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     /**

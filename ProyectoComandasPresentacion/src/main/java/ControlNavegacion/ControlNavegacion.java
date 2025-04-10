@@ -25,6 +25,7 @@ import Interfaces.BuscarIngredienteComandaAñadirProducto;
 import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
 import Interfaces.BuscarClienteComandau;
+import Interfaces.BuscarClienteRegistradoComanda;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
 import Interfaces.ResumenComanda;
@@ -311,6 +312,8 @@ public class ControlNavegacion {
     public void openFormAñadirProductoComanda(ClienteFrecuenteDTO cliente) {
            new AñadirProductoComanda(this).setVisible(true);
     }
-    //.
-     
+    
+    public void openFormBuscarClienteRegistradoComanda(){
+        new BuscarClienteRegistradoComanda(this).setVisible(true);
+    }
 }
