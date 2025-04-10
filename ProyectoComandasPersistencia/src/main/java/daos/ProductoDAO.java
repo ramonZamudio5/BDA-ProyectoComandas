@@ -23,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -54,8 +55,27 @@ public class ProductoDAO implements IProductoDAO{
     @Override
     public Producto agregarProducto(Producto producto) throws AgregarProductoException {
         EntityManager em = Conexion.crearConexion();
+
         try {
             em.getTransaction().begin();
+
+            for (ProductoIngrediente pi : producto.getIngredientes()) {
+                Ingrediente ing = pi.getIngrediente();
+                List<Ingrediente> resultados = em.createQuery(
+                    "FROM Ingrediente i WHERE i.nombre = :nombre AND i.unidadMedida = :unidadMedida"
+                )
+                .setParameter("nombre", ing.getNombre())
+                .setParameter("unidadMedida", ing.getUnidadMedida())
+                .getResultList();
+
+                if (!resultados.isEmpty()) {
+                    pi.setIngrediente((Ingrediente) resultados.get(0));
+                } else {
+                    em.persist(ing);
+                }
+                pi.setProducto(producto);
+            }
+
             em.persist(producto);
             em.getTransaction().commit();
 
@@ -66,7 +86,9 @@ public class ProductoDAO implements IProductoDAO{
             return producto;
 
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             throw new AgregarProductoException("Error al agregar producto: " + e.getMessage(), e);
         } finally {
             em.close();

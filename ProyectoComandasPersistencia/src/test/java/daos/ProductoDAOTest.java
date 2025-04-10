@@ -1,3 +1,4 @@
+
 ///*
 // * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 // * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
@@ -21,7 +22,7 @@
 // *
 // * @author Ramón Zamudio
 // */
-//public class ProductoDAOTest {
+public class ProductoDAOTest {
 //    
 //    public ProductoDAOTest() {
 //    }
@@ -71,7 +72,7 @@
 //        assertEquals(expResult, result);
 //
 //    }
-//
+////
 //    /**
 //     * Test of obtenerProducto method, of class ProductoDAO.
 //     */
@@ -186,4 +187,4 @@
 //        assertEquals(expResult, result);
 //    }
 //    
-//}
+}
