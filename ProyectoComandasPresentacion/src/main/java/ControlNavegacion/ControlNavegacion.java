@@ -7,6 +7,7 @@ package ControlNavegacion;
 
 import Interfaces.AgregarIngrediente;
 import Interfaces.AgregarProductoFrame;
+import Interfaces.AñadirProductoComanda;
 import Interfaces.BuscadorDeProductosFrame;
 import Interfaces.BuscarCliente;
 //import Interfaces.BuscarClienteComand;
@@ -26,6 +27,7 @@ import Interfaces.DetalleComandaUnica;
 import Interfaces.BuscarClienteComandau;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
+import Interfaces.ResumenComanda;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
 import dtos.ComandaDTO;
@@ -280,9 +282,16 @@ public class ControlNavegacion {
     }
     
     public List<IngredienteDTO> buscarIngredientes(String nombre, String medida) throws NegocioException{
-         return manejador.buscarIngredientes(nombre, medida);
-     }
+        return manejador.buscarIngredientes(nombre, medida);
+    }
     
+    public void openFormAñadirProductoComanda(){
+        new AñadirProductoComanda(this).setVisible(true);
+    }
+    
+    public void openFormResumenComanda(){
+        new ResumenComanda().setVisible(true);
+    }
 }
      
 

@@ -172,40 +172,40 @@ public class BuscadorDeProductosFrame extends javax.swing.JFrame  {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                String busqueda = jTextField1.getText();
-                jPanel1.removeAll();
-                jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
+            String busqueda = jTextField1.getText();
+            jPanel1.removeAll();
+            jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
 
-                try {
-                    List<ProductoDTO> listaProductos;
-                    if(jTextField1.getText().isEmpty()){
-                        listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
-                    }else{
-                        listaProductos = control.obtenerPorNombre(busqueda);
-                    }
-                    for (ProductoDTO producto : listaProductos) {
-                        JButton btn = new JButton(producto.getNombre());
-                        btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
-                        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                        btn.setHorizontalAlignment(SwingConstants.CENTER);
-                        btn.setVerticalAlignment(SwingConstants.CENTER); 
-                        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                        btn.addActionListener(e -> {
-                            control.openFormEditarProdutoFrame(producto);
-                            dispose();
-                        });
-                        jPanel1.add(btn);
-                    }
-                    jPanel1.revalidate();
-                    jPanel1.repaint();
-                } catch (Exception ex) {
-                    try {
-                        throw new NegocioException("Error al buscar el producto");
-                    } catch (NegocioException ex1) {
-                        Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
+            try {
+                List<ProductoDTO> listaProductos;
+                if(jTextField1.getText().isEmpty()){
+                    listaProductos = control.obtenerPorTipo((Tipo)tipoComboBox.getSelectedItem());
+                }else{
+                    listaProductos = control.obtenerPorNombre(busqueda);
                 }
+                for (ProductoDTO producto : listaProductos) {
+                    JButton btn = new JButton(producto.getNombre());
+                    btn.setPreferredSize(new Dimension(jPanel1.getWidth(), 50)); 
+                    btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+                    btn.setHorizontalAlignment(SwingConstants.CENTER);
+                    btn.setVerticalAlignment(SwingConstants.CENTER); 
+                    btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                    btn.addActionListener(e -> {
+                        control.openFormEditarProdutoFrame(producto);
+                        dispose();
+                    });
+                    jPanel1.add(btn);
+                }
+                jPanel1.revalidate();
+                jPanel1.repaint();
+            } catch (Exception ex) {
+                try {
+                    throw new NegocioException("Error al buscar el producto");
+                } catch (NegocioException ex1) {
+                    Logger.getLogger(BuscadorDeProductosFrame.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
