@@ -26,8 +26,10 @@ import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
 import Interfaces.BuscarClienteComandau;
 import Interfaces.BuscarClienteRegistradoComanda;
+import Interfaces.FechaReporteComanda;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
+import Interfaces.ReporteComandaFrame;
 import Interfaces.ResumenComanda;
 import Interfaces.opcionesModuloCliente;
 import dtos.ClienteFrecuenteDTO;
@@ -87,6 +89,9 @@ public class ControlNavegacion {
     public void openFormBuscarIngrediente(){
         new BuscarIngrediente(this).setVisible(true);
     }
+    public void openFormFechaReporteComanda(){
+        new FechaReporteComanda(this).setVisible(true);
+    }
     
     public void openFormAgregarIngrediente(){
         new AgregarIngrediente(this).setVisible(true);
@@ -109,6 +114,9 @@ public class ControlNavegacion {
     
     public void openFormOpcionesModuloCliente(){
         new opcionesModuloCliente(this).setVisible(true);
+    }
+    public void openFormReporteComanda(){
+        new ReporteComandaFrame(this).setVisible(true);
     }
      
      

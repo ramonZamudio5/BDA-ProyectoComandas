@@ -59,4 +59,6 @@ public interface IManejadorDeObjetos {
     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException;
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException;
 
+   
+
 }

@@ -244,10 +244,12 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
         return null;
     }
     
+    @Override
     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
         return detalleComandaBO.obtenerTodos();
     }
     
+    @Override
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
         return detalleComandaBO.obtenerDetallesPorComanda(id);
     }

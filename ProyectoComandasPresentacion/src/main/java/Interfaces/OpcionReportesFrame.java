@@ -184,7 +184,7 @@ public class OpcionReportesFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void botonComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComandaActionPerformed
-        // TODO add your handling code here:
+        control.openFormFechaReporteComanda();
     }//GEN-LAST:event_botonComandaActionPerformed
 
     private void botonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClienteActionPerformed
