@@ -307,7 +307,7 @@ public class ControlNavegacion {
    
     
     public void openFormResumenComanda(ClienteMesaProductoDTO cmpDTO){
-        new ResumenComanda(cmpDTO).setVisible(true);
+        new ResumenComanda(this,cmpDTO).setVisible(true);
     }
     
     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException{
