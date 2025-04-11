@@ -50,7 +50,8 @@ public class itext {
 
    public static void crearPDFClientes(List<ClienteFrecuenteDTO> clientes, String rutaDestino) throws Exception {
     Document doc = new Document();
-    PdfWriter.getInstance(doc, new FileOutputStream(rutaDestino));
+    PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(rutaDestino));
+    writer.setPageEvent(new NumeroPagina());
     try {
         doc.open();
 
@@ -108,6 +109,80 @@ private static void agregarFilaCliente(PdfPTable tabla, ClienteFrecuenteDTO clie
     tabla.addCell(String.format("$%,.2f", cliente.getGastoTotalAcumulado()));
     tabla.addCell(String.valueOf(cliente.getConteoVisitas()));                
 }
+
+    
+
+    public static void crearPDFComandas(List<ComandaDTO> comandas, String rutaDestino) throws Exception {
+        Document doc = new Document();
+         PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(rutaDestino));
+         writer.setPageEvent(new NumeroPagina());
+        try {
+            doc.open();
+
+            agregarTitulo(doc, "Resumen de Comandas");
+            agregarFechaGeneracion(doc);
+
+            PdfPTable tablaComandas = new PdfPTable(5); 
+            tablaComandas.setWidthPercentage(100);
+            tablaComandas.setSpacingBefore(15f);
+
+            agregarEncabezadosComanda(tablaComandas);
+
+            for (ComandaDTO comanda : comandas) {
+                agregarFilaComanda(tablaComandas, comanda);
+            }
+
+            doc.add(tablaComandas);
+        } finally {
+            if (doc.isOpen()) {
+                doc.close();
+            }
+        }
+    }
+
+    private static void agregarEncabezadosComanda(PdfPTable tabla) {
+        String[] columnas = {
+            "Fecha y Hora",
+            "Mesa",
+            "Total Venta",
+            "Estado",
+            "Cliente"
+        };
+
+        for (String columna : columnas) {
+            PdfPCell celda = new PdfPCell(new Phrase(columna));
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            celda.setPadding(5);
+            tabla.addCell(celda);
+        }
+    }
+
+    private static void agregarFilaComanda(PdfPTable tabla, ComandaDTO comanda) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+      
+        String fechaHora = comanda.getFechaHoraCreacion() != null
+                ? comanda.getFechaHoraCreacion().format(formatter)
+                : "N/A";
+        tabla.addCell(fechaHora);
+
+              
+                tabla.addCell(
+            comanda.getMesa() != null 
+                ? "Mesa " + comanda.getMesa().getNumero() 
+                : "Sin mesa"
+        );
+
+
+        tabla.addCell(String.format("$%,.2f", comanda.getTotalVenta()));
+
+       
+        tabla.addCell(comanda.getEstado() != null ? comanda.getEstado().name() : "N/A");
+
+       
+        tabla.addCell(comanda.getCliente() != null ? comanda.getCliente().getNombreCompleto() : "No registrado");
+    }
 }
+
 
 
