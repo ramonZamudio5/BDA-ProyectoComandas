@@ -119,9 +119,13 @@ public class DetalleComanda implements Serializable {
         this.notas = notas;
     }
 
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+
     @Override
     public String toString() {
-        return "DetalleComanda{" + "id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", importe=" + importe + ", notas=" + notas + '}';
+        return "DetalleComanda{" + "id=" + id + ", comanda=" + comanda + ", producto=" + (producto != null ? producto.getNombre() : "null") + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", importe=" + importe + ", notas=" + notas + '}';
     }
     
 }

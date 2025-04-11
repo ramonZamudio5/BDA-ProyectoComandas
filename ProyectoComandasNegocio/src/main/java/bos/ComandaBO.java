@@ -7,6 +7,7 @@ package bos;
 import daos.ComandaDAO;
 import dtos.ComandaDTO;
 import entidades.Comanda;
+import enums.EstadoComanda;
 import excepciones.AgregarComandaException;
 import excepciones.BusquedaComandaException;
 import excepciones.NegocioException;
@@ -15,6 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mappers.ComandaMapper;
 
 /**
@@ -125,5 +128,17 @@ public class ComandaBO implements IComandaBO{
         } else {
             return false;
         }
+    }
+    
+    public boolean actualizarComanda(ComandaDTO comanda)throws NegocioException{
+        if(comanda == null){
+            
+        }
+        try {
+            return comandaDAO.actualizarComanda(ComandaMapper.toEntity(comanda));
+        } catch (BusquedaComandaException ex) {
+            Logger.getLogger(ComandaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

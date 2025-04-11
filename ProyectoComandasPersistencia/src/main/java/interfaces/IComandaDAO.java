@@ -7,6 +7,8 @@ package interfaces;
 import conexion.Conexion;
 import entidades.Comanda;
 import entidades.DetalleComanda;
+import enums.EstadoComanda;
+import enums.Tipo;
 import excepciones.AgregarComandaException;
 import excepciones.BusquedaComandaException;
 import java.util.ArrayList;
@@ -21,4 +23,5 @@ public interface IComandaDAO {
     public Comanda agregarComanda(Comanda comanda) throws AgregarComandaException;
     public List<Comanda> ObtenerTodo() throws BusquedaComandaException;
     public Comanda buscarPorFolio(String folio) throws BusquedaComandaException;
+    public boolean actualizarComanda(Comanda comanda)throws BusquedaComandaException;
 }

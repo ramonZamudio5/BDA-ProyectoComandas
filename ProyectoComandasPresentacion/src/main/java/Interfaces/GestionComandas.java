@@ -6,6 +6,7 @@ package Interfaces;
 
 import ControlNavegacion.ControlNavegacion;
 import dtos.ComandaDTO;
+import entidades.DetalleComanda;
 import interfaces.IManejadorDeObjetos;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -49,6 +50,9 @@ public class GestionComandas extends javax.swing.JFrame {
             datos[i][1] = comanda.getMesa().getNumero();
             datos[i][2] = comanda.getEstado();
             datos[i][3] = comanda.getTotalVenta();
+            for(DetalleComanda dcomanda: comanda.getDetalles()){
+                System.out.println(dcomanda.getProducto().getTipoProducto());
+            }
         }
 
         String[] columnas = {"Folio", "Mesa", "Estado", "Total"};

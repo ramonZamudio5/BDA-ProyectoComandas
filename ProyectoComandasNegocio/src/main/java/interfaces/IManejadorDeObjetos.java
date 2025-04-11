@@ -21,6 +21,7 @@ import dtos.IngredienteSeleccionadoDTO;
 import dtos.MesaDispDTO;
 import dtos.ProductoDTO;
 import entidades.ProductoIngrediente;
+import enums.EstadoComanda;
 import enums.Tipo;
 import excepciones.NegocioException;
 import java.util.List;
@@ -58,7 +59,8 @@ public interface IManejadorDeObjetos {
     //detallecomandas
     public List<DetalleComandaDTO> obtenerTodosDetallesComanda() throws NegocioException;
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException;
-
+    
+    public boolean actualizarEstadoComanda(ComandaDTO comanda)throws NegocioException;
    
 
 }

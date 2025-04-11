@@ -26,7 +26,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Comanda implements Serializable {
- @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
@@ -134,7 +134,7 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", mesa=" + mesa + ", detalles=" + detalles + '}';
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHoraCreacion=" + fechaHoraCreacion + ", totalVenta=" + totalVenta + ", estado=" + estado + ", cliente=" + cliente + ", mesa=" + mesa + ", detalles=" + (detalles != null ? detalles.size() : 0) + " detalles}";
     }
 
    

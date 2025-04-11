@@ -28,9 +28,10 @@ import manejadorDeObjetos.ManejadorDeObjetos;
  * @author Ramón Zamudio
  */
 public class DetalleComandaUnica extends javax.swing.JFrame {
-    ControlNavegacion control;
-    DefaultTableModel modelo;
-    JTable tabla;
+    private ControlNavegacion control;
+    private DefaultTableModel modelo;
+    private JTable tabla;
+    private ComandaDTO comanda;
     /**
      * Creates new form DetalleComandaUnica
      */
@@ -42,8 +43,7 @@ public class DetalleComandaUnica extends javax.swing.JFrame {
         
     }
     public void cargarComanda(String folio){
-        ComandaDTO comanda = control.buscarPorFolio(folio);
-        System.out.println(comanda);
+        comanda = control.buscarPorFolio(folio);
         List<DetalleComanda> detallesComanda = comanda.getDetalles();
         Object[][] datos = new Object[detallesComanda.size()][4];
         
@@ -53,6 +53,9 @@ public class DetalleComandaUnica extends javax.swing.JFrame {
             datos[i][1] = detalleComanda.getCantidad();
             datos[i][2] = detalleComanda.getPrecioUnitario();
             datos[i][3] = detalleComanda.getPrecioUnitario()*detalleComanda.getCantidad();
+            for(DetalleComanda dcomanda: comanda.getDetalles()){
+                System.out.println(dcomanda.getProducto().getTipoProducto());
+            }
         }
 
         String[] columnas = {"Producto", "Cantidad", "Unitario", "Importe"};
@@ -166,7 +169,7 @@ public class DetalleComandaUnica extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        control.openFormgestionComandas();
+        control.openFormEditarComanda(comanda);
         dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed

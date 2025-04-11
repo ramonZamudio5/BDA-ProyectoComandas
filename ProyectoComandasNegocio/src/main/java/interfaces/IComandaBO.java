@@ -5,8 +5,10 @@
 package interfaces;
 
 import dtos.ComandaDTO;
+import enums.EstadoComanda;
 import excepciones.AgregarComandaException;
 import excepciones.BusquedaComandaException;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -19,4 +21,6 @@ public interface IComandaBO {
     public List<ComandaDTO> ObtenerTodo() throws BusquedaComandaException;
     
     public ComandaDTO buscarPorFolio(String folio) throws BusquedaComandaException;
+    
+    public boolean actualizarComanda(ComandaDTO comanda)throws NegocioException;
 }

@@ -26,6 +26,7 @@ import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
 
 import Interfaces.BuscarCliente;
+import Interfaces.EditarComanda;
 import Interfaces.FechaReporteComanda;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
@@ -331,13 +332,19 @@ public class ControlNavegacion {
         .filter(c -> (nombre.isEmpty() || c.getNombreCompleto().toLowerCase().contains(nombre.toLowerCase())) &&
                      (visitasMinimas == null || c.getConteoVisitas() >= visitasMinimas))
         .collect(Collectors.toList());
-}
-public void openFormReporteClientes(JFrame parent) {
-    JDialog dialog = new JDialog(parent, "Filtrar Clientes Frecuentes", true);
-    dialog.setContentPane(new ReporteClientes(this));
-    dialog.pack();
-    dialog.setLocationRelativeTo(parent);
-    dialog.setVisible(true);
-}
+    }
+    public void openFormReporteClientes(JFrame parent) {
+        JDialog dialog = new JDialog(parent, "Filtrar Clientes Frecuentes", true);
+        dialog.setContentPane(new ReporteClientes(this));
+        dialog.pack();
+        dialog.setLocationRelativeTo(parent);
+        dialog.setVisible(true);
+    }
+        public boolean actualizarComanda(ComandaDTO comanda)throws NegocioException{
+        return manejador.actualizarEstadoComanda(comanda);
+    }
     
+    public void openFormEditarComanda(ComandaDTO comanda){
+        new EditarComanda(this, comanda).setVisible(true);
+    }
 }

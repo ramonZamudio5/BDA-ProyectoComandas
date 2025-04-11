@@ -24,6 +24,9 @@ public class ComandaDTO {
     private List<DetalleComanda> detalles;
     private Mesa mesa;
 
+    public ComandaDTO() {
+    }
+    
     public ComandaDTO(String folio, LocalDateTime fechaHoraCreacion, Double totalVenta, EstadoComanda estado, Cliente cliente, List<DetalleComanda> detalles, Mesa mesa) {
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;

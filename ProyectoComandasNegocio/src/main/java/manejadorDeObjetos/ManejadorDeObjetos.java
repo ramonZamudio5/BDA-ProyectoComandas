@@ -29,6 +29,7 @@ import dtos.ProductoDTO;
 import entidades.Mesa;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
+import enums.EstadoComanda;
 import enums.Tipo;
 import excepciones.ActualizarStockException;
 import excepciones.AgregarIngredienteException;
@@ -252,6 +253,11 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
     @Override
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException{
         return detalleComandaBO.obtenerDetallesPorComanda(id);
+    }
+
+    @Override
+    public boolean actualizarEstadoComanda(ComandaDTO comanda)throws NegocioException {
+        return comandaBO.actualizarComanda(comanda);
     }
       
       
