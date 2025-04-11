@@ -72,10 +72,7 @@ public class ReporteClientes extends JPanel {
 
      
             String[] columnas = { 
-         "ID", 
          "Nombre", 
-         "Teléfono", 
-         "Correo", 
          "Fecha Registro", 
          "Puntos", 
          "Total Gastado", 
@@ -107,10 +104,7 @@ public class ReporteClientes extends JPanel {
           
             for (ClienteFrecuenteDTO cliente : listaClientes) {
                  modeloTabla.addRow(new Object[]{
-                 cliente.getId(),
                  cliente.getNombreCompleto(),
-                 cliente.getTelefono(),
-                 cliente.getCorreoElectronico(),
                  cliente.getFechaRegistro(),
                  cliente.getPuntosObtenidos(),
                  cliente.getGastoTotalAcumulado(),
