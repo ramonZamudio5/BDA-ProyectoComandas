@@ -7,6 +7,8 @@ package interfaces;
 import entidades.ClienteFrecuente;
 import excepciones.AgregarClienteFrecuenteException;
 import excepciones.BuscarClienteFrecuenteException;
+import excepciones.UltimaComandaException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public interface IClienteFrecuenteDAO {
     ClienteFrecuente obtenerCliente(Long id) throws BuscarClienteFrecuenteException;
     List<ClienteFrecuente> buscarCliente(String nombre, String telefono, String correo) throws BuscarClienteFrecuenteException;
     List<ClienteFrecuente> obtenerTodos() throws BuscarClienteFrecuenteException;
+    public LocalDateTime obtenerFechaUltimaComanda(Long idCliente) throws UltimaComandaException;
 }
 
     

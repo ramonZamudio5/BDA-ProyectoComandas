@@ -10,6 +10,7 @@ import interfaces.IManejadorDeObjetos;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -76,7 +77,8 @@ public class ReporteClientes extends JPanel {
          "Fecha Registro", 
          "Puntos", 
          "Total Gastado", 
-         "Total Visitas" 
+         "Total Visitas",
+         "Última Comanda"
      };
         modeloTabla = new DefaultTableModel(columnas, 0);
         tablaClientes = new JTable(modeloTabla);
@@ -108,9 +110,10 @@ public class ReporteClientes extends JPanel {
                  cliente.getFechaRegistro(),
                  cliente.getPuntosObtenidos(),
                  cliente.getGastoTotalAcumulado(),
-                 cliente.getConteoVisitas()
-             });
-
+                 cliente.getConteoVisitas(),
+                 cliente.getFechaUltimaComanda() != null
+                ? cliente.getFechaUltimaComanda().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                : "N/A"});
 
             }
 

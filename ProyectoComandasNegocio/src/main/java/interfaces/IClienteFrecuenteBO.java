@@ -7,6 +7,7 @@ package interfaces;
 import dtos.ClienteFrecuenteDTO;
 
 import excepciones.NegocioException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,5 +23,7 @@ public interface IClienteFrecuenteBO {
     List<ClienteFrecuenteDTO> buscarClientes(String nombre, String telefono, String correo) throws NegocioException;
     
     List<ClienteFrecuenteDTO> obtenerTodos() throws NegocioException;
+    
+    LocalDateTime obtenerUltimaComanda(Long idCliente) throws NegocioException;
     
 }

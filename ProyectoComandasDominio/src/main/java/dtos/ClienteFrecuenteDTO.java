@@ -21,7 +21,10 @@ public class ClienteFrecuenteDTO {
     private int puntosObtenidos;
     private double gastoTotalAcumulado;
     private int conteoVisitas;
+    private LocalDate fechaUltimaComanda; 
 
+ 
+   
     public ClienteFrecuenteDTO() {
     }
 
@@ -126,6 +129,15 @@ public class ClienteFrecuenteDTO {
     public void setConteoVisitas(int conteoVisitas) {
         this.conteoVisitas = conteoVisitas;
     }
+    
+     public LocalDate getFechaUltimaComanda() {
+        return fechaUltimaComanda;
+    }
+
+    public void setFechaUltimaComanda(LocalDate fechaUltimaComanda) {
+        this.fechaUltimaComanda = fechaUltimaComanda;
+    }
+
 
     @Override
     public String toString() {

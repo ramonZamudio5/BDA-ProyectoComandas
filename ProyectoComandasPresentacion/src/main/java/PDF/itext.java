@@ -58,7 +58,8 @@ public class itext {
         agregarTitulo(doc, "Resumen de Clientes Frecuentes");
         agregarFechaGeneracion(doc);
 
-        PdfPTable tablaClientes = new PdfPTable(5); 
+        PdfPTable tablaClientes = new PdfPTable(6);
+
 
         tablaClientes.setWidthPercentage(100);
         tablaClientes.setSpacingBefore(15f);
@@ -83,13 +84,14 @@ private static void agregarEncabezadosClientes(PdfPTable tabla) {
         "Fecha Registro", 
         "Puntos", 
         "Total Gastado", 
-        "Total Visitas"
+        "Total Visitas",
+        "Última Comanda" 
     };
 
     for (String columna : columnas) {
         PdfPCell celda = new PdfPCell(new Phrase(columna));
         celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        celda.setPadding(5);
+        celda.setPadding(6);
         tabla.addCell(celda);
     }
 }
@@ -107,7 +109,12 @@ private static void agregarFilaCliente(PdfPTable tabla, ClienteFrecuenteDTO clie
 
     tabla.addCell(String.valueOf(cliente.getPuntosObtenidos()));               
     tabla.addCell(String.format("$%,.2f", cliente.getGastoTotalAcumulado()));
-    tabla.addCell(String.valueOf(cliente.getConteoVisitas()));                
+    tabla.addCell(String.valueOf(cliente.getConteoVisitas()));    
+    
+    tabla.addCell(
+    cliente.getFechaUltimaComanda() != null
+        ? cliente.getFechaUltimaComanda().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+        : "N/A");
 }
 
     

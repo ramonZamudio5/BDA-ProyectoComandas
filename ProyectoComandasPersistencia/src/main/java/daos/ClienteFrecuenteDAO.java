@@ -8,7 +8,9 @@ import conexion.Conexion;
 import entidades.ClienteFrecuente;
 import excepciones.AgregarClienteFrecuenteException;
 import excepciones.BuscarClienteFrecuenteException;
+import excepciones.UltimaComandaException;
 import interfaces.IClienteFrecuenteDAO;
+import java.sql.Connection;
 import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -17,14 +19,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
 /**
  *
  * @author Cricri
  */import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 
 public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
@@ -197,8 +202,34 @@ public class ClienteFrecuenteDAO implements IClienteFrecuenteDAO {
             em.close();
         }
     }
+    
+    public LocalDateTime obtenerFechaUltimaComanda(Long idCliente) throws UltimaComandaException {
+       EntityManager em = Conexion.crearConexion();
+       try {
+           Query query = em.createQuery(
+               "SELECT c.fechaHoraCreacion FROM Comanda c WHERE c.cliente.id = :clienteId ORDER BY c.fechaHoraCreacion DESC"
+           );
+           query.setParameter("clienteId", idCliente);
+           query.setMaxResults(1);
 
+           List<?> resultado = query.getResultList();
+           if (!resultado.isEmpty()) {
+               return (LocalDateTime) resultado.get(0);
+           } else {
+               return null;
+           }
+       } catch (Exception e) {
+           throw new UltimaComandaException("Error al obtener la fecha de la última comanda: " + e.getMessage());
+       } finally {
+           em.close();
+       }
+   }
+
+
+
+  
+}
     
    
-}
+
 

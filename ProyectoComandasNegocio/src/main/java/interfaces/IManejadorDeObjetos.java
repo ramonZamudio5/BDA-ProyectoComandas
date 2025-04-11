@@ -24,6 +24,7 @@ import entidades.ProductoIngrediente;
 import enums.EstadoComanda;
 import enums.Tipo;
 import excepciones.NegocioException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -61,6 +62,6 @@ public interface IManejadorDeObjetos {
     public List<DetalleComandaDTO> obtenerDetalleComanda(Long id) throws NegocioException;
     
     public boolean actualizarEstadoComanda(ComandaDTO comanda)throws NegocioException;
-   
+     public LocalDateTime obtenerUltimaComanda(Long idCliente) throws NegocioException;
 
 }

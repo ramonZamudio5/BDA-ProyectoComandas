@@ -9,6 +9,7 @@ import entidades.ClienteFrecuente;
 import excepciones.NegocioException;
 import interfaces.IClienteFrecuenteBO;
 import interfaces.IClienteFrecuenteDAO;
+import java.time.LocalDateTime;
 import java.util.List;
 import mappers.ClienteFrecuenteMapper;
 
@@ -90,6 +91,24 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new NegocioException("Error al buscar clientes: " + e.getMessage());
         }
     }
+    
+    
+    public LocalDateTime obtenerUltimaComanda(Long idCliente) throws NegocioException {
+        if (idCliente == null || idCliente <= 0) {
+            throw new NegocioException("ID de cliente inválido");
+        }
+
+        try {
+            return clienteFrecuenteDAO.obtenerFechaUltimaComanda(idCliente);
+        } catch (Exception e) {
+            throw new NegocioException("Error al obtener la última comanda: " + e.getMessage());
+        }
+    }
+
+    
+    
+    
+    
 }
 
 

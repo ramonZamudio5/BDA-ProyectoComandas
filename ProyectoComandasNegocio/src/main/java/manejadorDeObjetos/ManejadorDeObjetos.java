@@ -47,6 +47,7 @@ import interfaces.IDetalleComandaBO;
 import interfaces.IIngredienteBO;
 import interfaces.IManejadorDeObjetos;
 import interfaces.IMesaBO;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -152,6 +153,9 @@ public class ManejadorDeObjetos implements IManejadorDeObjetos{
      
       // Métodos de Cliente Frecuente
    
+    public LocalDateTime obtenerUltimaComanda(Long idCliente) throws NegocioException {
+        return clienteFrecuenteBO.obtenerUltimaComanda(idCliente);
+    }
     
     @Override
     public ClienteFrecuenteDTO registrarCliente(ClienteFrecuenteDTO cliente) throws NegocioException{
