@@ -23,7 +23,7 @@ public class mainBuscarClienteComanda {
     IManejadorDeObjetos manejador = new ManejadorDeObjetos(); 
     ControlNavegacion control = new ControlNavegacion(manejador);
         MesaDispDTO mesa = new MesaDispDTO();
-    BuscarClienteRegistradoComanda buscarCliente = new BuscarClienteRegistradoComanda(control,mesa);
+    BuscarCliente buscarCliente = new BuscarCliente(control,mesa);
     
    
     buscarCliente.setVisible(true);

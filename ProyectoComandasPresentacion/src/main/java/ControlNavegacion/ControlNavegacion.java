@@ -24,11 +24,12 @@ import Interfaces.BuscarIngredienteComandaActualizarProducto;
 import Interfaces.BuscarIngredienteComandaAñadirProducto;
 import Interfaces.BuscarMesaFrame;
 import Interfaces.DetalleComandaUnica;
-import Interfaces.BuscarClienteComandau;
-import Interfaces.BuscarClienteRegistradoComanda;
+
+import Interfaces.BuscarCliente;
 import Interfaces.FechaReporteComanda;
 import Interfaces.GestionComandas;
 import Interfaces.OpcionReportesFrame;
+import Interfaces.ReporteClientes;
 import Interfaces.ReporteComandaFrame;
 import Interfaces.ResumenComanda;
 import Interfaces.opcionesModuloCliente;
@@ -46,10 +47,16 @@ import entidades.ProductoIngrediente;
 import enums.Tipo;
 import excepciones.NegocioException;
 import interfaces.IManejadorDeObjetos;
+import java.awt.Component;
+import java.awt.Dialog;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -58,8 +65,9 @@ import javax.swing.JOptionPane;
 public class ControlNavegacion {
     IManejadorDeObjetos manejador;
     ProductoDTO productoDto;
+
    
-    
+   
 
     public ControlNavegacion(IManejadorDeObjetos manejador) {
         this.manejador = manejador;
@@ -103,10 +111,7 @@ public class ControlNavegacion {
            new BuscarCliente(this).setVisible(true);
      }
      
-     public void openFormBuscarClienteComandau() throws NegocioException{
-         new BuscarClienteComandau(this).setVisible(true);
-     }
-    
+   
     public void openFormRegistrarCliente() {
       new RegistarClienteFrecuente(this).setVisible(true);
   }
@@ -121,6 +126,9 @@ public class ControlNavegacion {
         new ReporteComandaFrame(this).setVisible(true);
     }
      
+   public void openFormReporteClientes(){
+        new ReporteClientes(this).setVisible(true);
+   }
      
     public List<ProductoDTO> obtenerPorNombre(String nombre) throws NegocioException{
         try{
@@ -314,6 +322,22 @@ public class ControlNavegacion {
     }
     
     public void openFormBuscarClienteRegistradoComanda(MesaDispDTO mesa){
-        new BuscarClienteRegistradoComanda(this,mesa).setVisible(true);
+        new BuscarCliente(this,mesa).setVisible(true);
     }
+    
+    public List<ClienteFrecuenteDTO> obtenerClientesPorParametros(String nombre, Integer visitasMinimas) throws NegocioException {
+    List<ClienteFrecuenteDTO> clientes = manejador.obtenerTodos();
+    return clientes.stream()
+        .filter(c -> (nombre.isEmpty() || c.getNombreCompleto().toLowerCase().contains(nombre.toLowerCase())) &&
+                     (visitasMinimas == null || c.getConteoVisitas() >= visitasMinimas))
+        .collect(Collectors.toList());
+}
+public void openFormReporteClientes(JFrame parent) {
+    JDialog dialog = new JDialog(parent, "Filtrar Clientes Frecuentes", true);
+    dialog.setContentPane(new ReporteClientes(this));
+    dialog.pack();
+    dialog.setLocationRelativeTo(parent);
+    dialog.setVisible(true);
+}
+    
 }

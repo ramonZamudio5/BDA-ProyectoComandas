@@ -7,6 +7,9 @@ package Interfaces;
 import ControlNavegacion.ControlNavegacion;
 import interfaces.IManejadorDeObjetos;
 import java.awt.Color;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import manejadorDeObjetos.ManejadorDeObjetos;
 
 /**
@@ -188,7 +191,9 @@ public class OpcionReportesFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_botonComandaActionPerformed
 
     private void botonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClienteActionPerformed
-        // TODO add your handling code here:
+     control.openFormReporteClientes(this);
+
+
     }//GEN-LAST:event_botonClienteActionPerformed
 
     /**
