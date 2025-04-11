@@ -96,7 +96,10 @@ public class ReporteClientes extends JPanel {
             listaClientes = controlador.obtenerClientesPorParametros(nombreCliente, visitas);
 
             modeloTabla.setRowCount(0); 
-
+            if (nombreCliente.isEmpty() && visitas == null) {
+                JOptionPane.showMessageDialog(this, "Debe proporcionar al menos un criterio de búsqueda.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
             if (listaClientes.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No se encontraron clientes con esos parámetros.", "Resultado", JOptionPane.INFORMATION_MESSAGE);
                 btnGenerarReporte.setEnabled(false);
